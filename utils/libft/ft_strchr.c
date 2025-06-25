@@ -6,24 +6,24 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 13:36:11 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/25 10:45:11 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/06/25 17:22:31 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../mandatory/cub3D.h"
 
-int	is_sep(char ch, char *c)
+int    is_sep(char ch, char *c)
 {
-	int	i;
+    int    i;
 
-	i = 0;
-	while (c[i])
-	{
-		if (ch == c[i])
-			return (1);
-		i++;
-	}
-	return (0);
+    i = 0;
+    while (c[i])
+    {
+        if (ch == c[i])
+            return (1);
+        i++;
+    }
+    return (0);
 }
 
 char	*ft_strchr(char *s, int c)

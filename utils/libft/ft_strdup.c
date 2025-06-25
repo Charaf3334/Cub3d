@@ -12,6 +12,24 @@
 
 #include "../../mandatory/cub3D.h"
 
+char	*ft_strdup_normal(char *str, t_free **free_nodes)
+{
+	char	*new;
+	size_t	len;
+	size_t	i;
+
+	i = 0;
+	len = ft_strlen(str);
+	new = ft_malloc(len + 1, free_nodes);
+	while (i < len)
+	{
+		new[i] = str[i];
+		i++;
+	}
+	new[i] = '\0';
+	return (new);
+}
+
 char	*ft_strdup(char *s1)
 {
 	size_t	len;

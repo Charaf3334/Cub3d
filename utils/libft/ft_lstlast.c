@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_lstlast.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 11:41:18 by zguellou          #+#    #+#             */
-/*   Updated: 2024/11/15 11:41:20 by zguellou         ###   ########.fr       */
+/*   Created: 2025/06/25 10:27:53 by ctoujana          #+#    #+#             */
+/*   Updated: 2025/06/25 10:28:24 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../mandatory/cub3D.h"
 
-t_list	*ft_lstlast(t_list *lst)
+t_map	*ft_lstlast(t_map *lst)
 {
-	t_list	*node;
+	t_map	*node;
 
 	if (!lst)
 		return (NULL);

@@ -58,12 +58,11 @@ void	free_strs(char **strs)
 
 void	cleanup_exit(t_data *data, t_free **free_nodes, int status)
 {
+	(void)data;
 	// if (data->floor)
 	// 	free(data->floor);
 	// if (data->ceilling)
 	// 	free(data->ceilling);
-	if (data->map)
-		free_strs(data->map);
 	ft_lstclear(free_nodes);
 	exit(status);
 }
@@ -78,7 +77,7 @@ int	main(int ac, char **av)
 	t_data	data;
 	t_free	*free_nodes;
 
-	// atexit(f);
+	atexit(f);
 	free_nodes = NULL;
 	if (check_args(ac, av))
 		return (1);
