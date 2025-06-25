@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/23 16:08:55 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/06/25 13:01:26 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 
 typedef struct s_join
 {
-    size_t    i;
-    size_t    j;
-    size_t    s1_len;
-    size_t    s2_len;
+	size_t    i;
+	size_t    j;
+	size_t    s1_len;
+	size_t    s2_len;
 }    t_join;
 
 typedef struct s_free
@@ -32,17 +32,23 @@ typedef struct s_free
 	struct s_free		*next;
 }						t_free;
 
+typedef struct s_map
+{
+	char			*line;
+	struct s_map	*next;
+}   t_map;
+
 typedef struct s_data
 {
-    char *north;
-    char *south;
-    char *west;
-    char *east;
+	char *north;
+	char *south;
+	char *west;
+	char *east;
 
-    char *floor;
-    char *ceilling;
+	char *floor;
+	char *ceilling;
 
-    char **map;
+	t_map *map_ll;
 }   t_data;
 
 //libft
@@ -51,9 +57,12 @@ int     ft_strcmp(char *s1, char *s2);
 void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(char *s);
 char	*ft_strdup(char *s1);
+char	*ft_strdup_normal(char *str, t_free **free_nodes);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	**ft_split_libft(char *str, char *c, t_free **free_nodes);
 char	*ft_strtrim(char *s1, char *set);
+t_map	*ft_lstlast(t_map *lst);
+int    is_sep(char ch, char *c);
 
 //mandatory
 int init_data(t_data *data, char *file, t_free **free_nodes);

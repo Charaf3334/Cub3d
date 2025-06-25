@@ -70,8 +70,6 @@ void	cleanup_exit(t_data *data, int status)
 		free(data->floor);
 	if (data->ceilling)
 		free(data->ceilling);
-	if (data->map)
-		free_strs(data->map);
 	exit(status);
 }
 

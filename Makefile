@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/06/25 10:33:55 by ctoujana          #+#    #+#              #
+#    Updated: 2025/06/25 10:34:09 by ctoujana         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = cub3D
 CFLAGS = -Wextra -Wall -Werror -g3 -fsanitize=address
 LINK = -lmlx -framework OpenGL -framework AppKit -lm
@@ -6,6 +18,7 @@ MLX = MLX/libmlx.a
 SRCS = mandatory/cub3D.c  mandatory/init_data.c mandatory/free_nodes.c\
 		utils/libft/ft_strcmp.c utils/libft/ft_strchr.c utils/libft/ft_memset.c utils/libft/ft_strtrim.c \
 		utils/libft/ft_strlen.c utils/libft/ft_strdup.c utils/libft/ft_substr.c utils/libft/ft_split_libft.c \
+		utils/libft/ft_lstlast_bonus.c \
 		utils/get_next_line.c
 OBJS = $(SRCS:.c=.o)
 
