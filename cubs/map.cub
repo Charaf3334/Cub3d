@@ -1,10 +1,16 @@
-       NO zbi
+NO fasdfads 
+	F		0,0,00
+         
+C 163,208,255
 
-F 
-C 163,208,999
-SO ./textures/purplestone.xpm
+
+
+
+
+      SO ./textures/purplestone.xpm
 WE ./textures/redbrick.xpm
 EA ./textures/wood.xpm
+WE ./textures/redbrick.xpm
 
 		1111111111111111111111111
 		1000000000110000000000001

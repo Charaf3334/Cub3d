@@ -6,13 +6,13 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 15:14:10 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/23 15:27:44 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/06/25 11:07:27 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../mandatory/cub3D.h"
 
-static int	is_sep(char ch, char *c)
+static int	is_sep1(char ch, char *c)
 {
 	int	i;
 
@@ -35,12 +35,12 @@ static	int	ft_count_words(char *str, char *c)
 	count = 0;
 	while (str[i])
 	{
-		while (str[i] && is_sep(str[i], c))
+		while (str[i] && is_sep1(str[i], c))
 			i++;
 		if (str[i] == '\0')
 			break ;
 		count++;
-		while (str[i] && !is_sep(str[i], c))
+		while (str[i] && !is_sep1(str[i], c))
 			i++;
 	}
 	return (count);
@@ -56,9 +56,9 @@ static	char	*ft_word_maker(char *str, int *index, char *c, t_free **free_nodes)
 	i = *index;
 	len = 0;
 	j = 0;
-	while (str[i] && is_sep(str[i], c))
+	while (str[i] && is_sep1(str[i], c))
 		i++;
-	while (str[i + len] && !is_sep(str[i + len], c))
+	while (str[i + len] && !is_sep1(str[i + len], c))
 		len++;
 	word = ft_malloc(sizeof(char) * (len + 1), free_nodes);
 	while (j < len)

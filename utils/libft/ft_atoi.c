@@ -6,11 +6,11 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 11:30:35 by zguellou          #+#    #+#             */
-/*   Updated: 2024/11/14 16:39:24 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:08:48 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../mandatory/cub3D.h"
 
 static int	skip_ws(const char *str)
 {

@@ -56,23 +56,21 @@ void	free_strs(char **strs)
 	free(strs);
 }
 
-void	cleanup_exit(t_data *data, int status)
+void	cleanup_exit(t_data *data, t_free **free_nodes, int status)
 {
-	if (data->north)
-		free(data->north);
-	if (data->south)
-		free(data->south);
-	if (data->west)
-		free(data->west);
-	if (data->east)
-		free(data->east);
-	if (data->floor)
-		free(data->floor);
-	if (data->ceilling)
-		free(data->ceilling);
+	// if (data->floor)
+	// 	free(data->floor);
+	// if (data->ceilling)
+	// 	free(data->ceilling);
 	if (data->map)
 		free_strs(data->map);
+	ft_lstclear(free_nodes);
 	exit(status);
+}
+
+void f()
+{
+	system("leaks cub3D");
 }
 
 int	main(int ac, char **av)
@@ -80,12 +78,14 @@ int	main(int ac, char **av)
 	t_data	data;
 	t_free	*free_nodes;
 
+	// atexit(f);
 	free_nodes = NULL;
 	if (check_args(ac, av))
 		return (1);
 	ft_memset(&data, 0, sizeof(t_data));
 	if (init_data(&data, av[1], &free_nodes))
-		cleanup_exit(&data, 1);
+		cleanup_exit(&data, &free_nodes, 1);
 	printf("Success\n");
+	cleanup_exit(&data, &free_nodes, 0);
 	return (0);
 }
