@@ -2,6 +2,6 @@
 
 int main(void)
 {
-    printf("zbi_bonus\n");
+    printf("bonus to be continued\n");
     return (0);
 }

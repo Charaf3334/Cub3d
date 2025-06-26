@@ -77,7 +77,7 @@ int	main(int ac, char **av)
 	t_data	data;
 	t_free	*free_nodes;
 
-	atexit(f);
+	// atexit(f);
 	free_nodes = NULL;
 	if (check_args(ac, av))
 		return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:47:14 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/25 17:35:21 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/06/26 14:43:53 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,8 +167,15 @@ t_map	*create_new_node(char *line, t_free **free_nodes)
 	t_map	*node;
 
 	node = ft_malloc(sizeof(t_map), free_nodes);
+	int	i;
+	i = 0;
+	while (line && line[i] && line[i] != '\n')
+		i++;
+	if (line[i] == '\n')
+		line[i] = '\0';
 	node->line = ft_strdup_normal(line, free_nodes);
 	node->next = NULL;
+	node->prev = NULL;
 	return (node);
 }
 
@@ -177,20 +184,22 @@ int	map_ll_populate(char *line, t_free **free_nodes, t_data *data)
 	t_map	*head;
 	t_map	*current = ft_lstlast(data->map_ll);
 
-	// if (check_map(line))
-	// 	return (print_error("Invalid character in map"), 1);
 	head = create_new_node(line, free_nodes);
 	if (!current)
-	{
 		data->map_ll = head;
-	}
 	else
+	{
 		current->next = head;
+		head->prev = current;
+	}
 	return (0);
 }
 
 int	 populate_data(t_data *data, char *line, t_free **free_nodes, int *index)
 {
+	int	flag;
+
+	flag = 0;
 	if (*index < 6)
 	{
 		if (line && line[0] == '\n')
@@ -217,7 +226,7 @@ void	print_nudes(t_data *data)
 	printf("WE: %s\n", data->west);
 }
 
-int	check_map_chars(char *line)
+int	check_map_chars(char *line, int *flag)
 {
 	int	i;
 
@@ -226,10 +235,10 @@ int	check_map_chars(char *line)
 		return (1);
 	while (line[i])
 	{
+		if (is_sep(line[i], "NSWE"))
+			(*flag)++;
 		if (!is_sep(line[i], " 01NSWE\n"))
-		{
 			return (1);
-		}
 		i++;
 	}
 	return (0);
@@ -249,30 +258,23 @@ int	check_map_chars(char *line)
 
 int check_closed_first_last(char *line)
 {
-    int i;
-    int j;
-
-	i = 0;
-    while (line[i])
-    {
-        if (line[i] == '1')
-            i++;
-        else if (line[i] == ' ')
-        {
-            j = i;
-            while (line[j] == ' ')
-                j++;
-            if (i == 0 || line[j] == '\0') 
-                return (1);
-            if (line[i - 1] != '1' || line[j] != '1')
-                return (1);
-            i = j;
-        }
-        else if (is_sep(line[i], " \t\n\v\f\r"))
-            i++;
-        else
+    int	start;
+    int	end;
+    
+	start = 0;
+    end = ft_strlen(line) - 1;
+    while (line[start] && is_sep(line[start], " \t\n\v\f\r"))
+        start++;
+    if (line[start] == '\0')
+        return (1);
+    while (end >= 0 && is_sep(line[end], " \t\n\v\f\r"))
+        end--;
+    while (start <= end)
+	{
+        if (line[start] != '1' && line[start] != ' ')
             return (1);
-	}
+		start++;
+    }
     return (0);
 }
 
@@ -280,26 +282,34 @@ int	check_in_between(t_map *head)
 {
 	int		i;
 	int		j;
-	int		len;
-	t_map	*cur;
+	int		end;
+	int		start;
+	t_map	*curr;
 	
-	i = 0;
-	cur = head;
-	len = ft_strlen(cur->line) - 1;
-	while (is_sep(cur->line[len], " \t\n\v\f\r"))
-		len--;
-	if (cur->line[0] != '1' || cur->line[len] != '1')
+	curr = head;
+	start = 0;
+	end = ft_strlen(curr->line) - 1;
+	while (curr->line[start] && is_sep(curr->line[start], " \t\n\v\f\r"))
+		start++;
+	if (curr->line[start] == '\0')
 		return (1);
-	while (cur->line[i])
+	while (end >= 0 && is_sep(curr->line[end], " \t\n\v\f\r"))
+		end--;
+	if (end < 0)
+		return (1);
+	if (curr->line[start] != '1' || curr->line[end] != '1')
+		return (1);
+	i = start;
+	while (i <= end)
 	{
-		if (cur->line[i] == ' ')
+		if (curr->line[i] == ' ')
 		{
 			j = i;
-			while (cur->line[j] == ' ')
+			while (j <= end && curr->line[j] == ' ')
 				j++;
-			if (i == 0 || cur->line[j] == '\0')
+			if (j > end)
 				return (1);
-			if (cur->line[i - 1] != '1' || cur->line[j] != '1')
+			if (curr->line[i - 1] != '1' || curr->line[j] != '1')
 				return (1);
 			i = j;
 		}
@@ -309,22 +319,105 @@ int	check_in_between(t_map *head)
 	return (0);
 }
 
-int	check_map_closed(t_map *head)
+int	check_map_horiz_closed(t_map *head)
 {
 	int		i;
-	t_map	*cur;
+	t_map	*curr;
 
 	i = 0;
-	cur = head;
-	while (cur)
+	curr = head;
+	if (!curr)
+		return (print_error("Empty map"), 1);
+	//horinzontal done
+    while (curr)
+    {
+        if (i == 0 || !curr->next)  // First or last line
+        {
+            if (check_closed_first_last(curr->line))
+            {
+                printf("line1: |%s|\n", curr->line);
+                print_error("Map not closed");
+                return (1);
+            }
+        }
+        else  // Middle lines
+        {
+            if (check_in_between(curr))
+            {
+                printf("line[%d]: |%s|\n", i, curr->line);
+                printf("prev->line[%d]: |%s|\n", i, curr->prev->line);
+                print_error("Map not closed");
+                return (1);
+            }
+        }
+        curr = curr->next;
+        i++;
+    }
+    return (0);
+}
+
+int	handle_previous_lines(t_map *curr, int i)
+{
+	t_map *prev;
+
+	prev = curr->prev;
+	if (!prev || !prev->line || !prev->line[i])
+		return (1);
+	while (prev)
 	{
-		if (i == 0 && check_closed_first_last(cur->line))
+		if (prev->line[i] == '1')
+			return (0);
+		else if (prev->line[i] == ' ')
 			return (1);
-		else if (i > 0 && cur->next && check_in_between(cur))
+		prev = prev->prev;
+	}
+	return (1);
+}
+
+int	handle_next_lines(t_map *curr, int i)
+{
+	t_map *next;
+
+	next = curr->next;
+	if (!next || !next->line || !next->line[i])
+		return (1);
+	while (next)
+	{
+		if (next->line[i] == '1')
+			return (0);
+		else if (next->line[i] == ' ')
 			return (1);
-		else if (i > 0 && !cur->next && (check_closed_first_last(cur->line)))
-			return (1);
-		cur = cur->next;
+		next = next->next;
+	}
+	return (1);
+}
+
+int	check_map_vertic_closed(t_map *head)
+{
+	int		i;
+	t_map	*curr;
+
+	i = 0;
+	curr = head;
+	// for (t_map *tmp = head; tmp; tmp = tmp->next)
+	// 	printf("line: |%s|\n", tmp->line);
+	//vertical
+	while (curr)
+	{
+		i = 0;
+		while (curr->line[i])
+		{
+			while (curr->line[i] && !is_sep(curr->line[i], "0WSEN"))
+				i++;
+			if (!curr->line[i])
+				break ;
+			if (handle_previous_lines(curr, i))
+				return (printf("vertic line[%d]: |%s|\n", i, curr->line), print_error("Unclosed map fo9"), 1);
+			if (handle_next_lines(curr, i))
+				return (printf("vertic line[%d]: |%s|\n", i, curr->line), print_error("Unclosed map lte7t"), 1);
+			i++;
+		}
+		curr = curr->next;
 		i++;
 	}
 	return (0);
@@ -333,7 +426,7 @@ int	check_map_closed(t_map *head)
 int	check_map_valid(t_data *data)
 {
 	t_map	*head;
-	t_map	*tmp;
+	int		flag;
 	int		i;
 	
 	i = 0;
@@ -341,27 +434,69 @@ int	check_map_valid(t_data *data)
 	while (head)
 	{
 		i = 0;
-		while (is_sep(head->line[i], " \t\n\v\f\r"))
+		while (is_sep(head->line[i], " \t\n\v\f\r01NSWE"))
 			i++;
-		if (!head->line[i])
+		if (!head->next)
+			break;
+		else if (!head->line[i])
 			head = head->next;
-		else if (is_sep(head->line[i], "01NSWE"))
-			break ;
 		else
-		{
-			printf("line[%d]: %c\n", i, head->line[i]);
-			return (print_error("invalid map"), 1);
-		}
+			return (printf("line[%d]: |%s|\n", i, head->line), print_error("Invalid map"), 1);
 	}
-	tmp = head;
+	if (!head)
+		return (print_error("Invalid map"), 1);
+	head = data->map_ll;
+	flag = 0;
+	if (check_map_horiz_closed(data->map_ll))
+		return (1);
 	while (head)
 	{
-		if (check_map_chars(head->line))
+		if (check_map_chars(head->line, &flag))
 			return (print_error("Invalid character in map"), 1);
+		if (flag > 1)
+			return (print_error("Too many players in map"), 1);
 		head = head->next;
 	}
-	if (check_map_closed(tmp))
-		return (print_error("Map not closed"), 1);
+	if (!flag)
+		return (print_error("No player found in map"), 1);
+	if (check_map_vertic_closed(data->map_ll))
+		return (1);
+	return (0);
+}
+
+int	check_line_valid(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (is_sep(line[i], " \t\n\v\f\r"))
+		i++;
+	if (!line[i])
+		return (0);
+	return (1);
+}
+
+int	lltrim(t_map **map_ll)
+{
+	t_map	*tail;
+
+	while (*map_ll)
+	{
+		if (check_line_valid((*map_ll)->line))
+			break ;
+		(*map_ll) = (*map_ll)->next;
+	}
+	if (!*map_ll)
+		return (1);
+	(*map_ll)->prev = NULL;
+	tail = ft_lstlast((*map_ll));
+	while (tail)
+	{
+		if (check_line_valid(tail->line))
+			break ;
+		tail = tail->prev;
+	}
+	tail->next = NULL;
 	return (0);
 }
 
@@ -391,12 +526,19 @@ int init_data(t_data *data, char *file, t_free **free_nodes)
 			return (free(line), close(fd), 1);
 		free(line);
 	}
+	// for (t_map *tmp = data->map_ll; tmp; tmp = tmp->next)
+	// 	printf("map_ll: |%s|\n", tmp->line);
+	// exit(0);
+	if (!data->map_ll)
+		return (print_error("Empty map"), 1);
+	if (lltrim(&data->map_ll))
+		return (print_error("Empty map"), 1);
 	if (check_map_valid(data))
 		return (1);
 	get_next_line(-42);
 	close(fd);
 	if (!line)
 		return (1);
-	print_nudes(data);
+	// print_nudes(data);
 	return (0);
 }
