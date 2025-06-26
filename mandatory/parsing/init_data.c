@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:47:14 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/26 17:28:09 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:56:55 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,39 +72,6 @@ int populate_data_1(char *str, t_free **free_nodes, t_data *data)
 	return (0);
 }
 
-t_map	*create_new_node(char *line, t_free **free_nodes)
-{
-	t_map	*node;
-
-	node = ft_malloc(sizeof(t_map), free_nodes);
-	int	i;
-	i = 0;
-	while (line && line[i] && line[i] != '\n')
-		i++;
-	if (line[i] == '\n')
-		line[i] = '\0';
-	node->line = ft_strdup_normal(line, free_nodes);
-	node->next = NULL;
-	node->prev = NULL;
-	return (node);
-}
-
-int	map_ll_populate(char *line, t_free **free_nodes, t_data *data)
-{
-	t_map	*head;
-	t_map	*current = ft_lstlast(data->map_ll);
-
-	head = create_new_node(line, free_nodes);
-	if (!current)
-		data->map_ll = head;
-	else
-	{
-		current->next = head;
-		head->prev = current;
-	}
-	return (0);
-}
-
 int	 populate_data(t_data *data, char *line, t_free **free_nodes, int *index)
 {
 	int	flag;
@@ -134,42 +101,6 @@ void	print_nudes(t_data *data)
 	printf("NO: %s\n", data->north);
 	printf("SO: %s\n", data->south);
 	printf("WE: %s\n", data->west);
-}
-
-int	check_line_valid(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (is_sep(line[i], " \t\n\v\f\r"))
-		i++;
-	if (!line[i])
-		return (0);
-	return (1);
-}
-
-int	lltrim(t_map **map_ll)
-{
-	t_map	*tail;
-
-	while (*map_ll)
-	{
-		if (check_line_valid((*map_ll)->line))
-			break ;
-		(*map_ll) = (*map_ll)->next;
-	}
-	if (!*map_ll)
-		return (1);
-	(*map_ll)->prev = NULL;
-	tail = ft_lstlast((*map_ll));
-	while (tail)
-	{
-		if (check_line_valid(tail->line))
-			break ;
-		tail = tail->prev;
-	}
-	tail->next = NULL;
-	return (0);
 }
 
 int init_data(t_data *data, char *file, t_free **free_nodes)

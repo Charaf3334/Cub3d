@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/26 17:15:06 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:57:41 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ int		parse_color(t_data *data, char *str, t_free **free_nodes, char c);
 void	set_color(t_data *data, char c, int index, int num);
 int		process_color(char *color, int *num_out);
 int		skip_zeroes(char *str);
+
+//map_ll
+int	map_ll_populate(char *line, t_free **free_nodes, t_data *data);
+int	lltrim(t_map **map_ll);
 
 //valid_map
 int check_map_valid(t_data *data);

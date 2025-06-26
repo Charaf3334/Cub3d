@@ -6,7 +6,7 @@
 #    By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/25 10:33:55 by ctoujana          #+#    #+#              #
-#    Updated: 2025/06/26 17:27:57 by zguellou         ###   ########.fr        #
+#    Updated: 2025/06/26 17:58:02 by zguellou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ MLX = MLX/libmlx.a
 
 SRCS =  mandatory/cub3D.c mandatory/free_nodes.c \
 		mandatory/parsing/init_data.c mandatory/parsing/map_horiz_lines.c  mandatory/parsing/map_vert_lines.c\
-		mandatory/parsing/parse_color.c mandatory/parsing/valid_map.c \
+		mandatory/parsing/parse_color.c mandatory/parsing/valid_map.c mandatory/parsing/map_ll.c \
 		utils/libft/ft_strcmp.c utils/libft/ft_strchr.c utils/libft/ft_memset.c utils/libft/ft_strtrim.c \
 		utils/libft/ft_strlen.c utils/libft/ft_strdup.c utils/libft/ft_substr.c utils/libft/ft_split_libft.c \
 		utils/libft/ft_atoi.c utils/libft/ft_lstlast.c \
