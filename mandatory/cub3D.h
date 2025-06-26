@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/26 10:18:11 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:15:06 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ int ft_atoi(const char *str);
 t_map	*ft_lstlast(t_map *lst);
 int    is_sep(char ch, char *c);
 
-//mandatory
+//mandatory_folder
+
+//cub3d
 int init_data(t_data *data, char *file, t_free **free_nodes);
 void	free_strs(char **strs);
 void	print_error(char *str);
@@ -80,7 +82,26 @@ void	ft_lstadd_front(t_free **lst, t_free *new);
 void	ft_lstclear(t_free **lst);
 void	cleanup_exit(t_data *data, t_free **free_nodes, int status);
 
-//utils
+//parse_color
+int		parse_color(t_data *data, char *str, t_free **free_nodes, char c);
+void	set_color(t_data *data, char c, int index, int num);
+int		process_color(char *color, int *num_out);
+int		skip_zeroes(char *str);
+
+//valid_map
+int check_map_valid(t_data *data);
+
+//map_vertic
+int		check_map_vertic_closed(t_map *head);
+
+//map_horiz
+int		check_map_horiz_closed(t_map *head);
+
+//utils_folder
 char	*get_next_line(int fd);
+//utils1
+int	len_strs(char **strs);
+int	is_num(char *str);
+int	ft_strlen_char(char *str, char c);
 
 #endif

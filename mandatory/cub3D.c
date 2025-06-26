@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/26 15:35:04 by zguellou          #+#    #+#             */
+/*   Updated: 2025/06/26 15:36:04 by zguellou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 void	ft_putstr_fd(char *str, int fd, int option)
@@ -59,10 +71,6 @@ void	free_strs(char **strs)
 void	cleanup_exit(t_data *data, t_free **free_nodes, int status)
 {
 	(void)data;
-	// if (data->floor)
-	// 	free(data->floor);
-	// if (data->ceilling)
-	// 	free(data->ceilling);
 	ft_lstclear(free_nodes);
 	exit(status);
 }
