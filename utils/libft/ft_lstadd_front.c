@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 14:33:45 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/23 14:34:57 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/06/28 10:44:42 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../mandatory/cub3D.h"
 

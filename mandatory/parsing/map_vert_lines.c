@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_vert_lines.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:10:08 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/26 17:28:17 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/06/28 10:41:59 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	handle_previous_lines(t_map *curr, int i)
 {
-	t_map *prev;
+	t_map	*prev;
 
 	prev = curr->prev;
 	if (!prev || !prev->line || !prev->line[i])
@@ -32,7 +32,7 @@ static int	handle_previous_lines(t_map *curr, int i)
 
 static int	handle_next_lines(t_map *curr, int i)
 {
-	t_map *next;
+	t_map	*next;
 
 	next = curr->next;
 	if (!next || !next->line || !next->line[i])
@@ -55,7 +55,6 @@ int	check_map_vertic_closed(t_map *head)
 
 	i = 0;
 	curr = head;
-	//vertical
 	while (curr)
 	{
 		i = 0;
@@ -66,9 +65,9 @@ int	check_map_vertic_closed(t_map *head)
 			if (!curr->line[i])
 				break ;
 			if (handle_previous_lines(curr, i))
-				return (printf("vertic line[%d]: |%s|\n", i, curr->line), print_error("Unclosed map fo9"), 1);
+				return (print_error("Unclosed map fo9"), 1); // hadi atms7
 			if (handle_next_lines(curr, i))
-				return (printf("vertic line[%d]: |%s|\n", i, curr->line), print_error("Unclosed map lte7t"), 1);
+				return (print_error("Unclosed map lte7t"), 1);
 			i++;
 		}
 		curr = curr->next;

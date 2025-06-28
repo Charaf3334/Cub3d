@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:23:00 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/26 17:28:28 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/06/28 10:44:04 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,48 +30,49 @@ static int	check_map_chars(char *line, int *flag)
 	return (0);
 }
 
-static int validate_map_lines(t_map *head)
+static int	validate_map_lines(t_map *head)
 {
-    int i;
-    while (head)
-    {
-        i = 0;
-        while (is_sep(head->line[i], " \t\n\v\f\r01NSWE"))
-            i++;
-        if (!head->next)
-            break;
-        else if (!head->line[i])
-            head = head->next;
-        else
-            return (printf("line[%d]: |%s|\n", i, head->line), print_error("Invalid map"), 1);
-    }
-    if (!head)
-        return (print_error("Invalid map"), 1);
-    return (0);
+	int	i;
+
+	while (head)
+	{
+		i = 0;
+		while (is_sep(head->line[i], " \t\n\v\f\r01NSWE"))
+			i++;
+		if (!head->next)
+			break ;
+		else if (!head->line[i])
+			head = head->next;
+		else
+			return (print_error("Invalid map"), 1);
+	}
+	if (!head)
+		return (print_error("Invalid map"), 1);
+	return (0);
 }
 
-int check_map_valid(t_data *data)
+int	check_map_valid(t_data *data)
 {
-    t_map   *current;
-    int     player_count;
+	t_map	*current;
+	int		player_count;
 
-    if (validate_map_lines(data->map_ll))
-        return (1);
-    if (check_map_horiz_closed(data->map_ll))
-        return (1);
-    player_count = 0;
-    current = data->map_ll;
-    while (current)
-    {
-        if (check_map_chars(current->line, &player_count))
-            return (print_error("Invalid character in map"), 1);
-        if (player_count > 1)
-            return (print_error("Too many players in map"), 1);
-        current = current->next;
-    }
-    if (!player_count)
-        return (print_error("No player found in map"), 1);
-    if (check_map_vertic_closed(data->map_ll))
-        return (1);
-    return (0);
+	if (validate_map_lines(data->map_ll))
+		return (1);
+	if (check_map_horiz_closed(data->map_ll))
+		return (1);
+	player_count = 0;
+	current = data->map_ll;
+	while (current)
+	{
+		if (check_map_chars(current->line, &player_count))
+			return (print_error("Invalid character in map"), 1);
+		if (player_count > 1)
+			return (print_error("Too many players in map"), 1);
+		current = current->next;
+	}
+	if (!player_count)
+		return (print_error("No player found in map"), 1);
+	if (check_map_vertic_closed(data->map_ll))
+		return (1);
+	return (0);
 }

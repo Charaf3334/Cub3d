@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_ll.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:55:40 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/26 17:57:15 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/06/28 10:40:24 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int	lltrim(t_map **map_ll)
 static t_map	*create_new_node(char *line, t_free **free_nodes)
 {
 	t_map	*node;
+	int		i;
 
 	node = ft_malloc(sizeof(t_map), free_nodes);
-	int	i;
 	i = 0;
 	while (line && line[i] && line[i] != '\n')
 		i++;
@@ -68,8 +68,9 @@ static t_map	*create_new_node(char *line, t_free **free_nodes)
 int	map_ll_populate(char *line, t_free **free_nodes, t_data *data)
 {
 	t_map	*head;
-	t_map	*current = ft_lstlast(data->map_ll);
+	t_map	*current;
 
+	current = ft_lstlast(data->map_ll);
 	head = create_new_node(line, free_nodes);
 	if (!current)
 		data->map_ll = head;

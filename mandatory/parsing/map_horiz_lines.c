@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_horiz_lines.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:35:13 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/26 17:28:13 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/06/28 10:39:35 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,18 +97,17 @@ int	check_map_horiz_closed(t_map *head)
 	curr = head;
 	if (!curr)
 		return (print_error("Empty map"), 1);
-	//horinzontal done
 	while (curr)
 	{
-		if (i == 0 || !curr->next)// First or last line
+		if (i == 0 || !curr->next)
 		{
 			if (check_closed_first_last(curr->line))
-				return (printf("line1: |%s|\n", curr->line), print_error("Map not closed"), 1);
+				return (print_error("Map not closed"), 1);
 		}
-		else// Middle lines
+		else
 		{
 			if (check_in_between(curr))
-				return (printf("line[%d]: |%s|\n", i, curr->line), print_error("Map not closed"), 1);
+				return (print_error("Map not closed"), 1);
 		}
 		curr = curr->next;
 		i++;

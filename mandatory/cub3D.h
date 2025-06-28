@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/26 17:57:41 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/06/28 10:51:16 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
+
+typedef struct s_pop
+{
+	int		st;
+	int		en;
+	char	*str;
+}	t_pop;
 
 typedef struct s_join
 {
@@ -107,5 +114,17 @@ char	*get_next_line(int fd);
 int	len_strs(char **strs);
 int	is_num(char *str);
 int	ft_strlen_char(char *str, char c);
+
+//utils2
+void	ft_putstr_fd(char *str, int fd, int option);
+void	print_error(char *str);
+void	free_strs(char **strs);
+void	cleanup_exit(t_data *data, t_free **free_nodes, int status);
+
+//init_data_utils
+int	floor_and_ceilling_valid(t_pop *vars);
+int	floor_and_ceilling(t_pop *vars, t_data *data, t_free **free_nodes);
+int	is_texture_valid(t_pop *vars, t_data *data);
+int	directions_populate(t_pop *vars, t_data *data, t_free **free_nodes);
 
 #endif

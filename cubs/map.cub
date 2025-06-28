@@ -1,5 +1,7 @@
 F 163,208,99
 C 163,208,25
+
+
 NO ./textures/minecraft.xpm
 WE ./textures/redbrick.xpm
 SO ./textures/purplestone.xpm
