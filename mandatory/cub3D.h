@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/29 13:25:53 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/02 10:08:43 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <mlx.h>
+
+#define WIDTH 1920
+#define HEIGHT 1080
+#define TITLE "Cub3D"
 
 typedef struct s_pop
 {
@@ -48,19 +53,33 @@ typedef struct s_map
 
 typedef struct s_data
 {
-	char	*north;
-	char	*south;
-	char	*west;
-	char	*east;
-	int		north_fd;
-	int		south_fd;
-	int		west_fd;
-	int		east_fd;
-    int floor;
-    int ceilling;
-
-	t_map *map_ll;
+	char			*north;
+	char			*south;
+	char			*west;
+	char			*east;
+	int				north_fd;
+	int				south_fd;
+	int				west_fd;
+	int				east_fd;
+    int				floor;
+    int				ceilling;
+	t_free			**free_nodes;
+	t_map			*map_ll;
+	struct s_mlx	*mlx;
 }   t_data;
+
+typedef	struct s_mlx
+{
+	void	*mlx;
+	void	*win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	t_data	*data;
+}	t_mlx;
+
 
 //libft
 char	*ft_strchr(char *s, int c);
@@ -131,5 +150,8 @@ int	floor_and_ceilling(t_pop *vars, t_data *data, t_free **free_nodes);
 int	is_texture_valid(t_pop *vars, t_data *data);
 int	directions_populate(t_pop *vars, t_data *data, t_free **free_nodes);
 int	assign_redir_fds(t_data *data);
+
+//window
+int	window(t_data *data, t_free **free_nodes);
 
 #endif
