@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:47:14 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/28 10:36:58 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/06/29 13:25:38 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	populate_data(t_data *data, char *line, t_free **free_nodes, int *index)
 
 int	init_data_helper(t_data *data, int fd, char *line)
 {
+	if (assign_redir_fds(data))
+		return (1);
 	if (!data->map_ll)
 		return (print_error("Empty map"), 1);
 	if (lltrim(&data->map_ll))

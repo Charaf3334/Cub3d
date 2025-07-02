@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/28 10:51:16 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/06/29 13:25:53 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,14 @@ typedef struct s_map
 
 typedef struct s_data
 {
-	char *north;
-	char *south;
-	char *west;
-	char *east;
-
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+	int		north_fd;
+	int		south_fd;
+	int		west_fd;
+	int		east_fd;
     int floor;
     int ceilling;
 
@@ -82,6 +85,7 @@ int init_data(t_data *data, char *file, t_free **free_nodes);
 void	free_strs(char **strs);
 void	print_error(char *str);
 void	ft_putstr_fd(char *str, int fd, int option);
+int		check_ext(char *str, char *extension);
 
 //free_nodes
 void	*ft_malloc(size_t size, t_free **free_nodes);
@@ -126,5 +130,6 @@ int	floor_and_ceilling_valid(t_pop *vars);
 int	floor_and_ceilling(t_pop *vars, t_data *data, t_free **free_nodes);
 int	is_texture_valid(t_pop *vars, t_data *data);
 int	directions_populate(t_pop *vars, t_data *data, t_free **free_nodes);
+int	assign_redir_fds(t_data *data);
 
 #endif

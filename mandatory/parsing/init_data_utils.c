@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 10:32:49 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/06/28 10:38:33 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/06/29 13:55:22 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int	directions_populate(t_pop *vars, t_data *data, t_free **free_nodes)
 	len = 0;
 	while (strs[len])
 		len++;
-	if (len != 2)
-		return (print_error("Invalid texture path format"), 1);
+	if (len != 2 || check_ext(strs[1], ".xpm"))
+		return (print_error("Invalid texture path format .xpm"), 1);
 	if (strs[1] && !ft_strcmp("NO", strs[0]))
 		data->north = strs[1];
 	else if (strs[1] && !ft_strcmp("WE", strs[0]))
@@ -80,5 +80,43 @@ int	directions_populate(t_pop *vars, t_data *data, t_free **free_nodes)
 		data->east = strs[1];
 	else if (strs[1] && !ft_strcmp("SO", strs[0]))
 		data->south = strs[1];
+	return (0);
+}
+
+int	redir_fds_init(t_data *data, char *arr[])
+{
+	arr[0] = data->north;
+	arr[1] = data->south;
+	arr[2] = data->west;
+	arr[3] = data->east;
+	return (1);
+}
+
+void	assign_actual_fds(t_data *data, int i, int fd_tmp)
+{
+	if (i == 0)
+		data->north_fd = fd_tmp;
+	else if (i == 1)
+		data->south_fd = fd_tmp;
+	else if (i == 2)
+		data->west_fd = fd_tmp;
+	else
+		data->east_fd = fd_tmp;
+}
+
+int	assign_redir_fds(t_data *data)
+{
+	int		fd_tmp;
+	char	*arr[4];
+	int		i;
+
+	1 && (i = -1, redir_fds_init(data, arr));
+	while (++i < 4)
+	{
+		fd_tmp = open(arr[i], O_RDONLY, 0644);
+		if (fd_tmp == -1)
+			return (perror(arr[i]), 1);
+		assign_actual_fds(data, i, fd_tmp);
+	}
 	return (0);
 }

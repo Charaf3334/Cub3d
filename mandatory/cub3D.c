@@ -6,13 +6,13 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:35:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/28 10:49:04 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/06/29 13:56:15 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static int	check_arg1(char *str)
+int	check_ext(char *str, char *extension)
 {
 	int	i;
 
@@ -21,13 +21,15 @@ static int	check_arg1(char *str)
 	{
 		if (str[i] == '.')
 		{
-			if (i == 0 || ft_strcmp(&str[i], ".cub"))
+			if (i == 0 && !ft_strcmp(&str[i], extension)) //..cub
 				return (1);
+			else if (i > 0 && !ft_strcmp(&str[i], extension))
+				return (0);
 		}
 	}
 	if (!ft_strchr(str, '.'))
 		return (1);
-	return (0);
+	return (1);
 }
 
 static int	check_args(int ac, char **av)
@@ -36,7 +38,7 @@ static int	check_args(int ac, char **av)
 		return (print_error("Usage example: ./cub3D cubs/test.cub"), 1);
 	else
 	{
-		if (check_arg1(av[1]))
+		if (check_ext(av[1], ".cub"))
 			return (print_error("Enter a valid .cub file"), 1);
 	}
 	return (0);
@@ -61,5 +63,4 @@ int	main(int ac, char **av)
 		cleanup_exit(&data, &free_nodes, 1);
 	printf("Success\n");
 	cleanup_exit(&data, &free_nodes, 0);
-	return (0);
 }
