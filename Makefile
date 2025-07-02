@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+         #
+#    By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/25 10:33:55 by ctoujana          #+#    #+#              #
-#    Updated: 2025/07/02 09:50:59 by ctoujana         ###   ########.fr        #
+#    Updated: 2025/07/02 11:22:53 by zguellou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,16 +30,17 @@ B_OBJS= $(B_SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME):  $(OBJS)
+$(NAME): ./mandatory/cub3D.h $(OBJS) 
 	cc $(CFLAGS) -o $(NAME) $(OBJS) $(LINK)
+#if header modified should everything recompile
 
-%.o: mandatory/%.c ./mandatory/cub3D.h
+%.o: mandatory/%.c
 	cc -c $(CFLAGS) $< -o $@
 
-bonus:  $(B_OBJS)
+bonus:  $(B_OBJS) ./bonus/cub3D_bonus.h
 	cc $(CFLAGS) -o $(NAME) $(B_OBJS) $(LINK)
 
-%.o: bonus/%.c ./bonus/cub3D_bonus.h
+%.o: bonus/%.c 
 	cc -c $(CFLAG)  $< -o $@
 
 clean:
