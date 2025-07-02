@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:35:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:23:49 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/02 13:16:37 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,12 @@ int	main(int ac, char **av)
 	t_data	data;
 	t_free	*free_nodes;
 
-	// atexit(f);
+	atexit(f);
 	free_nodes = NULL;
 	if (check_args(ac, av))
 		return (1);
 	ft_memset(&data, 0, sizeof(t_data));
+	data.free_nodes = &free_nodes;
 	if (init_data(&data, av[1], &free_nodes))
 		cleanup_exit(&data, &free_nodes, 1);
 	printf("Success\n");

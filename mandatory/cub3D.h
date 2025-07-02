@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:08:43 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/02 12:14:46 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #include <stdlib.h>
 #include <mlx.h>
 
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 500
+#define HEIGHT 500
 #define TITLE "Cub3D"
 
 typedef struct s_pop
@@ -66,6 +66,9 @@ typedef struct s_data
 	t_free			**free_nodes;
 	t_map			*map_ll;
 	struct s_mlx	*mlx;
+
+	float	player_x;
+	float	player_y;
 }   t_data;
 
 typedef	struct s_mlx
