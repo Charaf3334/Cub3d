@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/04 11:12:21 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/04 12:07:04 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #define WIDTH 1920
 #define HEIGHT 1080
 #define TITLE "Cub3D"
+#define MOVE_SPEED 0.3
 
 typedef struct s_pop
 {
@@ -115,6 +116,18 @@ typedef struct s_dda
 	int		draw_end;
 }	t_dda;
 
+//render
+typedef struct s_dir_line
+{
+	int		player_x;
+	int		player_y;
+	int		dir_x;
+	int		dir_y;
+	float	dx;
+	float	dy;
+	float	steps;
+}	t_dir_line;
+
 
 //libft
 char	*ft_strchr(char *s, int c);
@@ -127,10 +140,10 @@ char	*ft_strdup_normal(char *str, t_free **free_nodes);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	**ft_split_libft(char *str, char *c, t_free **free_nodes);
 char	*ft_strtrim(char *s1, char *set);
-int ft_atoi(const char *str);
+int		ft_atoi(const char *str);
 
 t_map	*ft_lstlast(t_map *lst);
-int    is_sep(char ch, char *c);
+int		is_sep(char ch, char *c);
 
 //mandatory_folder
 
@@ -153,12 +166,15 @@ void	set_color(t_data *data, char c, int index, int num);
 int		process_color(char *color, int *num_out);
 int		skip_zeroes(char *str);
 
+//init_player_direction
+void	set_player_direction(t_data *data, char direction);
+
 //map_ll
-int	map_ll_populate(char *line, t_free **free_nodes, t_data *data);
-int	lltrim(t_map **map_ll);
+int		map_ll_populate(char *line, t_free **free_nodes, t_data *data);
+int		lltrim(t_map **map_ll);
 
 //valid_map
-int check_map_valid(t_data *data);
+int		check_map_valid(t_data *data);
 
 //map_vertic
 int		check_map_vertic_closed(t_map *head);
@@ -169,9 +185,9 @@ int		check_map_horiz_closed(t_map *head);
 //utils_folder
 char	*get_next_line(int fd);
 //utils1
-int	len_strs(char **strs);
-int	is_num(char *str);
-int	ft_strlen_char(char *str, char c);
+int		len_strs(char **strs);
+int		is_num(char *str);
+int		ft_strlen_char(char *str, char c);
 
 //utils2
 void	ft_putstr_fd(char *str, int fd, int option);
@@ -180,16 +196,16 @@ void	free_strs(char **strs);
 void	cleanup_exit(t_data *data, t_free **free_nodes, int status);
 
 //init_data_utils
-int	floor_and_ceilling_valid(t_pop *vars);
-int	floor_and_ceilling(t_pop *vars, t_data *data, t_free **free_nodes);
-int	is_texture_valid(t_pop *vars, t_data *data);
-int	directions_populate(t_pop *vars, t_data *data, t_free **free_nodes);
-int	assign_redir_fds(t_data *data);
+int		floor_and_ceilling_valid(t_pop *vars);
+int		floor_and_ceilling(t_pop *vars, t_data *data, t_free **free_nodes);
+int		is_texture_valid(t_pop *vars, t_data *data);
+int		directions_populate(t_pop *vars, t_data *data, t_free **free_nodes);
+int		assign_redir_fds(t_data *data);
 
 //window
-int	window(t_data *data, t_free **free_nodes);
+int		window(t_data *data, t_free **free_nodes);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
-char get_map_tile(t_data *data, int x, int y);
+char	get_map_tile(t_data *data, int x, int y);
 
 //rays/ rays.c 
 void	draw_ray_on_minimap(t_mlx *mlx, t_data *data, t_ray *ray);
@@ -197,5 +213,16 @@ void	draw_ray(t_data *data, int x, t_dda *dda, int color);
 void	calculate_line(t_ray *ray, t_dda *dda);
 void	perform_dda(t_data *data, t_ray *ray);
 void	init_ray(t_data *data, t_ray *ray, int x);
+
+//render.c
+void	render(t_data *data, t_mlx *mlx);
+
+//player_movement
+int	handle_keypress(int keycode, t_mlx *mlx);
+
+//map_utils
+char	get_map_tile(t_data *data, int x, int y);
+void	draw_block(t_mlx *mlx, int x, int y, int color);
+
 
 #endif
