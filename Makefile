@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+         #
+#    By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/25 10:33:55 by ctoujana          #+#    #+#              #
-#    Updated: 2025/07/04 12:08:54 by zguellou         ###   ########.fr        #
+#    Updated: 2025/07/04 12:18:48 by ctoujana         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS =  mandatory/cub3D.c mandatory/free_nodes.c \
 		utils/get_next_line.c utils/utils1.c utils/utils2.c \
 		mandatory/rays/rays.c mandatory/rays/render.c mandatory/rays/player_movement.c \
 		mandatory/rays/map_utils.c \
-		mandatory/rays/rays.c mandatory/rays/rays2.c
+		mandatory/rays/rays2.c
 OBJS = $(SRCS:.c=.o)
 
 B_SRCS = bonus/cub3D_bonus.c
