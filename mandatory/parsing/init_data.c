@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:47:14 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/29 13:25:38 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/04 09:43:48 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,56 @@ int	populate_data(t_data *data, char *line, t_free **free_nodes, int *index)
 	return (0);
 }
 
+void init_player_pos(t_data *data)
+{
+    int i;
+    int y;
+    t_map *ll;
+
+    ll = data->map_ll;
+    y = 0;
+    while (ll)
+    {
+        i = 0;
+        while (ll->line[i])
+        {
+            if (ft_strchr("NSWE", ll->line[i]))
+            {
+                data->player_x = i + 0.5;
+                data->player_y = y + 0.5;
+                
+                // Set initial direction based on player spawn
+                if (ll->line[i] == 'N') {
+                    data->player_dir = M_PI/2;
+                    data->dir_x = 0;
+                    data->dir_y = -1;
+                } else if (ll->line[i] == 'S') {
+                    data->player_dir = 3*M_PI/2;
+                    data->dir_x = 0;
+                    data->dir_y = 1;
+                } else if (ll->line[i] == 'W') {
+                    data->player_dir = M_PI;
+                    data->dir_x = -1;
+                    data->dir_y = 0;
+                } else if (ll->line[i] == 'E') {
+                    data->player_dir = 0;
+                    data->dir_x = 1;
+                    data->dir_y = 0;
+                }
+                
+                // Set camera plane perpendicular to direction
+                data->plane_x = -data->dir_y * 0.66;
+                data->plane_y = data->dir_x * 0.66;
+                
+                ll->line[i] = '0';
+            }
+            i++;
+        }
+        y++;
+        ll = ll->next;
+    }
+}
+
 int	init_data_helper(t_data *data, int fd, char *line)
 {
 	if (assign_redir_fds(data))
@@ -69,6 +119,9 @@ int	init_data_helper(t_data *data, int fd, char *line)
 		return (print_error("Empty map"), 1);
 	if (check_map_valid(data))
 		return (1);
+	init_player_pos(data);
+	for (t_map *ll = data->map_ll; ll; ll = ll->next)
+		printf("%s\n", ll->line);
 	get_next_line(-42);
 	close(fd);
 	if (!line)

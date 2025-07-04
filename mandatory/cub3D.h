@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/02 12:14:46 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/04 11:06:35 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <mlx.h>
+#include <math.h>
 
-#define WIDTH 500
-#define HEIGHT 500
+#define WIDTH 1920
+#define HEIGHT 1080
 #define TITLE "Cub3D"
 
 typedef struct s_pop
@@ -69,6 +70,12 @@ typedef struct s_data
 
 	float	player_x;
 	float	player_y;
+
+	float player_dir;   // Player direction (angle in radians)
+    float dir_x;        // Direction vector x
+    float dir_y;        // Direction vector y
+    float plane_x;      // Camera plane x
+    float plane_y;      // Camera plane y
 }   t_data;
 
 typedef	struct s_mlx
@@ -82,6 +89,31 @@ typedef	struct s_mlx
 	int		endian;
 	t_data	*data;
 }	t_mlx;
+
+// Add to cub3D.h
+typedef struct s_ray
+{
+	float	ray_dir_x;
+	float	ray_dir_y;
+	float	side_dist_x;
+	float	side_dist_y;
+	float	delta_dist_x;
+	float	delta_dist_y;
+	float	perp_wall_dist;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+}	t_ray;
+
+typedef struct s_dda
+{
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+}	t_dda;
 
 
 //libft
@@ -156,5 +188,14 @@ int	assign_redir_fds(t_data *data);
 
 //window
 int	window(t_data *data, t_free **free_nodes);
+void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
+char get_map_tile(t_data *data, int x, int y);
+
+//rays/ rays.c 
+void	draw_ray_on_minimap(t_mlx *mlx, t_data *data, t_ray *ray);
+void	draw_ray(t_data *data, int x, t_dda *dda, int color);
+void	calculate_line(t_ray *ray, t_dda *dda);
+void	perform_dda(t_data *data, t_ray *ray);
+void	init_ray(t_data *data, t_ray *ray, int x);
 
 #endif

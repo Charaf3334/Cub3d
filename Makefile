@@ -6,7 +6,7 @@
 #    By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/25 10:33:55 by ctoujana          #+#    #+#              #
-#    Updated: 2025/07/02 11:22:53 by zguellou         ###   ########.fr        #
+#    Updated: 2025/07/04 10:45:33 by zguellou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRCS =  mandatory/cub3D.c mandatory/free_nodes.c \
 		utils/libft/ft_strcmp.c utils/libft/ft_strchr.c utils/libft/ft_memset.c utils/libft/ft_strtrim.c \
 		utils/libft/ft_strlen.c utils/libft/ft_strdup.c utils/libft/ft_substr.c utils/libft/ft_split_libft.c \
 		utils/libft/ft_atoi.c utils/libft/ft_lstlast.c \
-		utils/get_next_line.c utils/utils1.c utils/utils2.c
+		utils/get_next_line.c utils/utils1.c utils/utils2.c \
+		mandatory/rays/rays.c 
 OBJS = $(SRCS:.c=.o)
 
 B_SRCS = bonus/cub3D_bonus.c
@@ -30,17 +31,17 @@ B_OBJS= $(B_SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): ./mandatory/cub3D.h $(OBJS) 
+$(NAME): $(OBJS) 
 	cc $(CFLAGS) -o $(NAME) $(OBJS) $(LINK)
 #if header modified should everything recompile
 
-%.o: mandatory/%.c
+mandatory/%.o: mandatory/%.c ./mandatory/cub3D.h
 	cc -c $(CFLAGS) $< -o $@
 
-bonus:  $(B_OBJS) ./bonus/cub3D_bonus.h
+bonus:  $(B_OBJS) 
 	cc $(CFLAGS) -o $(NAME) $(B_OBJS) $(LINK)
 
-%.o: bonus/%.c 
+bonus/%.o: bonus/%.c ./bonus/cub3D_bonus.h
 	cc -c $(CFLAG)  $< -o $@
 
 clean:
