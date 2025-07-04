@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 10:32:49 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/06/29 13:55:22 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/02 13:11:51 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ int	assign_redir_fds(t_data *data)
 	1 && (i = -1, redir_fds_init(data, arr));
 	while (++i < 4)
 	{
+		if (!arr[i])
+			return (print_error("Empty File"), 1);
 		fd_tmp = open(arr[i], O_RDONLY, 0644);
 		if (fd_tmp == -1)
 			return (perror(arr[i]), 1);
