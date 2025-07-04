@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:07:42 by zguellou          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/07/04 12:07:04 by zguellou         ###   ########.fr       */
+=======
+/*   Updated: 2025/07/04 11:35:09 by ctoujana         ###   ########.fr       */
+>>>>>>> ccbdba3485b6f66c583ab8814016f372276240ae
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +95,7 @@ typedef	struct s_mlx
 	t_data	*data;
 }	t_mlx;
 
-// Add to cub3D.h
+
 typedef struct s_ray
 {
 	float	ray_dir_x;
@@ -108,6 +112,16 @@ typedef struct s_ray
 	int		hit;
 	int		side;
 }	t_ray;
+
+typedef struct s_draw_ray
+{
+	float	ray_x;
+	float	ray_y;
+	float	step;
+	float	dist;
+	int		screen_x;
+	int		screen_y;
+}	t_draw_ray;
 
 typedef struct s_dda
 {
@@ -224,5 +238,10 @@ int	handle_keypress(int keycode, t_mlx *mlx);
 char	get_map_tile(t_data *data, int x, int y);
 void	draw_block(t_mlx *mlx, int x, int y, int color);
 
+//rays2.c
+void	assign_delta_x_y(t_ray *ray);
+void	init_ray_step_and_dist(t_ray *ray, t_data *data);
+void	init_ray(t_data *data, t_ray *ray, int x);
+void	perform_dda(t_data *data, t_ray *ray);
 
 #endif
