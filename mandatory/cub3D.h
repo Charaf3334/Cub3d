@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/04 12:15:31 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/06 10:42:37 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,6 @@ typedef struct s_data
 	char			*south;
 	char			*west;
 	char			*east;
-	int				north_fd;
-	int				south_fd;
-	int				west_fd;
-	int				east_fd;
     int				floor;
     int				ceilling;
 	t_free			**free_nodes;

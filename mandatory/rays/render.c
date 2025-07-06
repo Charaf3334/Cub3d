@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/04 12:04:38 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/06 10:35:06 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,23 @@ static void	render_3d_view(t_data *data)
 		init_ray(data, &ray, x);
 		perform_dda(data, &ray);
 		calculate_line(&ray, &dda);
-		if (ray.side == 1)
-			color = 0x8888FF; // Blue for north/south walls
-		else
-			color = 0xFF8888; // Red for east/west walls
+		
+		// Determine wall direction for color
+		if (ray.side == 0) // East/West walls
+		{
+			if (ray.step_x > 0)
+				color = 0xFF0000; // East wall (Red)
+			else
+				color = 0xFFFF00; // West wall (Yellow)
+		}
+		else // North/South walls
+		{
+			if (ray.step_y > 0)
+				color = 0x0000FF; // North wall (Blue)
+			else
+				color = 0x00FF00; // South wall (Green)
+		}
+		
 		draw_ray(data, x, &dda, color);
 		x++;
 	}

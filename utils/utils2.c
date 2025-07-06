@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 10:48:15 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/06/29 14:09:04 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/06 10:13:50 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ void	free_strs(char **strs)
 
 void	cleanup_exit(t_data *data, t_free **free_nodes, int status)
 {
+	(void)data;
 	ft_lstclear(free_nodes);
-	close (data->north_fd);
-	close (data->south_fd);
-	close (data->west_fd);
-	close (data->east_fd);
 	exit(status);
 }

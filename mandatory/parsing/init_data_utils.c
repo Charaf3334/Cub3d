@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 10:32:49 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/07/02 13:11:51 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/06 10:11:29 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,18 +92,6 @@ int	redir_fds_init(t_data *data, char *arr[])
 	return (1);
 }
 
-void	assign_actual_fds(t_data *data, int i, int fd_tmp)
-{
-	if (i == 0)
-		data->north_fd = fd_tmp;
-	else if (i == 1)
-		data->south_fd = fd_tmp;
-	else if (i == 2)
-		data->west_fd = fd_tmp;
-	else
-		data->east_fd = fd_tmp;
-}
-
 int	assign_redir_fds(t_data *data)
 {
 	int		fd_tmp;
@@ -118,7 +106,7 @@ int	assign_redir_fds(t_data *data)
 		fd_tmp = open(arr[i], O_RDONLY, 0644);
 		if (fd_tmp == -1)
 			return (perror(arr[i]), 1);
-		assign_actual_fds(data, i, fd_tmp);
+		close(fd_tmp);
 	}
 	return (0);
 }
