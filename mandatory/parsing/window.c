@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 09:34:38 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/07/15 10:47:59 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:44:06 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,43 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void load_texture(void *mlx, t_texture *tex, char *path) {
+int	load_texture(void *mlx, t_texture *tex, char *path) {
     tex->img = mlx_xpm_file_to_image(mlx, path, &tex->width, &tex->height);
     if (!tex->img)
 	{
         print_error("Texture load failed");
-		exit(1);
+		return (1);
 	}
     tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_len, &tex->endian);
-	printf("load addr: %p\n", tex->addr);
+	return (0);
 }
 
-void init_textures(t_mlx *mlx, t_data *data) {
-    load_texture(mlx->mlx, &mlx->tex_north, data->north);
-    load_texture(mlx->mlx, &mlx->tex_south, data->south);
-    load_texture(mlx->mlx, &mlx->tex_west, data->west);
-    load_texture(mlx->mlx, &mlx->tex_east, data->east);
+void	destroy_imgs(int index, t_mlx *mlx)
+{
+	void	*arr[4];
+	int		i;
+
+	i = 0;
+	arr[0] = mlx->tex_north.img;
+	arr[1] = mlx->tex_south.img;
+	arr[2] = mlx->tex_west.img;
+	arr[3] = mlx->tex_east.img;
+
+	while (i < index)
+		mlx_destroy_image(mlx->mlx, arr[i++]);
+}
+
+int init_textures(t_mlx *mlx, t_data *data)
+{
+    if (load_texture(mlx->mlx, &mlx->tex_north, data->north))
+		return (1);
+    if (load_texture(mlx->mlx, &mlx->tex_south, data->south))
+		return (destroy_imgs(1, mlx), 1);
+    if (load_texture(mlx->mlx, &mlx->tex_west, data->west))
+		return (destroy_imgs(2, mlx), 1);
+    if (load_texture(mlx->mlx, &mlx->tex_east, data->east))
+		return (destroy_imgs(3, mlx), 1);
+	return (0);
 }
 
 int	window(t_data *data, t_free **free_nodes)
@@ -75,7 +96,9 @@ int	window(t_data *data, t_free **free_nodes)
 	if (!mlx->addr)
 		return (mlx_destroy_image(mlx->mlx, mlx->img), \
 		mlx_destroy_window(mlx->mlx, mlx->win), 1);
-	init_textures(mlx, data);
+	if (init_textures(mlx, data))
+		return (mlx_destroy_image(mlx->mlx, mlx->img), \
+		mlx_destroy_window(mlx->mlx, mlx->win), 1);
 	render(data, mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 	window_hooks(mlx);
