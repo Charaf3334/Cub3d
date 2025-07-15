@@ -6,62 +6,55 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/15 11:04:52 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/15 12:00:05 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-static void render_3d_view(t_data *data) {
-    for (int x = 0; x < WIDTH; x++) {
-        t_ray ray;
-        t_dda dda;
-        
-        init_ray(data, &ray, x);
-        perform_dda(data, &ray);
-        calculate_line(&ray, &dda);
+static void render_3d_view(t_data *data)
+{
+	int			x;
+	t_render	vars;
+
+	x = 0;
+    while (x < WIDTH)
+	{
+        init_ray(data, &vars.ray, x);
+        perform_dda(data, &vars.ray);
+        calculate_line(&vars.ray, &vars.dda);
 
         // Select texture based on wall direction
-        t_texture *tex;
-        if (ray.side == 0) 
-            tex = (ray.step_x > 0) ? &data->mlx->tex_east : &data->mlx->tex_west;
-        else 
-            tex = (ray.step_y > 0) ? &data->mlx->tex_south : &data->mlx->tex_north;
+        if (vars.ray.side == 0)
+		{
+			if (vars.ray.step_x > 0)
+				vars.tex = &data->mlx->tex_east;
+			else
+				vars.tex = &data->mlx->tex_west;
+		}
+        else
+		{
+			if (vars.ray.step_y > 0)
+				vars.tex = &data->mlx->tex_south;
+			else
+				vars.tex = &data->mlx->tex_north;
+		}
 
         // Calculate wall hit position
-        float wall_x = (ray.side == 0) 
-            ? data->player_y + ray.perp_wall_dist * ray.ray_dir_y
-            : data->player_x + ray.perp_wall_dist * ray.ray_dir_x;
-        wall_x -= floor(wall_x);
+		if (vars.ray.side == 0)
+			vars.wall_x = data->player_y + vars.ray.perp_wall_dist * vars.ray.ray_dir_y;
+		else
+			vars.wall_x = data->player_x + vars.ray.perp_wall_dist * vars.ray.ray_dir_x;
+        vars.wall_x -= floor(vars.wall_x);
 
         // Calculate texture X coordinate
-        int tex_x = (int)(wall_x * tex->width);
-        if (tex_x < 0)
-            tex_x = 0;
-        else if ((ray.side == 0 && ray.ray_dir_x > 0) || (ray.side == 1 && ray.ray_dir_y < 0))
-            tex_x = tex->width - tex_x - 1;
-
-        // Draw vertical texture stripe
-        // float step = 1.0 * tex->height / dda.line_height;
-        // float tex_pos = (dda.draw_start - HEIGHT/2.0 + dda.line_height/2.0) * step;
-        
-        // for (int y = dda.draw_start; y < dda.draw_end; y++) {
-        //     int tex_y = (int)tex_pos;
-        //     tex_pos += step;  // Always advance texture position
-            
-        //     // Clamp texture Y coordinate
-        //     if (tex_y < 0)
-        //         tex_y = 0;
-        //     else if (tex_y >= tex->height)
-        //         tex_y = tex->height - 1;
-            
-        //     // Get color from texture
-        //     int color = *(int *)(tex->addr + 
-        //                  (tex_y * tex->line_len + tex_x * (tex->bpp / 8)));
-            
-        //     my_mlx_pixel_put(data->mlx, x, y, color);
-        // }
-		draw_ray(data, x, &dda, tex, tex_x);
+        vars.tex_x = (int)(vars.wall_x * vars.tex->width);
+        if (vars.tex_x < 0)
+            vars.tex_x = 0;
+        else if ((vars.ray.side == 0 && vars.ray.ray_dir_x > 0) || (vars.ray.side == 1 && vars.ray.ray_dir_y < 0))
+            vars.tex_x = vars.tex->width - vars.tex_x - 1;
+		draw_ray(data, x, &vars.dda, &vars);
+		x++;
     }
 }
 

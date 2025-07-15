@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 10:42:00 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/15 11:05:11 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:58:19 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,30 +43,13 @@ void	calculate_line(t_ray *ray, t_dda *dda)
  *   - Floor from draw_end + 1 to bottom of screen (color: data->floor)
  */	
 
-// void	draw_ray(t_data *data, int x, t_dda *dda)
-// {
-// 	int	y;
-
-// 	y = 0;
-// 	while (y < dda->draw_start)
-// 	{
-// 		my_mlx_pixel_put(data->mlx, x, y, data->ceilling);
-// 		y++;
-// 	}
-// 	while (y <= dda->draw_end)
-// 	{
-// 		y++;
-// 	}
-// 	while (y < HEIGHT)
-// 	{
-// 		my_mlx_pixel_put(data->mlx, x, y, data->floor);
-// 		y++;
-// 	}
-// }
-
-void	draw_ray(t_data *data, int x, t_dda *dda, t_texture *tex, int tex_x)
+void	draw_ray(t_data *data, int x, t_dda *dda, t_render *vars)
 {
-	int	y;
+	int		y;
+	float	step;
+	float	tex_pos;
+	int		tex_y;
+	int		color;
 
 	y = 0;
 	while (y < dda->draw_start)
@@ -74,23 +57,22 @@ void	draw_ray(t_data *data, int x, t_dda *dda, t_texture *tex, int tex_x)
 		my_mlx_pixel_put(data->mlx, x, y, data->ceilling);
 		y++;
 	}
-	float step = 1.0 * tex->height / dda->line_height;
-	float tex_pos = (dda->draw_start - HEIGHT/2.0 + dda->line_height/2.0) * step;
+	step = 1.0 * vars->tex->height / dda->line_height;
+	tex_pos = (dda->draw_start - HEIGHT / 2.0 + dda->line_height/2.0) * step;
 	while (y <= dda->draw_end)
 	{
-		int tex_y = (int)tex_pos;
+		tex_y = (int)tex_pos;
 		tex_pos += step;  // Always advance texture position
 		
 		// Clamp texture Y coordinate
 		if (tex_y < 0)
 			tex_y = 0;
-		else if (tex_y >= tex->height)
-			tex_y = tex->height - 1;
+		else if (tex_y >= vars->tex->height)
+			tex_y = vars->tex->height - 1;
 		
 		// Get color from texture
-		int color = *(int *)(tex->addr + 
-						(tex_y * tex->line_len + tex_x * (tex->bpp / 8)));
-		
+		color = *(int *)(vars->tex->addr + 
+						(tex_y * vars->tex->line_len + vars->tex_x * (vars->tex->bpp / 8)));
 		my_mlx_pixel_put(data->mlx, x, y, color);
 		y++;
 	}
@@ -133,7 +115,7 @@ void	draw_ray_on_minimap(t_mlx *mlx, t_data *data, t_ray *ray)
 		/* plot if inside the window */
 		if (vars.screen_x >= 0 && vars.screen_x < WIDTH
 			&& vars.screen_y >= 0 && vars.screen_y < HEIGHT)
-			my_mlx_pixel_put(mlx, vars.screen_x, vars.screen_y, 0xFF00FF);
+			my_mlx_pixel_put(mlx, vars.screen_x, vars.screen_y, 0xFFFF00);
 		vars.dist += vars.step;
 	}
 }

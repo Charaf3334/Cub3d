@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/15 11:04:36 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:38:59 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,32 @@
 #define TITLE "Cub3D"
 #define MOVE_SPEED 0.3
 
-typedef struct s_texture {
+typedef struct s_dda
+{
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+}	t_dda;
+
+typedef struct s_ray
+{
+	float	ray_dir_x;
+	float	ray_dir_y;
+	float	side_dist_x;
+	float	side_dist_y;
+	float	delta_dist_x;
+	float	delta_dist_y;
+	float	perp_wall_dist;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+}	t_ray;
+
+typedef struct s_texture
+{
     void    *img;
     char    *addr;
     int     width;
@@ -34,6 +59,15 @@ typedef struct s_texture {
     int     line_len;
     int     endian;
 }   t_texture;
+
+typedef struct s_render
+{
+	t_ray		ray;
+	t_dda		dda;
+	t_texture	*tex;
+	float		wall_x;
+	int			tex_x;
+}	t_render;
 
 typedef struct s_pop
 {
@@ -102,23 +136,6 @@ typedef	struct s_mlx
 }	t_mlx;
 
 
-typedef struct s_ray
-{
-	float	ray_dir_x;
-	float	ray_dir_y;
-	float	side_dist_x;
-	float	side_dist_y;
-	float	delta_dist_x;
-	float	delta_dist_y;
-	float	perp_wall_dist;
-	int		map_x;
-	int		map_y;
-	int		step_x;
-	int		step_y;
-	int		hit;
-	int		side;
-}	t_ray;
-
 typedef struct s_draw_ray
 {
 	float	ray_x;
@@ -128,13 +145,6 @@ typedef struct s_draw_ray
 	int		screen_x;
 	int		screen_y;
 }	t_draw_ray;
-
-typedef struct s_dda
-{
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-}	t_dda;
 
 //render
 typedef struct s_dir_line
@@ -229,7 +239,7 @@ char	get_map_tile(t_data *data, int x, int y);
 
 //rays/ rays.c 
 void	draw_ray_on_minimap(t_mlx *mlx, t_data *data, t_ray *ray);
-void	draw_ray(t_data *data, int x, t_dda *dda, t_texture *tex, int tex_x);
+void	draw_ray(t_data *data, int x, t_dda *dda, t_render *vars);
 void	calculate_line(t_ray *ray, t_dda *dda);
 void	perform_dda(t_data *data, t_ray *ray);
 void	init_ray(t_data *data, t_ray *ray, int x);

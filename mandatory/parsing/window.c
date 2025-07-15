@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 09:34:38 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/07/15 10:47:59 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:46:24 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void load_texture(void *mlx, t_texture *tex, char *path) {
 		exit(1);
 	}
     tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_len, &tex->endian);
-	printf("load addr: %p\n", tex->addr);
 }
 
 void init_textures(t_mlx *mlx, t_data *data) {
