@@ -6,12 +6,12 @@
 #    By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/25 10:33:55 by ctoujana          #+#    #+#              #
-#    Updated: 2025/07/04 12:18:48 by ctoujana         ###   ########.fr        #
+#    Updated: 2025/07/15 12:59:48 by ctoujana         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
-CFLAGS = -Wextra -Wall -Werror #-g3 -fsanitize=address
+CFLAGS = -Wextra -Wall -Werror -g3 -fsanitize=address
 LINK = -lmlx -framework OpenGL -framework AppKit -lm
 MLX = MLX/libmlx.a
 

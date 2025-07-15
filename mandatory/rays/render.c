@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/15 12:00:05 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/15 13:02:55 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ static void	render_minimap(t_data *data, t_mlx *mlx)
 				color = 0x2F4F4F; // Wall
 			else
 				color = 0x000000; // Other
+			if (x * 20 > WIDTH || y * 20 > HEIGHT)
+			{
+				print_error("Screen width and height are too small");
+				mlx_destroy_image(mlx->mlx, mlx->img);
+				mlx_destroy_window(mlx->mlx, mlx->win);
+				destroy_imgs(4, mlx);
+				cleanup_exit(data, data->free_nodes, 1);
+			}
 			draw_block(mlx, x * 20, y * 20, color);
 			1 && (x++, i++);
 		}

@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/15 11:38:59 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/15 13:13:12 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,7 @@ int		assign_redir_fds(t_data *data);
 int		window(t_data *data, t_free **free_nodes);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 char	get_map_tile(t_data *data, int x, int y);
+void	destroy_imgs(int index, t_mlx *mlx);
 
 //rays/ rays.c 
 void	draw_ray_on_minimap(t_mlx *mlx, t_data *data, t_ray *ray);

@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:35:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/15 09:43:24 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/15 13:12:23 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static int	check_args(int ac, char **av)
 		if (check_ext(av[1], ".cub"))
 			return (print_error("Enter a valid .cub file"), 1);
 	}
+	if (WIDTH > 1920 || HEIGHT > 1080)
+		return (print_error("Screen is way too big"), 1);
 	return (0);
 }
 
