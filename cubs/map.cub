@@ -1,11 +1,11 @@
-F 0,0,0
 C 255,255,255
+F 0,0,0
 
 
-WE ./textures/redbrick.xpm
-NO ./textures/minecraft.xpm
-SO ./textures/purplestone.xpm
-EA ./textures/wood.xpm
+WE ./textures/greystone.xpm
+NO ./textures/greystone.xpm
+SO ./textures/greystone.xpm
+EA ./textures/greystone.xpm
 
        
 1111111111111

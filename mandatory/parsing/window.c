@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 09:34:38 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/07/04 11:59:50 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/15 10:47:59 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,24 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+void load_texture(void *mlx, t_texture *tex, char *path) {
+    tex->img = mlx_xpm_file_to_image(mlx, path, &tex->width, &tex->height);
+    if (!tex->img)
+	{
+        print_error("Texture load failed");
+		exit(1);
+	}
+    tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_len, &tex->endian);
+	printf("load addr: %p\n", tex->addr);
+}
+
+void init_textures(t_mlx *mlx, t_data *data) {
+    load_texture(mlx->mlx, &mlx->tex_north, data->north);
+    load_texture(mlx->mlx, &mlx->tex_south, data->south);
+    load_texture(mlx->mlx, &mlx->tex_west, data->west);
+    load_texture(mlx->mlx, &mlx->tex_east, data->east);
+}
+
 int	window(t_data *data, t_free **free_nodes)
 {
 	t_mlx	*mlx;
@@ -57,6 +75,7 @@ int	window(t_data *data, t_free **free_nodes)
 	if (!mlx->addr)
 		return (mlx_destroy_image(mlx->mlx, mlx->img), \
 		mlx_destroy_window(mlx->mlx, mlx->win), 1);
+	init_textures(mlx, data);
 	render(data, mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 	window_hooks(mlx);

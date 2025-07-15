@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/06 10:42:37 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:04:36 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@
 #define HEIGHT 1080
 #define TITLE "Cub3D"
 #define MOVE_SPEED 0.3
+
+typedef struct s_texture {
+    void    *img;
+    char    *addr;
+    int     width;
+    int     height;
+    int     bpp;
+    int     line_len;
+    int     endian;
+}   t_texture;
 
 typedef struct s_pop
 {
@@ -85,6 +95,10 @@ typedef	struct s_mlx
 	int		line_length;
 	int		endian;
 	t_data	*data;
+	t_texture   tex_north;
+    t_texture   tex_south;
+    t_texture   tex_west;
+    t_texture   tex_east;
 }	t_mlx;
 
 
@@ -215,7 +229,7 @@ char	get_map_tile(t_data *data, int x, int y);
 
 //rays/ rays.c 
 void	draw_ray_on_minimap(t_mlx *mlx, t_data *data, t_ray *ray);
-void	draw_ray(t_data *data, int x, t_dda *dda, int color);
+void	draw_ray(t_data *data, int x, t_dda *dda, t_texture *tex, int tex_x);
 void	calculate_line(t_ray *ray, t_dda *dda);
 void	perform_dda(t_data *data, t_ray *ray);
 void	init_ray(t_data *data, t_ray *ray, int x);

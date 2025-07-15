@@ -6,45 +6,63 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/06 10:35:06 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:04:52 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-static void	render_3d_view(t_data *data)
-{
-	int		x;
-	int		color;
-	t_ray	ray;
-	t_dda	dda;
+static void render_3d_view(t_data *data) {
+    for (int x = 0; x < WIDTH; x++) {
+        t_ray ray;
+        t_dda dda;
+        
+        init_ray(data, &ray, x);
+        perform_dda(data, &ray);
+        calculate_line(&ray, &dda);
 
-	x = 0;
-	while (x < WIDTH)
-	{
-		init_ray(data, &ray, x);
-		perform_dda(data, &ray);
-		calculate_line(&ray, &dda);
-		
-		// Determine wall direction for color
-		if (ray.side == 0) // East/West walls
-		{
-			if (ray.step_x > 0)
-				color = 0xFF0000; // East wall (Red)
-			else
-				color = 0xFFFF00; // West wall (Yellow)
-		}
-		else // North/South walls
-		{
-			if (ray.step_y > 0)
-				color = 0x0000FF; // North wall (Blue)
-			else
-				color = 0x00FF00; // South wall (Green)
-		}
-		
-		draw_ray(data, x, &dda, color);
-		x++;
-	}
+        // Select texture based on wall direction
+        t_texture *tex;
+        if (ray.side == 0) 
+            tex = (ray.step_x > 0) ? &data->mlx->tex_east : &data->mlx->tex_west;
+        else 
+            tex = (ray.step_y > 0) ? &data->mlx->tex_south : &data->mlx->tex_north;
+
+        // Calculate wall hit position
+        float wall_x = (ray.side == 0) 
+            ? data->player_y + ray.perp_wall_dist * ray.ray_dir_y
+            : data->player_x + ray.perp_wall_dist * ray.ray_dir_x;
+        wall_x -= floor(wall_x);
+
+        // Calculate texture X coordinate
+        int tex_x = (int)(wall_x * tex->width);
+        if (tex_x < 0)
+            tex_x = 0;
+        else if ((ray.side == 0 && ray.ray_dir_x > 0) || (ray.side == 1 && ray.ray_dir_y < 0))
+            tex_x = tex->width - tex_x - 1;
+
+        // Draw vertical texture stripe
+        // float step = 1.0 * tex->height / dda.line_height;
+        // float tex_pos = (dda.draw_start - HEIGHT/2.0 + dda.line_height/2.0) * step;
+        
+        // for (int y = dda.draw_start; y < dda.draw_end; y++) {
+        //     int tex_y = (int)tex_pos;
+        //     tex_pos += step;  // Always advance texture position
+            
+        //     // Clamp texture Y coordinate
+        //     if (tex_y < 0)
+        //         tex_y = 0;
+        //     else if (tex_y >= tex->height)
+        //         tex_y = tex->height - 1;
+            
+        //     // Get color from texture
+        //     int color = *(int *)(tex->addr + 
+        //                  (tex_y * tex->line_len + tex_x * (tex->bpp / 8)));
+            
+        //     my_mlx_pixel_put(data->mlx, x, y, color);
+        // }
+		draw_ray(data, x, &dda, tex, tex_x);
+    }
 }
 
 static void	render_minimap(t_data *data, t_mlx *mlx)
