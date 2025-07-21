@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 10:42:00 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/15 11:58:19 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/21 10:29:05 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@
 
 void	calculate_line(t_ray *ray, t_dda *dda)
 {
-	// Height of the wall slice in pixels
-	dda->line_height = (int)(HEIGHT / ray->perp_wall_dist);
+	// l3bar dl7it, bachma kan wall dist sghir bachma kan l3bar dl7it kbir
+	dda->line_height = (int)(HEIGHT / ray->wall_dist);
 	
-	// Top pixel (start) of the wall slice
-	dda->draw_start = -dda->line_height / 2 + HEIGHT / 2;
+	// Top pixel (start) of the wall slice depart dl7it
+	dda->draw_start = HEIGHT / 2 - dda->line_height / 2; 
 	if (dda->draw_start < 0)
 		dda->draw_start = 0;
 
 	// Bottom pixel (end) of the wall slice
-	dda->draw_end = dda->line_height / 2 + HEIGHT / 2;
+	dda->draw_end =  HEIGHT / 2 + dda->line_height / 2;
 	if (dda->draw_end >= HEIGHT)
 		dda->draw_end = HEIGHT - 1;
 }
@@ -102,7 +102,7 @@ void	draw_ray_on_minimap(t_mlx *mlx, t_data *data, t_ray *ray)
 	
 	vars.step = 0.05; // world‑space step size
 	vars.dist = 0;
-	while (vars.dist < ray->perp_wall_dist && vars.dist < 10)
+	while (vars.dist < ray->wall_dist && vars.dist < 10)
 	{
 		/* advance along the ray */
 		vars.ray_x += ray->ray_dir_x * vars.step;

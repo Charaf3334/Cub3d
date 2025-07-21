@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/15 13:13:12 by ctoujana         ###   ########.fr       */
+/*   Created: 2025/02/23 12:07:42 by zguellou          #+#    #+#             */
+/*   Updated: 2025/07/21 10:42:29 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_ray
 	float	side_dist_y;
 	float	delta_dist_x;
 	float	delta_dist_y;
-	float	perp_wall_dist;
+	float	wall_dist;
 	int		map_x;
 	int		map_y;
 	int		step_x;

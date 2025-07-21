@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:16:30 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/07/04 11:42:32 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/21 11:07:39 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	assign_delta_x_y(t_ray *ray)
 void	init_ray_step_and_dist(t_ray *ray, t_data *data)
 {
 	/* X axis */
-	if (ray->ray_dir_x < 0)
+	if (ray->ray_dir_x < 0) //kichof fliser
 	{
-		ray->step_x = -1;
-		ray->side_dist_x = (data->player_x - ray->map_x) * ray->delta_dist_x;
+		ray->step_x = -1; //bach kanmovie ofo9iyan
+		ray->side_dist_x = (data->player_x - ray->map_x) * ray->delta_dist_x; //delta_x lmorba3 lmasafa axis x
 	}
-	else
+	else //liman
 	{
 		ray->step_x = 1;
 		ray->side_dist_x = (ray->map_x + 1.0 - data->player_x)
@@ -55,8 +55,8 @@ void	init_ray_step_and_dist(t_ray *ray, t_data *data)
 	/* Y axis */
 	if (ray->ray_dir_y < 0)
 	{
-		ray->step_y = -1;
-		ray->side_dist_y = (data->player_y - ray->map_y) * ray->delta_dist_y;
+		ray->step_y = -1; //3amodiyan
+		ray->side_dist_y = (data->player_y - ray->map_y) * ray->delta_dist_y; //delta y //side_dist_y hiya lmasafa dyal lplayer mn lposition dyalo lawal carreau
 	}
 	else
 	{
@@ -80,11 +80,10 @@ void	init_ray(t_data *data, t_ray *ray, int x)
 
 	/* camera_x ∈ [‑1, 1] maps pixel column to camera plane */
 	camera_x = 2 * x / (float)WIDTH - 1;
-
 	/* ray direction in world space */
 	ray->ray_dir_x = data->dir_x + data->plane_x * camera_x;
 	ray->ray_dir_y = data->dir_y + data->plane_y * camera_x;
-
+	
 	/* current grid square of the player */
 	ray->map_x = (int)data->player_x;
 	ray->map_y = (int)data->player_y;
@@ -98,7 +97,7 @@ void	init_ray(t_data *data, t_ray *ray, int x)
  * perform_dda:
  *   Classic Digital Differential Analyzer loop:
  *   Step from grid square to grid square along the ray until a wall ('1')
- *   is hit. After exiting, perp_wall_dist holds the distance to the wall and
+ *   is hit. After exiting, wall_dists the distance to the wall and
  *   ray->side indicates whether an X or Y side was hit (0 = X, 1 = Y).
  */
 
@@ -107,7 +106,7 @@ void	perform_dda(t_data *data, t_ray *ray)
 	while (!ray->hit)
 	{
 		/* Jump to next square in either X or Y direction */
-		if (ray->side_dist_x < ray->side_dist_y)
+		if (ray->side_dist_x < ray->side_dist_y)// ola dan lmasafa mabin position dlplayer o l7it fl x sgher mn lmasafa mabin position dlplayer o l7it fl y
 		{
 			ray->side_dist_x += ray->delta_dist_x;
 			ray->map_x += ray->step_x;
@@ -126,7 +125,8 @@ void	perform_dda(t_data *data, t_ray *ray)
 
 	 /* Compute perpendicular wall distance to avoid fish‑eye effect */
 	if (ray->side == 0)
-		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
+		ray->wall_dist = ray->side_dist_x - ray->delta_dist_x; //distance mabin lplayer ol wall
 	else
-		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
+		ray->wall_dist = ray->side_dist_y - ray->delta_dist_y;
+	printf("side: %s | wall_dist: %f\n", ray->side == 0 ? "x" : "y", ray->wall_dist);
 }

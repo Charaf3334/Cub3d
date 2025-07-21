@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/15 13:02:55 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/21 11:02:26 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,20 @@ static void render_3d_view(t_data *data)
 
         // Calculate wall hit position
 		if (vars.ray.side == 0)
-			vars.wall_x = data->player_y + vars.ray.perp_wall_dist * vars.ray.ray_dir_y;
+			vars.wall_x = data->player_y + vars.ray.wall_dist * vars.ray.ray_dir_y;
 		else
-			vars.wall_x = data->player_x + vars.ray.perp_wall_dist * vars.ray.ray_dir_x;
-        vars.wall_x -= floor(vars.wall_x);
+			vars.wall_x = data->player_x + vars.ray.wall_dist * vars.ray.ray_dir_x;
+        vars.wall_x -= (int)vars.wall_x; // it was floor(vars.wall_x)
 
-        // Calculate texture X coordinate
-        vars.tex_x = (int)(vars.wall_x * vars.tex->width);
-        if (vars.tex_x < 0)
-            vars.tex_x = 0;
-        else if ((vars.ray.side == 0 && vars.ray.ray_dir_x > 0) || (vars.ray.side == 1 && vars.ray.ray_dir_y < 0))
-            vars.tex_x = vars.tex->width - vars.tex_x - 1;
+		// Calculate texture X coordinate
+		vars.tex_x = (int)(vars.wall_x * vars.tex->width);
+		if (vars.tex_x < 0)
+			vars.tex_x = 0;
+		else if ((vars.ray.side == 0 && vars.ray.ray_dir_x > 0) || (vars.ray.side == 1 && vars.ray.ray_dir_y < 0))
+			vars.tex_x = vars.tex->width - vars.tex_x - 1;
 		draw_ray(data, x, &vars.dda, &vars);
 		x++;
-    }
+	}
 }
 
 static void	render_minimap(t_data *data, t_mlx *mlx)
