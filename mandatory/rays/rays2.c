@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:16:30 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/07/21 11:07:39 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/21 14:02:57 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,4 @@ void	perform_dda(t_data *data, t_ray *ray)
 		ray->wall_dist = ray->side_dist_x - ray->delta_dist_x; //distance mabin lplayer ol wall
 	else
 		ray->wall_dist = ray->side_dist_y - ray->delta_dist_y;
-	printf("side: %s | wall_dist: %f\n", ray->side == 0 ? "x" : "y", ray->wall_dist);
 }
