@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 09:34:38 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/07/21 14:13:00 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/28 11:01:17 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,15 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	load_texture(void *mlx, t_texture *tex, char *path) {
+int	load_texture(void *mlx, t_texture *tex, char *path) 
+{
     tex->img = mlx_xpm_file_to_image(mlx, path, &tex->width, &tex->height);
     if (!tex->img)
 	{
         print_error("Texture load failed");
 		return (1);
 	}
-    tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_len, &tex->endian);
+    tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_len, &tex->endian); // line_len = width * 4 bytes | bpp = byte_per_pixel = 8 bits * 4 num_of_bytes = 32
 	return (0);
 }
 

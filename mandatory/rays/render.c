@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/21 14:09:03 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/28 14:47:26 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,30 @@ static void render_3d_view(t_data *data)
 			vars.wall_x = data->player_y + vars.ray.wall_dist * vars.ray.ray_dir_y;
 		else
 			vars.wall_x = data->player_x + vars.ray.wall_dist * vars.ray.ray_dir_x;
-        vars.wall_x -= (int)vars.wall_x; // it was floor(vars.wall_x)
-
+        vars.wall_x -= (int)vars.wall_x; // it was floor(vars.wall_x), we remove the integer part, kankhliw gha li mora decimal point, bach n3rfo exact point f wall fin hita ray, matalan, ila ray hita f x = 3.72, wall_x = 0.72, hadchi ky3ni bli ray hita 72% dyal l7it
+		// printf("wall_x: %f\n", vars.wall_x);
 		// Calculate texture X coordinate
 		vars.tex_x = (int)(vars.wall_x * vars.tex->width);
-		if (vars.tex_x < 0)
-			vars.tex_x = 0;
-		else if ((vars.ray.side == 0 && vars.ray.ray_dir_x > 0) || (vars.ray.side == 1 && vars.ray.ray_dir_y < 0))
-			vars.tex_x = vars.tex->width - vars.tex_x - 1;
+		// printf("tex_x: %d\n", vars.tex_x);
+		// so ila mchina mea mital li 9bl, wall_x howa 0.72, so aykhsna n7wlo hadchi l pixel column f texture, so lakan width howa 100, 72% dyalha hia column 72;
+		
+		// had code t7tani galik kadiro bach mtkonch lek texture m9loba, tkhrbi9 w sf hh 
+		// if (vars.tex_x < 0)
+		// 	vars.tex_x = 0;
+		// else if ((vars.ray.side == 0 && vars.ray.ray_dir_x > 0) || (vars.ray.side == 1 && vars.ray.ray_dir_y < 0))
+		// 	vars.tex_x = vars.tex->width - vars.tex_x - 1;
 		draw_ray(data, x, &vars.dda, &vars);
 		x++;
 	}
 }
 
+int s = 0;
+
 static void	render_minimap(t_data *data, t_mlx *mlx)
 {
 	t_map	*map;
-	int		y;
-	int		x;
+	unsigned long		y;
+	unsigned long		x;
 	int		i;
 	int		color;
 
@@ -73,13 +79,7 @@ static void	render_minimap(t_data *data, t_mlx *mlx)
 		1 && (x = 0, i = 0);
 		while (map->line[i])
 		{
-			if (map->line[i] == '0')
-				color = 0xD2B48C; // Floor
-			else if (map->line[i] == '1')
-				color = 0x2F4F4F; // Wall
-			else
-				color = 0x000000; // Other
-			if (x * 20 > WIDTH || y * 20 > HEIGHT)
+			if (x * 20 >= WIDTH || y * 20 >= HEIGHT)
 			{
 				print_error("Screen width and height are too small");
 				mlx_destroy_image(mlx->mlx, mlx->img);
@@ -87,6 +87,12 @@ static void	render_minimap(t_data *data, t_mlx *mlx)
 				destroy_imgs(4, mlx);
 				cleanup_exit(data, data->free_nodes, 1);
 			}
+			if (map->line[i] == '0')
+				color = 0xD2B48C; // Floor
+			else if (map->line[i] == '1')
+				color = 0x2F4F4F; // Wall
+			else
+				color = 0x000000; // Other
 			draw_block(mlx, x * 20, y * 20, color);
 			1 && (x++, i++);
 		}
@@ -155,13 +161,15 @@ static void	render_player(t_data *data, t_mlx *mlx)
 // 		x += 20;
 // 	}
 // }
+int i = 0;
 void	render(t_data *data, t_mlx *mlx)
 {
+	printf("called %d\n", i++);
 	mlx_clear_window(mlx->mlx, mlx->win);
 	ft_memset(mlx->addr, 0, HEIGHT * mlx->line_length);
 	render_3d_view(data);
-	render_minimap(data, mlx);
-	render_player(data, mlx);
+	// render_minimap(data, mlx);
+	// render_player(data, mlx);
 	// render_direction_line(data, mlx);
 	// render_minimap_rays(data, mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);

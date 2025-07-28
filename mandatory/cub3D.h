@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/21 10:42:29 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/28 10:45:17 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #include <mlx.h>
 #include <math.h>
 
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 600
+#define HEIGHT 600
 #define TITLE "Cub3D"
 #define MOVE_SPEED 0.3
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 10:42:00 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/21 10:29:05 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/28 14:52:26 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,42 @@ void	draw_ray(t_data *data, int x, t_dda *dda, t_render *vars)
 		my_mlx_pixel_put(data->mlx, x, y, data->ceilling);
 		y++;
 	}
-	step = 1.0 * vars->tex->height / dda->line_height;
-	tex_pos = (dda->draw_start - HEIGHT / 2.0 + dda->line_height/2.0) * step;
+
+	// height = 600
+	// line_height = 200
+	// draw_start = 200
+
+	// tex_pos = (dda->draw_start - HEIGHT / 2.0 + dda->line_height / 2.0) * step;
+	
+	// 1. Center of the screen vertically
+	float screen_center = HEIGHT / 2.0; // center = 300
+
+	// 2. Center of the wall on screen
+	float wall_center = dda->line_height / 2.0; // center = 100
+
+	// 3. Vertical offset from screen center to where wall starts
+	float distance_from_center_to_start = dda->draw_start - screen_center; // 200 - 300 = -100
+
+	// 4. So now shift texture starting point by how far wall is from center
+	// This aligns the wall texture center to the wall slice on screen
+	float texture_start_offset = (distance_from_center_to_start + wall_center); // -100 + 100 = 0
+
+	// step = 1 * 64 / 200 = 0.32
+	step = 1.0 * vars->tex->height / dda->line_height; // for each pixel on screen, move step pixels down in the texture
+	
+	// 5. Multiply by 'step' to get actual texture coordinate (float)
+	tex_pos = texture_start_offset * step;
+
 	while (y <= dda->draw_end)
 	{
-		tex_y = (int)tex_pos;
-		tex_pos += step;  // Always advance texture position
+		tex_y = (int)tex_pos; // we convert to integer to fetch the pixel
+		tex_pos += step;  // Step by the ratio of texture_height / line_height
 		
-		// Clamp texture Y coordinate
+		// Clamp texture Y coordinate : hadi protection bach matkhrjch mn pixels dyal texture, katb9a tdor f range [0, tex->height - 1];
 		if (tex_y < 0)
 			tex_y = 0;
 		else if (tex_y >= vars->tex->height)
 			tex_y = vars->tex->height - 1;
-		
 		// Get color from texture
 		color = *(int *)(vars->tex->addr + 
 						(tex_y * vars->tex->line_len + vars->tex_x * (vars->tex->bpp / 8)));
