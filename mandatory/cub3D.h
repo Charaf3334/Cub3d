@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/21 10:42:29 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/30 10:09:57 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #define WIDTH 1920
 #define HEIGHT 1080
 #define TITLE "Cub3D"
-#define MOVE_SPEED 0.3
+#define MOVE_SPEED 0.1
 
 typedef struct s_dda
 {

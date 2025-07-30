@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:55:50 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/04 11:58:06 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/30 10:22:01 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	handle_keypress(int keycode, t_mlx *mlx)
 	{
 		mlx_destroy_image(mlx->mlx, mlx->img);
 		mlx_destroy_window(mlx->mlx, mlx->win);
+		destroy_imgs(4, mlx);
 		cleanup_exit(mlx->data, mlx->data->free_nodes, 0);
 	}
 	else if (keycode == 13) // W - Move forward in facing direction

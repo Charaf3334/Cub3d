@@ -1,28 +1,17 @@
-C 135,206,235
-F 75,75,75
+C 135,206,235    
+F 0,0,0 
 
 
-WE ./textures/wall_hrban.xpm
-NO ./textures/wall_hrban.xpm
-SO ./textures/wall_hrban.xpm
-EA ./textures/wall_hrban.xpm
+WE ./textures/wood.xpm
+NO ./textures/wood.xpm
+SO ./textures/wood.xpm
+EA ./textures/wood.xpm
 
        
 1111111111111
-1E00000000001
-1011111000101
-1000001000101
-1000001000101
-1000001000101
-1011111111101
-1010001000001
-1010001000001
-1010001000001
-1010001111101
 1000000000001
+1000000000001
+1000000000001
+1000000000001
+100000000N001
 1111111111111
-
-
-
-
-

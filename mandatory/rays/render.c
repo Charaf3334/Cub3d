@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/21 11:02:26 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/30 10:13:15 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ static void render_3d_view(t_data *data)
 			vars.wall_x = data->player_y + vars.ray.wall_dist * vars.ray.ray_dir_y;
 		else
 			vars.wall_x = data->player_x + vars.ray.wall_dist * vars.ray.ray_dir_x;
-        vars.wall_x -= (int)vars.wall_x; // it was floor(vars.wall_x)
-
+        vars.wall_x -= floor(vars.wall_x); // it was floor(vars.wall_x)
 		// Calculate texture X coordinate
 		vars.tex_x = (int)(vars.wall_x * vars.tex->width);
 		if (vars.tex_x < 0)
@@ -73,20 +72,20 @@ static void	render_minimap(t_data *data, t_mlx *mlx)
 		1 && (x = 0, i = 0);
 		while (map->line[i])
 		{
+			if (x * 20 >= WIDTH || y * 20 >= HEIGHT)
+			{
+				print_error("The map tried to escape the screen!");
+				mlx_destroy_image(mlx->mlx, mlx->img);
+				mlx_destroy_window(mlx->mlx, mlx->win);
+				destroy_imgs(4, mlx);
+				cleanup_exit(data, data->free_nodes, 1);
+			}
 			if (map->line[i] == '0')
 				color = 0xD2B48C; // Floor
 			else if (map->line[i] == '1')
 				color = 0x2F4F4F; // Wall
 			else
 				color = 0x000000; // Other
-			if (x * 20 > WIDTH || y * 20 > HEIGHT)
-			{
-				print_error("Screen width and height are too small");
-				mlx_destroy_image(mlx->mlx, mlx->img);
-				mlx_destroy_window(mlx->mlx, mlx->win);
-				destroy_imgs(4, mlx);
-				cleanup_exit(data, data->free_nodes, 1);
-			}
 			draw_block(mlx, x * 20, y * 20, color);
 			1 && (x++, i++);
 		}
