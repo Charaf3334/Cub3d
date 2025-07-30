@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/30 10:09:57 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/30 10:32:36 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #include <mlx.h>
 #include <math.h>
 
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 600
+#define HEIGHT 600
 #define TITLE "Cub3D"
 #define MOVE_SPEED 0.1
 
