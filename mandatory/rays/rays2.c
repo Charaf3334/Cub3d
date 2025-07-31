@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:16:30 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/07/30 10:32:17 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/30 13:53:58 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void init_ray(t_data *data, t_ray *ray, int x)
 	/* ray direction in world space */
 	ray->ray_dir_x = data->dir_x + data->plane_x * camera_x;
 	ray->ray_dir_y = data->dir_y + data->plane_y * camera_x;
-
+	
 	/* current grid square of the player */
 	ray->map_x = (int)data->player_x;
 	ray->map_y = (int)data->player_y;

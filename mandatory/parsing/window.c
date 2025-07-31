@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 09:34:38 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/07/30 10:31:41 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:32:03 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,15 @@ void my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-<<<<<<< HEAD
 int load_texture(void *mlx, t_texture *tex, char *path)
 {
 	tex->img = mlx_xpm_file_to_image(mlx, path, &tex->width, &tex->height);
 	if (!tex->img)
-=======
-int	load_texture(void *mlx, t_texture *tex, char *path) 
-{
-    tex->img = mlx_xpm_file_to_image(mlx, path, &tex->width, &tex->height);
-    if (!tex->img)
->>>>>>> 620201e39a56e53ae5a5e9c833e11c2e74728471
 	{
 		print_error("Texture load failed");
 		return (1);
 	}
-<<<<<<< HEAD
 	tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_len, &tex->endian);
-=======
-    tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_len, &tex->endian); // line_len = width * 4 bytes | bpp = byte_per_pixel = 8 bits * 4 num_of_bytes = 32
->>>>>>> 620201e39a56e53ae5a5e9c833e11c2e74728471
 	return (0);
 }
 

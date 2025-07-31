@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:22:20 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/21 09:42:15 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/31 10:00:37 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	set_player_direction(t_data *data, char direction)
 	if (direction == 'N')
 	{
 		data->player_dir = M_PI / 2;
-		data->dir_x = 0;
-		data->dir_y = -1;
+		data->dir_x = 0;  //cos (M_PI / 2)
+		data->dir_y = -1; //sin (M_PI / 2)
 	}
 	else if (direction == 'S')
 	{

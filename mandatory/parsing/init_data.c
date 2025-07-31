@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:47:14 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/04 11:23:57 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:35:12 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@ void	init_player_pos(t_data *data)
 int	init_data_helper(t_data *data, int fd, char *line)
 {
 	if (assign_redir_fds(data))
-		return (1);
+		return (close(fd), 1);
 	if (!data->map_ll)
-		return (print_error("Empty map"), 1);
+		return (print_error("Empty map"), close(fd), 1);
 	if (lltrim(&data->map_ll))
-		return (print_error("Empty map"), 1);
+		return (print_error("Empty map"), close(fd), 1);
 	if (check_map_valid(data))
-		return (1);
+		return (close(fd), 1);
 	init_player_pos(data);
 	get_next_line(-42);
 	close(fd);
@@ -121,7 +121,7 @@ int	init_data(t_data *data, char *file, t_free **free_nodes)
 		if (!line || !*line)
 		{
 			if (!line)
-				return (print_error("Empty file"), 1);
+				return (print_error("Empty file"), close(fd), 1);
 			else if (!*line)
 				free(line);
 			break ;

@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:55:50 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/30 10:22:01 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/31 10:40:31 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	move_player(t_mlx *mlx, float dx, float dy)
 	// Check collision in Y direction
 	if (get_map_tile(data, (int)data->player_x, (int)(new_y)) != '1')
 		data->player_y = new_y;
+	printf("player_x %f | player_y %f\n", data->player_x, data->player_y);
 }
 
 static void rotate_player(t_mlx *mlx, float angle)
@@ -36,11 +37,38 @@ static void rotate_player(t_mlx *mlx, float angle)
 	float	old_plane_x;
 
 	data = mlx->data;
-	old_dir_x = data->dir_x;
+	old_dir_x = data->dir_x; //tmp values
 	old_plane_x = data->plane_x;
 	// Rotate direction vector
+	// cos(0.1) 0.99 | sin(0.1) 0.099 
+	printf("before:\ndir_x %f | dir_y %f\n", data->dir_x, data->dir_y);
+
 	data->dir_x = data->dir_x * cos(angle) - data->dir_y * sin(angle);
 	data->dir_y = old_dir_x * sin(angle) + data->dir_y * cos(angle);
+	//north: dir_x 0 | dir_y -1 => dir_x 0.099 dir_y -0.99
+	//east:  dir_x 1 | dir_y 0  => dir_x 0.99  dir_y 0.099
+
+	if (data->dir_x > 0.999)
+	{
+		data->dir_x = 1;
+		data->dir_y = 0;
+	}
+	else if (data->dir_x < -0.999)
+	{
+		data->dir_x = -1;
+		data->dir_y = 0;
+	}
+	if (data->dir_y > 0.999)
+	{
+		data->dir_x = 0;
+		data->dir_y = 1;
+	}
+	else if (data->dir_y < -0.999)
+	{
+		data->dir_x = 0;
+		data->dir_y = -1;
+	}
+	printf("after:\ndir_x %f | dir_y %f\n", data->dir_x, data->dir_y);
 	// Rotate camera plane
 	data->plane_x = data->plane_x * cos(angle) - data->plane_y * sin(angle);
 	data->plane_y = old_plane_x * sin(angle) + data->plane_y * cos(angle);
