@@ -95,6 +95,9 @@ int	handle_keypress(int keycode, t_mlx *mlx)
 		mlx_destroy_image(mlx->mlx, mlx->img);
 		mlx_destroy_window(mlx->mlx, mlx->win);
 		destroy_imgs(4, mlx);
+		destroy_animations(ANIMATION_FRAMES, mlx);
+		mlx_destroy_display(mlx->mlx);
+		free(mlx->mlx);
 		cleanup_exit(mlx->data, mlx->data->free_nodes, 0);
 	}
 	return (0);

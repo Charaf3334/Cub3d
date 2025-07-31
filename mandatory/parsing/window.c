@@ -17,6 +17,9 @@ static int close_window_x(t_mlx *mlx)
 	mlx_destroy_image(mlx->mlx, mlx->img);
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	destroy_imgs(4, mlx);
+	destroy_animations(ANIMATION_FRAMES, mlx);
+	mlx_destroy_display(mlx->mlx);
+	free(mlx->mlx);
 	cleanup_exit(mlx->data, mlx->data->free_nodes, 0);
 	return (0);
 }
@@ -107,9 +110,11 @@ int init_textures(t_mlx *mlx, t_data *data)
 		return (destroy_imgs(3, mlx), 1);
 	while (i < ANIMATION_FRAMES)
 	{
-		path = ft_strjoin3("./textures/anim", ft_itoa(i), ".xpm", data->free_nodes);
+		char *itoa = ft_itoa(i);
+		path = ft_strjoin3("./textures/anim", itoa, ".xpm", data->free_nodes);
 		if (load_texture(mlx->mlx, &mlx->anim[i], path))
-			return (destroy_imgs(4, mlx), destroy_animations(i, mlx), 1);
+			return (free(itoa), destroy_imgs(4, mlx), destroy_animations(i, mlx), 1);
+		free(itoa);
 		i++;
 	}
 	return (0);
@@ -134,6 +139,7 @@ int window(t_data *data, t_free **free_nodes)
 		return (mlx_destroy_window(mlx->mlx, mlx->win), 1);
 	mlx->addr = mlx_get_data_addr(mlx->img,
 								  &mlx->bits_per_pixel, &mlx->line_length, &mlx->endian);
+	printf("zbi\n");
 	if (!mlx->addr)
 		return (mlx_destroy_image(mlx->mlx, mlx->img),
 				mlx_destroy_window(mlx->mlx, mlx->win), 1);

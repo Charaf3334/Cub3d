@@ -90,6 +90,9 @@ static void	render_minimap(t_data *data, t_mlx *mlx)
 				mlx_destroy_image(mlx->mlx, mlx->img);
 				mlx_destroy_window(mlx->mlx, mlx->win);
 				destroy_imgs(4, mlx);
+				destroy_animations(ANIMATION_FRAMES, mlx);
+				mlx_destroy_display(data->mlx->mlx);
+				free(data->mlx->mlx);
 				cleanup_exit(data, data->free_nodes, 1);
 			}
 			if (map->line[i] == '0')

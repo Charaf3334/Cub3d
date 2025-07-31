@@ -40,9 +40,6 @@ int	data_populate(char *str, t_free **free_nodes, t_data *data)
 
 int	populate_data(t_data *data, char *line, t_free **free_nodes, int *index)
 {
-	int	flag;
-
-	flag = 0;
 	if (*index < 6)
 	{
 		if (line && line[0] == '\n')

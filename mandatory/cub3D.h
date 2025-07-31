@@ -184,6 +184,7 @@ int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
 char	*ft_strjoin3(char *s1, char *s2, char *s3, t_free **free_nodes);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
+void	destroy_animations(int index, t_mlx *mlx);
 
 t_map	*ft_lstlast(t_map *lst);
 int		is_sep(char ch, char *c);

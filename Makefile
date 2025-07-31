@@ -11,8 +11,8 @@
 # **************************************************************************** #
 
 NAME = cub3D
-CFLAGS = -Wextra -Wall -Werror #-g3 -fsanitize=address 
-LINK = -lmlx -framework OpenGL -framework AppKit -lm
+CFLAGS = -Wextra -Wall -Werror -g3 -fsanitize=address 
+LINK = -lmlx -lX11 -lXext -lm
 MLX = MLX/libmlx.a
 
 SRCS =  mandatory/cub3D.c mandatory/free_nodes.c \
