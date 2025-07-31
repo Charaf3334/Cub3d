@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/31 16:02:55 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/31 16:32:12 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ static void	render_minimap(t_data *data, t_mlx *mlx)
 		1 && (x = 0, i = 0);
 		while (map->line[i])
 		{
-			// sleep(20);
 			if (x * 20 >= WIDTH || y * 20 >= HEIGHT)
 			{
 				print_error("The minimap tried to escape the screen!");
@@ -163,7 +162,6 @@ static void	render_minimap_rays(t_data *data, t_mlx *mlx)
 	perform_dda(data, &ray);
 	draw_ray_on_minimap(mlx, data, &ray);
 }
-
 
 void	render(t_data *data, t_mlx *mlx)
 {

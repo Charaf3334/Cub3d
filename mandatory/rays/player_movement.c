@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:55:50 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/31 16:00:35 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/31 16:26:14 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	move_player(t_mlx *mlx, float dx, float dy)
 	// Check collision in Y direction
 	if (get_map_tile(data, (int)data->player_x, (int)(new_y)) != '1')
 		data->player_y = new_y;
-	printf("player_x %f | player_y %f\n", data->player_x, data->player_y);
 }
 
 void rotate_player(t_mlx *mlx, float angle)
@@ -41,7 +40,7 @@ void rotate_player(t_mlx *mlx, float angle)
 	old_plane_x = data->plane_x;
 	// Rotate direction vector
 	// cos(0.1) 0.99 | sin(0.1) 0.099 
-	printf("before:\ndir_x %f | dir_y %f\n", data->dir_x, data->dir_y);
+	// printf("before:\ndir_x %f | dir_y %f\n", data->dir_x, data->dir_y);
 
 	data->dir_x = data->dir_x * cos(angle) - data->dir_y * sin(angle);
 	data->dir_y = old_dir_x * sin(angle) + data->dir_y * cos(angle);

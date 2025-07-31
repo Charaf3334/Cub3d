@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/31 16:02:15 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/31 16:34:28 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #define HEIGHT 1080
 #define TITLE "Cub3D"
 #define MOVE_SPEED 0.09
-#define SCALE 20
+#define SCALE 8
 #define W 13
 #define S 1
 #define A 2
