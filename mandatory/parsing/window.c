@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 09:34:38 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/07/31 11:32:03 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/31 15:59:53 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,32 @@ static int close_window_x(t_mlx *mlx)
 	return (0);
 }
 
+int update_game(t_mlx *mlx)
+{
+	t_data *data = mlx->data;
+
+	if (data->keys[W]) // W
+		move_player(mlx, data->dir_x * MOVE_SPEED, data->dir_y * MOVE_SPEED);
+	if (data->keys[S]) // S
+		move_player(mlx, -data->dir_x * MOVE_SPEED, -data->dir_y * MOVE_SPEED);
+	if (data->keys[A]) // A
+		move_player(mlx, -data->dir_y * MOVE_SPEED, data->dir_x * MOVE_SPEED);
+	if (data->keys[D]) // D
+		move_player(mlx, data->dir_y * MOVE_SPEED, -data->dir_x * MOVE_SPEED);
+	if (data->keys[LEFT_ARROW]) // Left arrow
+		rotate_player(mlx, -0.05);
+	if (data->keys[RIGHT_ARROW]) // Right arrow
+		rotate_player(mlx, 0.05);
+	render(mlx->data, mlx);
+	return (0);
+}
+
 static void window_hooks(t_mlx *mlx)
 {
 	mlx_hook(mlx->win, 2, 1, handle_keypress, mlx);
+	mlx_hook(mlx->win, 3, 2, handle_keyrelease, mlx);
 	mlx_hook(mlx->win, 17, 0, close_window_x, mlx);
+	mlx_loop_hook(mlx->mlx, update_game, mlx);
 }
 
 void my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
@@ -73,6 +95,28 @@ int init_textures(t_mlx *mlx, t_data *data)
 		return (destroy_imgs(2, mlx), 1);
 	if (load_texture(mlx->mlx, &mlx->tex_east, data->east))
 		return (destroy_imgs(3, mlx), 1);
+	if (load_texture(mlx->mlx, &mlx->anim[0], "./textures/anim0.xpm"))
+		return (destroy_imgs(4, mlx), 1);
+	load_texture(mlx->mlx, &mlx->anim[1], "./textures/anim1.xpm");
+	load_texture(mlx->mlx, &mlx->anim[2], "./textures/anim2.xpm");
+	load_texture(mlx->mlx, &mlx->anim[3], "./textures/anim3.xpm");
+	load_texture(mlx->mlx, &mlx->anim[4], "./textures/anim4.xpm");
+	load_texture(mlx->mlx, &mlx->anim[5], "./textures/anim5.xpm");
+	load_texture(mlx->mlx, &mlx->anim[6], "./textures/anim6.xpm");
+	load_texture(mlx->mlx, &mlx->anim[7], "./textures/anim7.xpm");
+	load_texture(mlx->mlx, &mlx->anim[8], "./textures/anim8.xpm");
+	load_texture(mlx->mlx, &mlx->anim[9], "./textures/anim9.xpm");
+	load_texture(mlx->mlx, &mlx->anim[10], "./textures/anim10.xpm");
+	load_texture(mlx->mlx, &mlx->anim[11], "./textures/anim11.xpm");
+	load_texture(mlx->mlx, &mlx->anim[12], "./textures/anim12.xpm");
+	load_texture(mlx->mlx, &mlx->anim[13], "./textures/anim13.xpm");
+	load_texture(mlx->mlx, &mlx->anim[14], "./textures/anim14.xpm");
+	load_texture(mlx->mlx, &mlx->anim[15], "./textures/anim15.xpm");
+	load_texture(mlx->mlx, &mlx->anim[16], "./textures/anim16.xpm");
+	load_texture(mlx->mlx, &mlx->anim[17], "./textures/anim17.xpm");
+	load_texture(mlx->mlx, &mlx->anim[18], "./textures/anim18.xpm");
+	load_texture(mlx->mlx, &mlx->anim[19], "./textures/anim19.xpm");
+	load_texture(mlx->mlx, &mlx->anim[20], "./textures/anim20.xpm");
 	return (0);
 }
 

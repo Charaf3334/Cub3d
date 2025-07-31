@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+         #
+#    By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/25 10:33:55 by ctoujana          #+#    #+#              #
-#    Updated: 2025/07/30 10:32:40 by zguellou         ###   ########.fr        #
+#    Updated: 2025/07/31 15:37:31 by ctoujana         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
-CFLAGS = #-Wextra -Wall -Werror #-g3 -fsanitize=address
+CFLAGS = -Wextra -Wall -Werror #-g3 -fsanitize=address 
 LINK = -lmlx -framework OpenGL -framework AppKit -lm
 MLX = MLX/libmlx.a
 
@@ -35,7 +35,7 @@ B_OBJS= $(B_SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS) 
-	cc $(CFLAGS) -o $(NAME) $(OBJS) $(LINK)
+	cc $(CFLAGS) -o $(NAME) $(OBJS)  $(LINK)
 #if header modified should everything recompile
 
 mandatory/%.o: mandatory/%.c ./mandatory/cub3D.h
