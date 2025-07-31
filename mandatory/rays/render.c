@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/30 10:32:31 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/31 15:56:53 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,22 @@ static void render_3d_view(t_data *data)
 				vars.tex = &data->mlx->tex_north;
 		}
 
-        // Calculate wall hit position
+        
+		// Calculate wall hit position
 		if (vars.ray.side == 0)
-			vars.wall_x = data->player_y + vars.ray.wall_dist * vars.ray.ray_dir_y;
+			vars.wall_x = data->player_y + vars.ray.wall_dist * vars.ray.ray_dir_y; // wall_x : howa coordinate bdept fin drb ray f dak grid '1' li howa l7it 
 		else
 			vars.wall_x = data->player_x + vars.ray.wall_dist * vars.ray.ray_dir_x;
+
+		
         vars.wall_x -= floor(vars.wall_x); // it was floor(vars.wall_x)
 		// Calculate texture X coordinate
 		vars.tex_x = (int)(vars.wall_x * vars.tex->width);
+		
+		// so tex_x hia column dyal texture mnin atbda trsm tal tex_y ... 
+		
+		
+		
 		// printf("tex_x: %d\n", vars.tex_x);
 		// so ila mchina mea mital li 9bl, wall_x howa 0.72, so aykhsna n7wlo hadchi l pixel column f texture, so lakan width howa 100, 72% dyalha hia column 72;
 		
@@ -61,15 +69,13 @@ static void render_3d_view(t_data *data)
 	}
 }
 
-int s = 0;
-
 static void	render_minimap(t_data *data, t_mlx *mlx)
 {
-	t_map	*map;
-	unsigned long		y;
-	unsigned long		x;
-	int		i;
-	int		color;
+	t_map			*map;
+	unsigned long	y;
+	unsigned long	x;
+	int				i;
+	int				color;
 
 	map = data->map_ll;
 	y = 0;
@@ -78,7 +84,7 @@ static void	render_minimap(t_data *data, t_mlx *mlx)
 		1 && (x = 0, i = 0);
 		while (map->line[i])
 		{
-			if (x * 20 >= WIDTH || y * 20 >= HEIGHT)
+			if (x * SCALE >= WIDTH || y * SCALE >= HEIGHT)
 			{
 				print_error("The map tried to escape the screen!");
 				mlx_destroy_image(mlx->mlx, mlx->img);
@@ -92,7 +98,7 @@ static void	render_minimap(t_data *data, t_mlx *mlx)
 				color = 0x2F4F4F; // Wall
 			else
 				color = 0x000000; // Other
-			draw_block(mlx, x * 20, y * 20, color);
+			draw_block(mlx, x * SCALE, y * SCALE, color);
 			1 && (x++, i++);
 		}
 		y++;
@@ -107,8 +113,8 @@ static void	render_player(t_data *data, t_mlx *mlx)
 	int	i;
 	int	j;
 
-	player_x = (int)(data->player_x * 20);
-	player_y = (int)(data->player_y * 20);
+	player_x = (int)(data->player_x * SCALE);
+	player_y = (int)(data->player_y * SCALE);
 	i = -2;
 	while (i <= 2)
 	{
@@ -146,31 +152,36 @@ static void	render_player(t_data *data, t_mlx *mlx)
 // 	}
 // }
 
-// static void	render_minimap_rays(t_data *data, t_mlx *mlx)
-// {
-// 	int		x;
-// 	t_ray	ray;
-
-// 	x = 0;
-// 	while (x < WIDTH)
-// 	{
-// 		init_ray(data, &ray, x);
-// 		perform_dda(data, &ray);
-// 		draw_ray_on_minimap(mlx, data, &ray);
-// 		x += 20;
-// 	}
-// }
-int i = 0;
-void	render(t_data *data, t_mlx *mlx)
+static void	render_minimap_rays(t_data *data, t_mlx *mlx)
 {
-	printf("called %d\n", i++);
-	mlx_clear_window(mlx->mlx, mlx->win);
-	ft_memset(mlx->addr, 0, HEIGHT * mlx->line_length);
-	render_3d_view(data);
-	// render_minimap(data, mlx);
-	// render_player(data, mlx);
-	// render_direction_line(data, mlx);
-	// render_minimap_rays(data, mlx);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+	int		x;
+	t_ray	ray;
+
+	x = (WIDTH / 2);
+	init_ray(data, &ray, x);
+	perform_dda(data, &ray);
+	draw_ray_on_minimap(mlx, data, &ray);
 }
 
+
+void	render(t_data *data, t_mlx *mlx)
+{
+	static int	timer = 0;
+	static int	frame = 0;
+	int			pos_x;
+	int			pos_y;
+
+	if (++timer >= 5)
+	{
+		timer = 0;
+		frame = (frame + 1) % 21;
+	}
+	render_3d_view(data);
+	render_minimap(data, mlx);
+	render_player(data, mlx);
+	render_minimap_rays(data, mlx);
+	pos_x = (WIDTH / 2) - (mlx->anim[frame].width / 10);
+	pos_y = HEIGHT - mlx->anim[frame].height;	
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim[frame].img, pos_x, pos_y);
+}

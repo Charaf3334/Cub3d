@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/30 10:32:36 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/31 15:46:44 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,17 @@
 #include <mlx.h>
 #include <math.h>
 
-#define WIDTH 600
-#define HEIGHT 600
+#define WIDTH 1900
+#define HEIGHT 1080
 #define TITLE "Cub3D"
-#define MOVE_SPEED 0.1
+#define MOVE_SPEED 0.09
+#define SCALE 20
+#define W 13
+#define S 1
+#define A 2
+#define D 0
+#define LEFT_ARROW 123
+#define RIGHT_ARROW 124
 
 typedef struct s_dda
 {
@@ -112,11 +119,12 @@ typedef struct s_data
 	float	player_x;
 	float	player_y;
 
-	float player_dir;   // Player direction (angle in radians)
-    float dir_x;        // Direction vector x
-    float dir_y;        // Direction vector y
-    float plane_x;      // Camera plane x
-    float plane_y;      // Camera plane y
+	float	player_dir;
+    float	dir_x;        
+    float	dir_y;        
+    float	plane_x;      
+    float	plane_y;      
+	int		keys[256];
 }   t_data;
 
 typedef	struct s_mlx
@@ -133,6 +141,7 @@ typedef	struct s_mlx
     t_texture   tex_south;
     t_texture   tex_west;
     t_texture   tex_east;
+    t_texture   anim[21];
 }	t_mlx;
 
 
@@ -250,6 +259,9 @@ void	render(t_data *data, t_mlx *mlx);
 
 //player_movement
 int	handle_keypress(int keycode, t_mlx *mlx);
+int handle_keyrelease(int keycode, t_mlx *mlx);
+void	move_player(t_mlx *mlx, float dx, float dy);
+void rotate_player(t_mlx *mlx, float angle);
 
 //map_utils
 char	get_map_tile(t_data *data, int x, int y);

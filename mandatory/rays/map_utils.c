@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:59:00 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/18 11:51:45 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/31 10:40:58 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	draw_block(t_mlx *mlx, int x, int y, int color)
 	int	j;
 
 	i = 0;
-	while (i < 20)
+	while (i < SCALE)
 	{
 		j = 0;
-		while (j < 20)
+		while (j < SCALE)
 		{
 			my_mlx_pixel_put(mlx, x + i, y + j, color);
 			j++;
