@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 09:34:38 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/07/31 15:59:53 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/07/31 17:25:28 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,18 @@ void destroy_imgs(int index, t_mlx *mlx)
 		mlx_destroy_image(mlx->mlx, arr[i++]);
 }
 
+void	destroy_animations(int index, t_mlx *mlx)
+{
+	while (--index >= 0)
+		mlx_destroy_image(mlx->mlx, mlx->anim[index].img);
+}
+
 int init_textures(t_mlx *mlx, t_data *data)
 {
+	int		i;
+	char	*path;
+
+	i = 0;
 	if (load_texture(mlx->mlx, &mlx->tex_north, data->north))
 		return (1);
 	if (load_texture(mlx->mlx, &mlx->tex_south, data->south))
@@ -95,28 +105,13 @@ int init_textures(t_mlx *mlx, t_data *data)
 		return (destroy_imgs(2, mlx), 1);
 	if (load_texture(mlx->mlx, &mlx->tex_east, data->east))
 		return (destroy_imgs(3, mlx), 1);
-	if (load_texture(mlx->mlx, &mlx->anim[0], "./textures/anim0.xpm"))
-		return (destroy_imgs(4, mlx), 1);
-	load_texture(mlx->mlx, &mlx->anim[1], "./textures/anim1.xpm");
-	load_texture(mlx->mlx, &mlx->anim[2], "./textures/anim2.xpm");
-	load_texture(mlx->mlx, &mlx->anim[3], "./textures/anim3.xpm");
-	load_texture(mlx->mlx, &mlx->anim[4], "./textures/anim4.xpm");
-	load_texture(mlx->mlx, &mlx->anim[5], "./textures/anim5.xpm");
-	load_texture(mlx->mlx, &mlx->anim[6], "./textures/anim6.xpm");
-	load_texture(mlx->mlx, &mlx->anim[7], "./textures/anim7.xpm");
-	load_texture(mlx->mlx, &mlx->anim[8], "./textures/anim8.xpm");
-	load_texture(mlx->mlx, &mlx->anim[9], "./textures/anim9.xpm");
-	load_texture(mlx->mlx, &mlx->anim[10], "./textures/anim10.xpm");
-	load_texture(mlx->mlx, &mlx->anim[11], "./textures/anim11.xpm");
-	load_texture(mlx->mlx, &mlx->anim[12], "./textures/anim12.xpm");
-	load_texture(mlx->mlx, &mlx->anim[13], "./textures/anim13.xpm");
-	load_texture(mlx->mlx, &mlx->anim[14], "./textures/anim14.xpm");
-	load_texture(mlx->mlx, &mlx->anim[15], "./textures/anim15.xpm");
-	load_texture(mlx->mlx, &mlx->anim[16], "./textures/anim16.xpm");
-	load_texture(mlx->mlx, &mlx->anim[17], "./textures/anim17.xpm");
-	load_texture(mlx->mlx, &mlx->anim[18], "./textures/anim18.xpm");
-	load_texture(mlx->mlx, &mlx->anim[19], "./textures/anim19.xpm");
-	load_texture(mlx->mlx, &mlx->anim[20], "./textures/anim20.xpm");
+	while (i < ANIMATION_FRAMES)
+	{
+		path = ft_strjoin3("./textures/anim", ft_itoa(i), ".xpm", data->free_nodes);
+		if (load_texture(mlx->mlx, &mlx->anim[i], path))
+			return (destroy_imgs(4, mlx), destroy_animations(i, mlx), 1);
+		i++;
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/31 16:34:28 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/31 17:17:51 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 #define D 0
 #define LEFT_ARROW 123
 #define RIGHT_ARROW 124
+#define ANIMATION_FRAMES 21
 
 typedef struct s_dda
 {
@@ -141,7 +142,7 @@ typedef	struct s_mlx
     t_texture   tex_south;
     t_texture   tex_west;
     t_texture   tex_east;
-    t_texture   anim[21];
+    t_texture   anim[ANIMATION_FRAMES];
 }	t_mlx;
 
 
@@ -180,6 +181,9 @@ char	*ft_substr(char *s, unsigned int start, size_t len);
 char	**ft_split_libft(char *str, char *c, t_free **free_nodes);
 char	*ft_strtrim(char *s1, char *set);
 int		ft_atoi(const char *str);
+char	*ft_itoa(int n);
+char	*ft_strjoin3(char *s1, char *s2, char *s3, t_free **free_nodes);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
 
 t_map	*ft_lstlast(t_map *lst);
 int		is_sep(char ch, char *c);

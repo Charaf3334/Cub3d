@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/31 16:32:12 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/07/31 17:08:33 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,15 +165,22 @@ static void	render_minimap_rays(t_data *data, t_mlx *mlx)
 
 void	render(t_data *data, t_mlx *mlx)
 {
-	static int	timer = 0;
-	static int	frame = 0;
+	static int	timer;
+	static int	frame;
+	static int	initialized;
 	int			pos_x;
 	int			pos_y;
 
+	if (!initialized)
+	{
+		timer = 0;
+		frame = 0;
+		initialized = 1;
+	}
 	if (++timer >= 5)
 	{
 		timer = 0;
-		frame = (frame + 1) % 21;
+		frame = (frame + 1) % ANIMATION_FRAMES;
 	}
 	render_3d_view(data);
 	render_minimap(data, mlx);
