@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:55:50 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/31 16:26:14 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:48:25 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	move_player(t_mlx *mlx, float dx, float dy)
 		data->player_y = new_y;
 }
 
-void rotate_player(t_mlx *mlx, float angle)
+void	rotate_player(t_mlx *mlx, float angle)
 {
 	t_data	*data;
 	float	old_dir_x;
@@ -72,32 +72,29 @@ void rotate_player(t_mlx *mlx, float angle)
 	// Update player direction angle
 	data->player_dir += angle;
 	// Normalize angle between 0 and 2π
-	if (data->player_dir < 0)
-		data->player_dir += 2 * M_PI;
-	if (data->player_dir > 2 * M_PI)
-		data->player_dir -= 2 * M_PI;
+	// if (data->player_dir < 0) // hadi lach asln kayna hh
+	// 	data->player_dir += 2 * M_PI;
+	// if (data->player_dir > 2 * M_PI)
+	// 	data->player_dir -= 2 * M_PI;
 }
 
-int handle_keyrelease(int keycode, t_mlx *mlx)
+int	handle_keyrelease(int keycode, t_mlx *mlx)
 {
 	if (keycode >= 0 && keycode < 256)
 		mlx->data->keys[keycode] = 0;
 	return (0);
 }
 
-// Update the key handling in handle_keypress
 int	handle_keypress(int keycode, t_mlx *mlx)
 {
 	if (keycode >= 0 && keycode < 256)
 		mlx->data->keys[keycode] = 1;
-	if (keycode == 53) // ESC
+	if (keycode == ESC)
 	{
 		mlx_destroy_image(mlx->mlx, mlx->img);
 		mlx_destroy_window(mlx->mlx, mlx->win);
 		destroy_imgs(4, mlx);
 		destroy_animations(ANIMATION_FRAMES, mlx);
-		mlx_destroy_display(mlx->mlx);
-		free(mlx->mlx);
 		cleanup_exit(mlx->data, mlx->data->free_nodes, 0);
 	}
 	return (0);

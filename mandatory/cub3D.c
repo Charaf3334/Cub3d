@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:35:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/31 11:28:25 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:28:58 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_ext(char *str, char *extension)
 	{
 		if (str[i] == '.')
 		{
-			if (i == 0 && !ft_strcmp(&str[i], extension)) //..cub
+			if (i == 0 && !ft_strcmp(&str[i], extension))
 				return (1);
 			else if (i > 0 && !ft_strcmp(&str[i], extension))
 				return (0);
@@ -46,17 +46,16 @@ static int	check_args(int ac, char **av)
 	return (0);
 }
 
-// void f()
-// {
-// 	system("leaks cub3D");
-// }
+void f() {
+	system("leaks cub3D");
+}
 
 int	main(int ac, char **av)
 {
 	t_data	data;
 	t_free	*free_nodes;
 
-	// atexit(f);
+	atexit(f);
 	free_nodes = NULL;
 	if (check_args(ac, av))
 		return (1);

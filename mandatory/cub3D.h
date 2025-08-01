@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/31 17:17:51 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:45:43 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #define HEIGHT 1080
 #define TITLE "Cub3D"
 #define MOVE_SPEED 0.09
+#define ROTATE_ANGLE 0.05
 #define SCALE 8
 #define W 13
 #define S 1
@@ -31,6 +32,7 @@
 #define D 0
 #define LEFT_ARROW 123
 #define RIGHT_ARROW 124
+#define ESC 53
 #define ANIMATION_FRAMES 21
 
 typedef struct s_dda
@@ -121,10 +123,10 @@ typedef struct s_data
 	float	player_y;
 
 	float	player_dir;
-    float	dir_x;        
-    float	dir_y;        
-    float	plane_x;      
-    float	plane_y;      
+    float	dir_x;
+    float	dir_y;
+    float	plane_x;
+    float	plane_y;
 	int		keys[256];
 }   t_data;
 
@@ -251,6 +253,9 @@ int		window(t_data *data, t_free **free_nodes);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 char	get_map_tile(t_data *data, int x, int y);
 void	destroy_imgs(int index, t_mlx *mlx);
+
+void	window_hooks(t_mlx *mlx);
+int	load_texture(void *mlx, t_texture *tex, char *path);
 
 //rays/ rays.c 
 void	draw_ray_on_minimap(t_mlx *mlx, t_data *data, t_ray *ray);

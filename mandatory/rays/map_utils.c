@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:59:00 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/31 10:40:58 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:42:04 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	get_map_tile(t_data *data, int x, int y)
 		i++;
 	}
 	if (!row || x < 0 || x >= (int)ft_strlen(row->line))
-		return ('1'); // Treat out-of-bounds as wall
+		return ('1');
 	return (row->line[x]);
 }
 

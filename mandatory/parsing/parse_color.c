@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:04:18 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/28 10:43:08 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/01 12:29:49 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	parse_color(t_data *data, char *str, t_free **free_nodes, char c)
 	int		num;
 
 	if (ft_strlen(str) < 5)
-		return (print_error("len below 5"), 1);
+		return (print_error("Len below 5"), 1);
 	if (ft_strlen_char(str, ',') != 2)
 		return (print_error("Invalid color format: need exactly 2 commas"), 1);
 	strs = ft_split_libft(str, ",", free_nodes);

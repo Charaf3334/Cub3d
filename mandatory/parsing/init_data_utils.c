@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 10:32:49 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/07/06 10:11:29 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/01 11:22:47 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,33 +80,5 @@ int	directions_populate(t_pop *vars, t_data *data, t_free **free_nodes)
 		data->east = strs[1];
 	else if (strs[1] && !ft_strcmp("SO", strs[0]))
 		data->south = strs[1];
-	return (0);
-}
-
-int	redir_fds_init(t_data *data, char *arr[])
-{
-	arr[0] = data->north;
-	arr[1] = data->south;
-	arr[2] = data->west;
-	arr[3] = data->east;
-	return (1);
-}
-
-int	assign_redir_fds(t_data *data)
-{
-	int		fd_tmp;
-	char	*arr[4];
-	int		i;
-
-	1 && (i = -1, redir_fds_init(data, arr));
-	while (++i < 4)
-	{
-		if (!arr[i])
-			return (print_error("Empty File"), 1);
-		fd_tmp = open(arr[i], O_RDONLY, 0644);
-		if (fd_tmp == -1)
-			return (perror(arr[i]), 1);
-		close(fd_tmp);
-	}
 	return (0);
 }

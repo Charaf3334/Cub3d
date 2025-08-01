@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:10:08 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/28 10:41:59 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:13:48 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	check_map_vertic_closed(t_map *head)
 	int		i;
 	t_map	*curr;
 
-	i = 0;
 	curr = head;
 	while (curr)
 	{
@@ -65,13 +64,12 @@ int	check_map_vertic_closed(t_map *head)
 			if (!curr->line[i])
 				break ;
 			if (handle_previous_lines(curr, i))
-				return (print_error("Unclosed map fo9"), 1); // hadi atms7
+				return (print_error("Map above not closed"), 1);
 			if (handle_next_lines(curr, i))
-				return (print_error("Unclosed map lte7t"), 1);
+				return (print_error("Map below not closed"), 1);
 			i++;
 		}
 		curr = curr->next;
-		i++;
 	}
 	return (0);
 }

@@ -6,84 +6,22 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 09:34:38 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/07/31 17:25:28 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:38:40 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-static int close_window_x(t_mlx *mlx)
+void	destroy_imgs(int index, t_mlx *mlx)
 {
-	mlx_destroy_image(mlx->mlx, mlx->img);
-	mlx_destroy_window(mlx->mlx, mlx->win);
-	destroy_imgs(4, mlx);
-	destroy_animations(ANIMATION_FRAMES, mlx);
-	mlx_destroy_display(mlx->mlx);
-	free(mlx->mlx);
-	cleanup_exit(mlx->data, mlx->data->free_nodes, 0);
-	return (0);
-}
-
-int update_game(t_mlx *mlx)
-{
-	t_data *data = mlx->data;
-
-	if (data->keys[W]) // W
-		move_player(mlx, data->dir_x * MOVE_SPEED, data->dir_y * MOVE_SPEED);
-	if (data->keys[S]) // S
-		move_player(mlx, -data->dir_x * MOVE_SPEED, -data->dir_y * MOVE_SPEED);
-	if (data->keys[A]) // A
-		move_player(mlx, -data->dir_y * MOVE_SPEED, data->dir_x * MOVE_SPEED);
-	if (data->keys[D]) // D
-		move_player(mlx, data->dir_y * MOVE_SPEED, -data->dir_x * MOVE_SPEED);
-	if (data->keys[LEFT_ARROW]) // Left arrow
-		rotate_player(mlx, -0.05);
-	if (data->keys[RIGHT_ARROW]) // Right arrow
-		rotate_player(mlx, 0.05);
-	render(mlx->data, mlx);
-	return (0);
-}
-
-static void window_hooks(t_mlx *mlx)
-{
-	mlx_hook(mlx->win, 2, 1, handle_keypress, mlx);
-	mlx_hook(mlx->win, 3, 2, handle_keyrelease, mlx);
-	mlx_hook(mlx->win, 17, 0, close_window_x, mlx);
-	mlx_loop_hook(mlx->mlx, update_game, mlx);
-}
-
-void my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
-{
-	char *dst;
-
-	dst = mlx->addr + (y * mlx->line_length + x *
-												  (mlx->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
-}
-
-int load_texture(void *mlx, t_texture *tex, char *path)
-{
-	tex->img = mlx_xpm_file_to_image(mlx, path, &tex->width, &tex->height);
-	if (!tex->img)
-	{
-		print_error("Texture load failed");
-		return (1);
-	}
-	tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_len, &tex->endian);
-	return (0);
-}
-
-void destroy_imgs(int index, t_mlx *mlx)
-{
-	void *arr[4];
-	int i;
+	void	*arr[4];
+	int		i;
 
 	i = 0;
 	arr[0] = mlx->tex_north.img;
 	arr[1] = mlx->tex_south.img;
 	arr[2] = mlx->tex_west.img;
 	arr[3] = mlx->tex_east.img;
-
 	while (i < index)
 		mlx_destroy_image(mlx->mlx, arr[i++]);
 }
@@ -94,10 +32,11 @@ void	destroy_animations(int index, t_mlx *mlx)
 		mlx_destroy_image(mlx->mlx, mlx->anim[index].img);
 }
 
-int init_textures(t_mlx *mlx, t_data *data)
+int	init_textures(t_mlx *mlx, t_data *data)
 {
 	int		i;
 	char	*path;
+	char	*index;
 
 	i = 0;
 	if (load_texture(mlx->mlx, &mlx->tex_north, data->north))
@@ -110,21 +49,27 @@ int init_textures(t_mlx *mlx, t_data *data)
 		return (destroy_imgs(3, mlx), 1);
 	while (i < ANIMATION_FRAMES)
 	{
-		char *itoa = ft_itoa(i);
-		path = ft_strjoin3("./textures/anim", itoa, ".xpm", data->free_nodes);
+		index = ft_itoa(i);
+		path = ft_strjoin3("./textures/anim", index, ".xpm", data->free_nodes);
 		if (load_texture(mlx->mlx, &mlx->anim[i], path))
-			return (free(itoa), destroy_imgs(4, mlx), destroy_animations(i, mlx), 1);
-		free(itoa);
+			return (free(index), destroy_imgs(4, mlx),
+				destroy_animations(i, mlx), 1);
+		free(index);
 		i++;
 	}
 	return (0);
 }
 
-int window(t_data *data, t_free **free_nodes)
+void	render_and_hooks(t_data *data, t_mlx *mlx)
 {
-	t_mlx *mlx;
+	render(data, mlx);
+	window_hooks(mlx);
+}
 
-	mlx = NULL;
+int	window(t_data *data, t_free **free_nodes)
+{
+	t_mlx	*mlx;
+
 	data->mlx = ft_malloc(sizeof(t_mlx), free_nodes);
 	mlx = data->mlx;
 	mlx->data = data;
@@ -138,17 +83,14 @@ int window(t_data *data, t_free **free_nodes)
 	if (!mlx->img)
 		return (mlx_destroy_window(mlx->mlx, mlx->win), 1);
 	mlx->addr = mlx_get_data_addr(mlx->img,
-								  &mlx->bits_per_pixel, &mlx->line_length, &mlx->endian);
-	printf("zbi\n");
+			&mlx->bits_per_pixel, &mlx->line_length, &mlx->endian);
 	if (!mlx->addr)
 		return (mlx_destroy_image(mlx->mlx, mlx->img),
-				mlx_destroy_window(mlx->mlx, mlx->win), 1);
+			mlx_destroy_window(mlx->mlx, mlx->win), 1);
 	if (init_textures(mlx, data))
 		return (mlx_destroy_image(mlx->mlx, mlx->img),
-				mlx_destroy_window(mlx->mlx, mlx->win), 1);
-	render(data, mlx);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
-	window_hooks(mlx);
+			mlx_destroy_window(mlx->mlx, mlx->win), 1);
+	render_and_hooks(data, mlx);
 	mlx_loop(mlx->mlx);
 	return (0);
 }

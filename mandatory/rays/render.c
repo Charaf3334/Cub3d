@@ -6,13 +6,13 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/31 17:08:33 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:49:12 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-static void render_3d_view(t_data *data)
+static void	render_3d_view(t_data *data)
 {
 	int			x;
 	t_render	vars;
@@ -23,8 +23,6 @@ static void render_3d_view(t_data *data)
         init_ray(data, &vars.ray, x);
         perform_dda(data, &vars.ray);
         calculate_line(&vars.ray, &vars.dda);
-
-        // Select texture based on wall direction
         if (vars.ray.side == 0)
 		{
 			if (vars.ray.step_x > 0)
@@ -39,9 +37,6 @@ static void render_3d_view(t_data *data)
 			else
 				vars.tex = &data->mlx->tex_north;
 		}
-
-        
-		// Calculate wall hit position
 		if (vars.ray.side == 0)
 			vars.wall_x = data->player_y + vars.ray.wall_dist * vars.ray.ray_dir_y; // wall_x : howa coordinate bdept fin drb ray f dak grid '1' li howa l7it 
 		else
@@ -69,6 +64,7 @@ static void render_3d_view(t_data *data)
 	}
 }
 
+
 static void	render_minimap(t_data *data, t_mlx *mlx)
 {
 	t_map			*map;
@@ -84,23 +80,12 @@ static void	render_minimap(t_data *data, t_mlx *mlx)
 		1 && (x = 0, i = 0);
 		while (map->line[i])
 		{
-			if (x * 20 >= WIDTH || y * 20 >= HEIGHT)
-			{
-				print_error("The minimap tried to escape the screen!");
-				mlx_destroy_image(mlx->mlx, mlx->img);
-				mlx_destroy_window(mlx->mlx, mlx->win);
-				destroy_imgs(4, mlx);
-				destroy_animations(ANIMATION_FRAMES, mlx);
-				mlx_destroy_display(data->mlx->mlx);
-				free(data->mlx->mlx);
-				cleanup_exit(data, data->free_nodes, 1);
-			}
 			if (map->line[i] == '0')
-				color = 0xD2B48C; // Floor
+				color = 0xD2B48C;
 			else if (map->line[i] == '1')
-				color = 0x2F4F4F; // Wall
+				color = 0x2F4F4F;
 			else
-				color = 0x000000; // Other
+				color = 0x000000;
 			draw_block(mlx, x * SCALE, y * SCALE, color);
 			1 && (x++, i++);
 		}

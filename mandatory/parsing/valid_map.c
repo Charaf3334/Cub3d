@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:23:00 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/28 10:44:04 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:41:17 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,26 @@ static int	check_map_chars(char *line, int *flag)
 static int	validate_map_lines(t_map *head)
 {
 	int	i;
+	int	j;
 
+	j = 0;
 	while (head)
 	{
 		i = 0;
 		while (is_sep(head->line[i], " \t\n\v\f\r01NSWE"))
 			i++;
+		if (i * SCALE >= WIDTH || j * SCALE >= HEIGHT)
+		{
+			print_error("The minimap tried to escape the screen!");
+			return (1);
+		}
 		if (!head->next)
 			break ;
 		else if (!head->line[i])
 			head = head->next;
 		else
 			return (print_error("Invalid map"), 1);
+		j++;
 	}
 	if (!head)
 		return (print_error("Invalid map"), 1);

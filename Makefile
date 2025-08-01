@@ -6,17 +6,17 @@
 #    By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/25 10:33:55 by ctoujana          #+#    #+#              #
-#    Updated: 2025/07/31 17:17:36 by ctoujana         ###   ########.fr        #
+#    Updated: 2025/08/01 13:40:15 by ctoujana         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
-CFLAGS = -Wextra -Wall -Werror -g3 -fsanitize=address 
-LINK = -lmlx -lX11 -lXext -lm
+CFLAGS = -Wextra -Wall -Werror #-g3 -fsanitize=address 
+LINK = -lmlx -framework OpenGL -framework AppKit -lm
 MLX = MLX/libmlx.a
 
 SRCS =  mandatory/cub3D.c mandatory/free_nodes.c \
-		mandatory/parsing/init_data.c mandatory/parsing/window.c mandatory/parsing/init_data_utils.c  mandatory/parsing/map_horiz_lines.c  mandatory/parsing/map_vert_lines.c\
+		mandatory/parsing/init_data.c mandatory/parsing/window.c mandatory/parsing/window_utils1.c mandatory/parsing/init_data_utils.c mandatory/parsing/init_data_utils2.c  mandatory/parsing/map_horiz_lines.c  mandatory/parsing/map_vert_lines.c\
 		mandatory/parsing/parse_color.c mandatory/parsing/valid_map.c mandatory/parsing/map_ll.c \
 		mandatory/parsing/init_player_dir.c \
 		utils/libft/ft_strcmp.c utils/libft/ft_itoa.c utils/libft/ft_memcpy.c utils/libft/ft_strjoin3.c utils/libft/ft_strchr.c utils/libft/ft_memset.c utils/libft/ft_strtrim.c \
