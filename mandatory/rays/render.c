@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/01 13:49:12 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:35:56 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,43 @@ static void	render_player(t_data *data, t_mlx *mlx)
 		i++;
 	}
 }
+static void	render_cross(t_data *data, t_mlx *mlx)
+{
+	(void) data;
+	int	middle_x;
+	int	middle_y;
+	int	i;
+	int	j;
+
+	middle_x = WIDTH / 2;
+	middle_y = HEIGHT / 2;
+	i = -10;
+	while (i <= 10)
+	{
+		j = -10;
+		while (j <= 13)
+		{
+			my_mlx_pixel_put(mlx, middle_x, middle_y + j, 0xFFFF00);
+			my_mlx_pixel_put(mlx, middle_x + 1, middle_y + j, 0xFFFF00);
+			my_mlx_pixel_put(mlx, middle_x + 2, middle_y + j, 0xFFFF00);
+			j++;
+		}
+		i++;
+	}
+	i = -10;
+	while (i <= 13)
+	{
+		j = -10;
+		while (j <= 10)
+		{
+			my_mlx_pixel_put(mlx, middle_x + i, middle_y, 0xFFFF00);
+			my_mlx_pixel_put(mlx, middle_x + i, middle_y + 1, 0xFFFF00);
+			my_mlx_pixel_put(mlx, middle_x + i, middle_y + 2, 0xFFFF00);
+			j++;
+		}
+		i++;
+	}
+}
 
 // static void	render_direction_line(t_data *data, t_mlx *mlx)
 // {
@@ -174,7 +211,8 @@ void	render(t_data *data, t_mlx *mlx)
 	render_minimap(data, mlx);
 	render_player(data, mlx);
 	render_minimap_rays(data, mlx);
-	pos_x = (WIDTH / 2) - (mlx->anim[frame].width / 10);
+	render_cross(data, mlx);
+	pos_x = (WIDTH / 2) - (mlx->anim[frame].width / 12);
 	pos_y = HEIGHT - mlx->anim[frame].height;	
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim[frame].img, pos_x, pos_y);
