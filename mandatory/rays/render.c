@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 09:35:43 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 09:48:13 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,16 +200,16 @@ static void	render_cross(t_data *data, t_mlx *mlx)
 // 	}
 // }
 
-// static void	render_minimap_rays(t_data *data, t_mlx *mlx)
-// {
-// 	int		x;
-// 	t_ray	ray;
+static void	render_minimap_rays(t_data *data, t_mlx *mlx)
+{
+	int		x;
+	t_ray	ray;
 
-// 	x = (MINIMAP_SIZE / 2);
-// 	init_ray(data, &ray, x);
-// 	perform_dda(data, &ray);
-// 	draw_ray_on_minimap(mlx, data, &ray);
-// }
+	x = (WIDTH/ 2);
+	init_ray(data, &ray, x);
+	perform_dda(data, &ray);
+	draw_ray_on_minimap(mlx, data, &ray);
+}
 
 void	render(t_data *data, t_mlx *mlx)
 {
@@ -233,7 +233,7 @@ void	render(t_data *data, t_mlx *mlx)
 	render_3d_view(data);
 	render_minimap(data, mlx);
 	render_player(data, mlx);
-	// render_minimap_rays(data, mlx);
+	render_minimap_rays(data, mlx);
 	render_cross(data, mlx);
 	pos_x = (WIDTH / 2) - (mlx->anim[frame].width / 12);
 	pos_y = HEIGHT - mlx->anim[frame].height;	
