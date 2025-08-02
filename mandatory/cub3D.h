@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 09:37:04 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 10:10:23 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #define MINIMAP_SIZE 100
 #define MINI_SCALE 10
 #define MINI_RADIUS 5
-#define WIDTH 1920
+#define WIDTH 1500
 #define HEIGHT 1080
 #define TITLE "Cub3D"
 #define MOVE_SPEED 0.09

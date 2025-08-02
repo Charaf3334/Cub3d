@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 10:42:00 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 09:48:00 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 10:15:13 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,8 @@ void draw_ray_on_minimap(t_mlx *mlx, t_data *data, t_ray *ray)
 		vars.ray_y += ray->ray_dir_y * vars.step;
 
 		/* convert world coordinates to minimap pixels (scale ×20) */
-		vars.screen_x = (int)(vars.ray_x * SCALE);
-		vars.screen_y = (int)(vars.ray_y * SCALE);
+		vars.screen_x = (int)(vars.ray_x * MINIMAP_SIZE / 2);
+		vars.screen_y = (int)(vars.ray_y * MINIMAP_SIZE / 2);
 
 		/* plot if inside the window */
 		if (vars.screen_x >= 0 && vars.screen_x < WIDTH && vars.screen_y >= 0 && vars.screen_y < HEIGHT)

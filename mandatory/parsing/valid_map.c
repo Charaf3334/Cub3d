@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:23:00 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/01 13:41:17 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 10:06:00 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	validate_map_lines(t_map *head)
 		i = 0;
 		while (is_sep(head->line[i], " \t\n\v\f\r01NSWE"))
 			i++;
-		if (i * SCALE >= WIDTH || j * SCALE >= HEIGHT)
+		if (WIDTH < 200 || HEIGHT < 200)
 		{
 			print_error("The minimap tried to escape the screen!");
 			return (1);
