@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 14:01:18 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 14:18:35 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 14:32:14 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	render_minimap(t_data *data, t_mlx *mlx)
 	while (++vars.y < MINIMAP_SIZE)
 	{
 		vars.x = -1;
-		while (vars.x < MINIMAP_SIZE)
+		while (++vars.x < MINIMAP_SIZE)
 		{
 			vars.map_x = (int)floorf(vars.start_x + \
 				(vars.x / (float)MINI_SCALE));
