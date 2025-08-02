@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 10:10:23 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 11:15:55 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 #define WIDTH 1500
 #define HEIGHT 1080
 #define TITLE "Cub3D"
-#define MOVE_SPEED 0.09
+#define MOVE_SPEED 0.15
 #define ROTATE_ANGLE 0.05
 #define SCALE 10
 #define W 13
@@ -261,7 +261,6 @@ void	window_hooks(t_mlx *mlx);
 int	load_texture(void *mlx, t_texture *tex, char *path);
 
 //rays/ rays.c 
-void	draw_ray_on_minimap(t_mlx *mlx, t_data *data, t_ray *ray);
 void	draw_ray(t_data *data, int x, t_dda *dda, t_render *vars);
 void	calculate_line(t_ray *ray, t_dda *dda);
 void	perform_dda(t_data *data, t_ray *ray);

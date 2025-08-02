@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:55:50 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/01 16:52:25 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 12:50:39 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	rotate_player(t_mlx *mlx, float angle)
 	old_dir_x = data->dir_x; //tmp values
 	old_plane_x = data->plane_x;
 	// Rotate direction vector
-	// cos(0.1) 0.99 | sin(0.1) 0.099 
+	// cos(0.1)  0.99 | sin(0.1)  0.099 
+	// cos(-0.1) 0.99 | sin(-0.1) -0.099 
 	// printf("before:\ndir_x %f | dir_y %f\n", data->dir_x, data->dir_y);
 
 	data->dir_x = data->dir_x * cos(angle) - data->dir_y * sin(angle);
@@ -69,13 +70,6 @@ void	rotate_player(t_mlx *mlx, float angle)
 	// Rotate camera plane
 	data->plane_x = data->plane_x * cos(angle) - data->plane_y * sin(angle);
 	data->plane_y = old_plane_x * sin(angle) + data->plane_y * cos(angle);
-	// Update player direction angle
-	data->player_dir += angle;
-	// Normalize angle between 0 and 2π
-	// if (data->player_dir < 0) // hadi lach asln kayna hh
-	// 	data->player_dir += 2 * M_PI;
-	// if (data->player_dir > 2 * M_PI)
-	// 	data->player_dir -= 2 * M_PI;
 }
 
 int	handle_keyrelease(int keycode, t_mlx *mlx)

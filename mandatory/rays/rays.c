@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 10:42:00 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 10:15:13 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 10:36:15 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,40 +103,5 @@ void draw_ray(t_data *data, int x, t_dda *dda, t_render *vars)
 	{
 		my_mlx_pixel_put(data->mlx, x, y, data->floor);
 		y++;
-	}
-}
-
-/*
- * draw_ray_on_minimap:
- *   Visualizes the active ray on the minimap by stepping along the ray
- *   direction in small increments (vars.step) until either the perpendicular
- *   wall distance is reached or a maximum length (10 units) is exceeded.
- *   Each intermediate point is plotted with a magenta pixel (0xFF00FF).
- */
-
-void draw_ray_on_minimap(t_mlx *mlx, t_data *data, t_ray *ray)
-{
-	t_draw_ray vars;
-
-	/* Start at the player's position */
-	vars.ray_x = data->player_x - MINI_RADIUS;
-	vars.ray_y = data->player_y - MINI_RADIUS;
-
-	vars.step = 0.05; // world‑space step size
-	vars.dist = 0;
-	while (vars.dist < ray->wall_dist && vars.dist < 10)
-	{
-		/* advance along the ray */
-		vars.ray_x += ray->ray_dir_x * vars.step;
-		vars.ray_y += ray->ray_dir_y * vars.step;
-
-		/* convert world coordinates to minimap pixels (scale ×20) */
-		vars.screen_x = (int)(vars.ray_x * MINIMAP_SIZE / 2);
-		vars.screen_y = (int)(vars.ray_y * MINIMAP_SIZE / 2);
-
-		/* plot if inside the window */
-		if (vars.screen_x >= 0 && vars.screen_x < WIDTH && vars.screen_y >= 0 && vars.screen_y < HEIGHT)
-			my_mlx_pixel_put(mlx, vars.screen_x, vars.screen_y, 0xFFFF00);
-		vars.dist += vars.step;
 	}
 }
