@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 17:12:07 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/07/31 17:12:47 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 13:29:45 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../mandatory/cub3D.h"
+#include "../../cub3D.h"
 
 char	*ft_strjoin3(char *s1, char *s2, char *s3, t_free **free_nodes)
 {

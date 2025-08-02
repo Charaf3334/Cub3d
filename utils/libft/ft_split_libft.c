@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_libft.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 15:14:10 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/28 10:44:58 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 13:29:45 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../mandatory/cub3D.h"
+#include "../../cub3D.h"
 
 static int	is_sep1(char ch, char *c)
 {

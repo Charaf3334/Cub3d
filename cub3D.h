@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 11:15:55 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 14:04:21 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #define MINIMAP_SIZE 100
 #define MINI_SCALE 10
 #define MINI_RADIUS 5
-#define WIDTH 1500
+#define WIDTH 1920
 #define HEIGHT 1080
 #define TITLE "Cub3D"
 #define MOVE_SPEED 0.15
@@ -44,6 +44,19 @@ typedef struct s_dda
 	int		draw_start;
 	int		draw_end;
 }	t_dda;
+
+
+typedef struct s_minimap
+{
+	float	start_x;
+	float	start_y;
+	int		map_x;
+	int		map_y;
+	int		y;
+	int		x;
+	int		color;
+	char	tile;
+}	t_minimap;
 
 typedef struct s_ray
 {
@@ -173,6 +186,16 @@ typedef struct s_dir_line
 	float	steps;
 }	t_dir_line;
 
+typedef struct s_draw_ray1
+{
+	int		y;
+	float	step;
+	float	tex_starting_pos;
+	int		tex_y;
+	int		color;
+	float	tex_start_offset_on_wall;
+}	t_draw_ray1;
+
 
 //libft
 char	*ft_strchr(char *s, int c);
@@ -269,6 +292,11 @@ void	init_ray(t_data *data, t_ray *ray, int x);
 //render.c
 void	render(t_data *data, t_mlx *mlx);
 
+//render_helper
+void	render_3d_view(t_data *data);
+char	minimap_get_tile(int map_y, int map_x, t_map *map);
+void	render_minimap(t_data *data, t_mlx *mlx);
+
 //player_movement
 int	handle_keypress(int keycode, t_mlx *mlx);
 int handle_keyrelease(int keycode, t_mlx *mlx);
@@ -284,5 +312,7 @@ void	assign_delta_x_y(t_ray *ray);
 void	init_ray_step_and_dist(t_ray *ray, t_data *data);
 void	init_ray(t_data *data, t_ray *ray, int x);
 void	perform_dda(t_data *data, t_ray *ray);
+
+
 
 #endif

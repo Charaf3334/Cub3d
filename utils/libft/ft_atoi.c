@@ -6,11 +6,11 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 11:30:35 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/25 15:08:48 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 13:29:45 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../mandatory/cub3D.h"
+#include "../../cub3D.h"
 
 static int	skip_ws(const char *str)
 {

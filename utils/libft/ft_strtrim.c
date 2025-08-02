@@ -6,11 +6,11 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:31:05 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/23 16:08:45 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 13:29:45 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../mandatory/cub3D.h"
+#include "../../cub3D.h"
 
 static int	check(char c, char *charset)
 {

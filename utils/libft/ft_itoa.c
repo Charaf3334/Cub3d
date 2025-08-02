@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 10:47:11 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/31 17:10:04 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 13:29:45 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../mandatory/cub3D.h"
+#include "../../cub3D.h"
 
 static char	*if_zero(void)
 {

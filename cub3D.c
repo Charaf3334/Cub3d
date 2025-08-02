@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 15:35:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/01 13:28:58 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 10:22:33 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,11 @@ static int	check_args(int ac, char **av)
 	return (0);
 }
 
-void f() {
-	system("leaks cub3D");
-}
-
 int	main(int ac, char **av)
 {
 	t_data	data;
 	t_free	*free_nodes;
 
-	atexit(f);
 	free_nodes = NULL;
 	if (check_args(ac, av))
 		return (1);

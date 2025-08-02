@@ -6,11 +6,11 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 09:28:58 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/06/23 13:19:24 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 13:29:45 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mandatory/cub3D.h"
+#include "../cub3D.h"
 
 static char	*ft_strjoin_get(char *s1, char *s2)
 {

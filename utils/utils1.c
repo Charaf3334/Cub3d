@@ -6,11 +6,11 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:01:47 by zguellou          #+#    #+#             */
-/*   Updated: 2025/06/26 17:18:11 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 13:29:45 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mandatory/cub3D.h"
+#include "../cub3D.h"
 
 int	len_strs(char **strs)
 {

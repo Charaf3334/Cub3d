@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:59:00 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/01 13:42:04 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 14:05:36 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../cub3D.h"
+#include "../cub3D.h"
 
 char	get_map_tile(t_data *data, int x, int y)
 {

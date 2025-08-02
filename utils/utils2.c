@@ -6,11 +6,11 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 10:48:15 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/07/31 11:32:15 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 13:29:45 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mandatory/cub3D.h"
+#include "../cub3D.h"
 
 void	ft_putstr_fd(char *str, int fd, int option)
 {
