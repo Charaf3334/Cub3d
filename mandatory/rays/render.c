@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 10:30:07 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 10:33:27 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ static void render_minimap(t_data *data, t_mlx *mlx)
 		{
 			world_x = start_x + (x / (float)MINI_SCALE);
 			world_y = start_y + (y / (float)MINI_SCALE);
-			printf("%f, %f\n", world_x, world_y);
-			
 			map_x = (int)floorf(world_x);
 			map_y = (int)floorf(world_y);
 			map = data->map_ll;
@@ -101,14 +99,15 @@ static void render_minimap(t_data *data, t_mlx *mlx)
 				map = map->next;
 				row++;
 			}
+			tile = ' ';
 			if (map && map_x >= 0 && map_x < (int)ft_strlen(map->line))
-				tile = get_map_tile(data, map_x, map_y);
+				tile = map->line[map_x];
 			if (ft_strchr("0SNEW", tile))
 				color = 0xD2B48C;
 			else if (tile == '1')
 				color = 0x2F4F4F;
 			else
-				color = 0x000000;
+				color = 0x2F4F4F;
 			my_mlx_pixel_put(mlx, x, y, color);
 			x++;
 		}
