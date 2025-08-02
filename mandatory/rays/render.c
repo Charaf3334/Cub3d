@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 10:34:45 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 10:48:49 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,22 @@ static void	render_3d_view(t_data *data)
 	}
 }
 
+static char minimap_get_tile(int map_y, int map_x, t_map *map)
+{
+	int		row;
+	char	tile;
+
+	row = 0;
+	tile = ' ';
+	while (map && row < map_y)
+	{
+		map = map->next;
+		row++;
+	}
+	if (map && map_x >= 0 && map_x < (int)ft_strlen(map->line))
+		tile = map->line[map_x];
+	return (tile);
+}
 
 static void render_minimap(t_data *data, t_mlx *mlx)
 {
@@ -76,12 +92,12 @@ static void render_minimap(t_data *data, t_mlx *mlx)
 	int		y;
 	int		x;
 	int		color;
-	int		row;
 	t_map	*map;
 	char	tile;
 
 	start_x = data->player_x - MINI_RADIUS;
 	start_y = data->player_y - MINI_RADIUS;
+	map = data->map_ll;
 	y = 0;
 	while (y < MINIMAP_SIZE)
 	{
@@ -92,16 +108,7 @@ static void render_minimap(t_data *data, t_mlx *mlx)
 			world_y = start_y + (y / (float)MINI_SCALE);
 			map_x = (int)floorf(world_x);
 			map_y = (int)floorf(world_y);
-			map = data->map_ll;
-			row = 0;
-			while (map && row < map_y)
-			{
-				map = map->next;
-				row++;
-			}
-			tile = ' ';
-			if (map && map_x >= 0 && map_x < (int)ft_strlen(map->line))
-				tile = map->line[map_x];
+			tile = minimap_get_tile(map_y, map_x, map);
 			if (ft_strchr("0SNEW", tile))
 				color = 0xD2B48C;
 			else
