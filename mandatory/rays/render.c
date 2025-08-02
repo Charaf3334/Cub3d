@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 09:57:04 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 10:25:33 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ static void render_minimap(t_data *data, t_mlx *mlx)
 		{
 			world_x = start_x + (x / (float)MINI_SCALE);
 			world_y = start_y + (y / (float)MINI_SCALE);
+			printf("%f, %f\n", world_x, world_y);
+			
 			map_x = (int)floorf(world_x);
 			map_y = (int)floorf(world_y);
 			map = data->map_ll;
