@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 10:48:49 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 10:59:33 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ static void render_minimap(t_data *data, t_mlx *mlx)
 {
 	float	start_x;
 	float	start_y;
-	float	world_x;
-	float	world_y;
 	int		map_x;
 	int		map_y;
 	int		y;
@@ -104,10 +102,8 @@ static void render_minimap(t_data *data, t_mlx *mlx)
 		x = 0;
 		while (x < MINIMAP_SIZE)
 		{
-			world_x = start_x + (x / (float)MINI_SCALE);
-			world_y = start_y + (y / (float)MINI_SCALE);
-			map_x = (int)floorf(world_x);
-			map_y = (int)floorf(world_y);
+			map_x = (int)floorf(start_x + (x / (float)MINI_SCALE));
+			map_y = (int)floorf(start_y + (y / (float)MINI_SCALE));
 			tile = minimap_get_tile(map_y, map_x, map);
 			if (ft_strchr("0SNEW", tile))
 				color = 0xD2B48C;
