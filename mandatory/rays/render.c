@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 11:29:19 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 12:29:48 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,41 +142,26 @@ static void	render_player(t_data *data, t_mlx *mlx)
 
 static void	render_cross(t_data *data, t_mlx *mlx)
 {
-	(void) data;
+	(void)data;
 	int	middle_x;
 	int	middle_y;
 	int	i;
-	int	j;
 
+	i = -10;
 	middle_x = WIDTH / 2;
 	middle_y = HEIGHT / 2;
-	i = -10;
-	while (i <= 10)
-	{
-		j = -10;
-		while (j <= 13)
-		{
-			my_mlx_pixel_put(mlx, middle_x, middle_y + j, 0xFFFF00);
-			my_mlx_pixel_put(mlx, middle_x + 1, middle_y + j, 0xFFFF00);
-			my_mlx_pixel_put(mlx, middle_x + 2, middle_y + j, 0xFFFF00);
-			j++;
-		}
-		i++;
-	}
-	i = -10;
 	while (i <= 13)
 	{
-		j = -10;
-		while (j <= 10)
-		{
-			my_mlx_pixel_put(mlx, middle_x + i, middle_y, 0xFFFF00);
-			my_mlx_pixel_put(mlx, middle_x + i, middle_y + 1, 0xFFFF00);
-			my_mlx_pixel_put(mlx, middle_x + i, middle_y + 2, 0xFFFF00);
-			j++;
-		}
+		my_mlx_pixel_put(mlx, middle_x, middle_y + i, 0xFFFF00);
+		my_mlx_pixel_put(mlx, middle_x + 1, middle_y + i, 0xFFFF00);
+		my_mlx_pixel_put(mlx, middle_x + 2, middle_y + i, 0xFFFF00);
+		my_mlx_pixel_put(mlx, middle_x + i, middle_y, 0xFFFF00);
+		my_mlx_pixel_put(mlx, middle_x + i, middle_y + 1, 0xFFFF00);
+		my_mlx_pixel_put(mlx, middle_x + i, middle_y + 2, 0xFFFF00);
 		i++;
 	}
 }
+
 
 static void	render_direction_line(t_data *data, t_mlx *mlx)
 {
@@ -193,7 +178,7 @@ static void	render_direction_line(t_data *data, t_mlx *mlx)
 	line.dy = line.dir_y - line.player_y;
 	line.steps = fmax(fabs(line.dx), fabs(line.dy));
 	i = 0;
-	while (i <= 20)
+	while (i <= 10)
 	{
 		x = line.player_x + line.dx * (i / line.steps);
 		y = line.player_y + line.dy * (i / line.steps);
