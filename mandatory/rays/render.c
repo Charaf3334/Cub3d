@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 10:59:33 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 11:29:19 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	render_3d_view(t_data *data)
 			vars.wall_x = data->player_x + vars.ray.wall_dist * vars.ray.ray_dir_x;
 
 		
-        vars.wall_x -= floor(vars.wall_x); // it was floor(vars.wall_x)
+        vars.wall_x = vars.wall_x - floor(vars.wall_x); // it was floor(vars.wall_x)
 		// Calculate texture X coordinate
 		vars.tex_x = (int)(vars.wall_x * vars.tex->width);
 		
