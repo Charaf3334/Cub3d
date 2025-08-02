@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 14:10:24 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 15:05:27 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ static void	render_player(t_mlx *mlx)
 	int	i;
 	int	j;
 
-	player_x = MINIMAP_SIZE / 2;
-	player_y = MINIMAP_SIZE / 2;
+	player_x = 50;
+	player_y = 50;
 	i = -2;
 	while (i <= 2)
 	{
 		j = -2;
 		while (j <= 2)
 		{
-			my_mlx_pixel_put(mlx, player_x + i, player_y + j, 0x0000FF);
+			my_mlx_pixel_put(mlx, player_x + i, player_y + j, 0xFF0000);
 			j++;
 		}
 		i++;

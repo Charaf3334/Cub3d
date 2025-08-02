@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:59:00 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 14:05:36 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 14:52:07 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,4 @@ char	get_map_tile(t_data *data, int x, int y)
 	if (!row || x < 0 || x >= (int)ft_strlen(row->line))
 		return ('1');
 	return (row->line[x]);
-}
-
-void	draw_block(t_mlx *mlx, int x, int y, int color)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < SCALE)
-	{
-		j = 0;
-		while (j < SCALE)
-		{
-			my_mlx_pixel_put(mlx, x + i, y + j, color);
-			j++;
-		}
-		i++;
-	}
 }

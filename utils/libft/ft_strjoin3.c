@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 17:12:07 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/08/02 13:29:45 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 15:13:27 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3, t_free **free_nodes)
 	size_t	s3_len;
 	char	*str;
 
-	1 && (s1_len = 0, s2_len = 0, s3_len = 0);
+	s1_len = 0;
+	s2_len = 0;
+	s3_len = 0;
 	if (s1)
 		s1_len = ft_strlen(s1);
 	if (s2)

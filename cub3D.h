@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 14:04:21 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 14:52:39 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,11 @@
 #include <mlx.h>
 #include <math.h>
 
-#define MINIMAP_SIZE 100
-#define MINI_SCALE 10
-#define MINI_RADIUS 5
 #define WIDTH 1920
 #define HEIGHT 1080
 #define TITLE "Cub3D"
 #define MOVE_SPEED 0.15
 #define ROTATE_ANGLE 0.05
-#define SCALE 10
 #define W 13
 #define S 1
 #define A 2
@@ -305,7 +301,6 @@ void rotate_player(t_mlx *mlx, float angle);
 
 //map_utils
 char	get_map_tile(t_data *data, int x, int y);
-void	draw_block(t_mlx *mlx, int x, int y, int color);
 
 //rays2.c
 void	assign_delta_x_y(t_ray *ray);

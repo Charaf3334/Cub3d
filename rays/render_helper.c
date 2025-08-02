@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 14:01:18 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 14:18:35 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 15:02:42 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,24 +77,26 @@ void	render_minimap(t_data *data, t_mlx *mlx)
 	t_minimap	vars;
 	t_map		*map;
 
-	vars.start_x = data->player_x - MINI_RADIUS;
-	vars.start_y = data->player_y - MINI_RADIUS;
+	vars.start_x = data->player_x - 5;
+	vars.start_y = data->player_y - 5;
 	map = data->map_ll;
 	vars.y = -1;
-	while (++vars.y < MINIMAP_SIZE)
+	while (++vars.y < 100)
 	{
 		vars.x = -1;
-		while (vars.x < MINIMAP_SIZE)
+		while (++vars.x < 100)
 		{
 			vars.map_x = (int)floorf(vars.start_x + \
-				(vars.x / (float)MINI_SCALE));
+				(vars.x / (float)10));
 			vars.map_y = (int)floorf(vars.start_y + \
-				(vars.y / (float)MINI_SCALE));
+				(vars.y / (float)10));
 			vars.tile = minimap_get_tile(vars.map_y, vars.map_x, map);
 			if (ft_strchr("0SNEW", vars.tile))
-				vars.color = 0xD2B48C;
+				vars.color = 0xA3C9A8;
+			else if (vars.tile == '1')
+				vars.color = 0x2D3142;
 			else
-				vars.color = 0x2F4F4F;
+				vars.color = 0xBFC0C0;
 			my_mlx_pixel_put(mlx, vars.x, vars.y, vars.color);
 		}
 	}

@@ -6,14 +6,13 @@
 #    By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/25 10:33:55 by ctoujana          #+#    #+#              #
-#    Updated: 2025/08/02 14:04:07 by zguellou         ###   ########.fr        #
+#    Updated: 2025/08/02 14:33:00 by zguellou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
-CFLAGS = -Wextra -Wall -Werror #-g3 -fsanitize=address 
+CFLAGS = #-Wextra -Wall -Werror #-g3 -fsanitize=address 
 LINK = -lmlx -framework OpenGL -framework AppKit -lm
-
 SRCS =  cub3D.c free_nodes.c \
 		parsing/init_data.c parsing/window.c parsing/window_utils1.c parsing/init_data_utils.c parsing/init_data_utils2.c  parsing/map_horiz_lines.c  parsing/map_vert_lines.c\
 		parsing/parse_color.c parsing/valid_map.c parsing/map_ll.c \

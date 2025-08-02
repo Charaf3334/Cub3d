@@ -6,13 +6,13 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:23:00 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 10:06:00 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 15:24:41 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-static int	check_map_chars(char *line, int *flag)
+static int	check_map_chars(char *line, int *player_count)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ static int	check_map_chars(char *line, int *flag)
 	while (line[i])
 	{
 		if (is_sep(line[i], "NSWE"))
-			(*flag)++;
+			(*player_count)++;
 		if (!is_sep(line[i], " 01NSWE\n"))
 			return (1);
 		i++;
@@ -36,16 +36,16 @@ static int	validate_map_lines(t_map *head)
 	int	j;
 
 	j = 0;
+	if (WIDTH < 200 || HEIGHT < 200)
+	{
+		print_error("The minimap tried to escape the screen!");
+		return (1);
+	}
 	while (head)
 	{
 		i = 0;
 		while (is_sep(head->line[i], " \t\n\v\f\r01NSWE"))
 			i++;
-		if (WIDTH < 200 || HEIGHT < 200)
-		{
-			print_error("The minimap tried to escape the screen!");
-			return (1);
-		}
 		if (!head->next)
 			break ;
 		else if (!head->line[i])

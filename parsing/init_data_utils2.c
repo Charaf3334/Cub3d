@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 11:23:00 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/08/01 11:24:12 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 15:13:06 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	assign_redir_fds(t_data *data)
 	char	*arr[4];
 	int		i;
 
-	1 && (i = -1, redir_fds_init(data, arr));
+	i = -1;
+	redir_fds_init(data, arr);
 	while (++i < 4)
 	{
 		if (!arr[i])

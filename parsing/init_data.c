@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 13:47:14 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/01 11:21:37 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 15:10:08 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	data_populate(char *str, t_free **free_nodes, t_data *data)
 {
 	t_pop	vars;
 
-	1 && (vars.st = 0, vars.en = 0, vars.str = str);
+	vars.st = 0;
+	vars.en = 0;
+	vars.str = str;
 	while (vars.str[vars.st] && is_sep(vars.str[vars.st], " \t\n\v\f\r"))
 		vars.st++;
 	while (vars.str[vars.st + vars.en]
