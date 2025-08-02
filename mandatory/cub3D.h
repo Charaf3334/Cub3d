@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 10:52:54 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 12:36:32 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,19 @@ typedef struct s_dda
 	int		draw_start;
 	int		draw_end;
 }	t_dda;
+
+
+typedef struct s_minimap
+{
+	float	start_x;
+	float	start_y;
+	int		map_x;
+	int		map_y;
+	int		y;
+	int		x;
+	int		color;
+	char	tile;
+}	t_minimap;
 
 typedef struct s_ray
 {

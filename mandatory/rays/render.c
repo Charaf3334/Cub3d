@@ -6,11 +6,35 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 12:29:48 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 12:49:08 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
+
+static void	tex_which_side(t_render *vars, t_data *data)
+{
+	if (vars->ray.side == 0)
+	{
+		if (vars->ray.step_x > 0)
+			vars->tex = &data->mlx->tex_east;
+		else
+			vars->tex = &data->mlx->tex_west;
+	}
+	else
+	{
+		if (vars->ray.step_y > 0)
+			vars->tex = &data->mlx->tex_south;
+		else
+			vars->tex = &data->mlx->tex_north;
+	}
+	if (vars->ray.side == 0)
+			vars->wall_x = data->player_y + vars->ray.wall_dist * vars->ray.ray_dir_y;
+	else
+			vars->wall_x = data->player_x + vars->ray.wall_dist * vars->ray.ray_dir_x;
+    vars->wall_x = vars->wall_x - floor(vars->wall_x);
+	vars->tex_x = (int)(vars->wall_x * vars->tex->width);
+}
 
 static void	render_3d_view(t_data *data)
 {
@@ -23,42 +47,7 @@ static void	render_3d_view(t_data *data)
         init_ray(data, &vars.ray, x);
         perform_dda(data, &vars.ray);
         calculate_line(&vars.ray, &vars.dda);
-        if (vars.ray.side == 0)
-		{
-			if (vars.ray.step_x > 0)
-				vars.tex = &data->mlx->tex_east;
-			else
-				vars.tex = &data->mlx->tex_west;
-		}
-        else
-		{
-			if (vars.ray.step_y > 0)
-				vars.tex = &data->mlx->tex_south;
-			else
-				vars.tex = &data->mlx->tex_north;
-		}
-		if (vars.ray.side == 0)
-			vars.wall_x = data->player_y + vars.ray.wall_dist * vars.ray.ray_dir_y; // wall_x : howa coordinate bdept fin drb ray f dak grid '1' li howa l7it 
-		else
-			vars.wall_x = data->player_x + vars.ray.wall_dist * vars.ray.ray_dir_x;
-
-		
-        vars.wall_x = vars.wall_x - floor(vars.wall_x); // it was floor(vars.wall_x)
-		// Calculate texture X coordinate
-		vars.tex_x = (int)(vars.wall_x * vars.tex->width);
-		
-		// so tex_x hia column dyal texture mnin atbda trsm tal tex_y ... 
-		
-		
-		
-		// printf("tex_x: %d\n", vars.tex_x);
-		// so ila mchina mea mital li 9bl, wall_x howa 0.72, so aykhsna n7wlo hadchi l pixel column f texture, so lakan width howa 100, 72% dyalha hia column 72;
-		
-		// had code t7tani galik kadiro bach mtkonch lek texture m9loba, tkhrbi9 w sf hh 
-		// if (vars.tex_x < 0)
-		// 	vars.tex_x = 0;
-		// else if ((vars.ray.side == 0 && vars.ray.ray_dir_x > 0) || (vars.ray.side == 1 && vars.ray.ray_dir_y < 0))
-		// 	vars.tex_x = vars.tex->width - vars.tex_x - 1;
+		tex_which_side(&vars, data);
 		draw_ray(data, x, &vars.dda, &vars);
 		x++;
 	}
@@ -83,36 +72,29 @@ static char minimap_get_tile(int map_y, int map_x, t_map *map)
 
 static void render_minimap(t_data *data, t_mlx *mlx)
 {
-	float	start_x;
-	float	start_y;
-	int		map_x;
-	int		map_y;
-	int		y;
-	int		x;
-	int		color;
-	t_map	*map;
-	char	tile;
+	t_minimap	vars;
+	t_map		*map;
 
-	start_x = data->player_x - MINI_RADIUS;
-	start_y = data->player_y - MINI_RADIUS;
+	vars.start_x = data->player_x - MINI_RADIUS;
+	vars.start_y = data->player_y - MINI_RADIUS;
 	map = data->map_ll;
-	y = 0;
-	while (y < MINIMAP_SIZE)
+	vars.y = 0;
+	while (vars.y < MINIMAP_SIZE)
 	{
-		x = 0;
-		while (x < MINIMAP_SIZE)
+		vars.x = 0;
+		while (vars.x < MINIMAP_SIZE)
 		{
-			map_x = (int)floorf(start_x + (x / (float)MINI_SCALE));
-			map_y = (int)floorf(start_y + (y / (float)MINI_SCALE));
-			tile = minimap_get_tile(map_y, map_x, map);
-			if (ft_strchr("0SNEW", tile))
-				color = 0xD2B48C;
+			vars.map_x = (int)floorf(vars.start_x + (vars.x / (float)MINI_SCALE));
+			vars.map_y = (int)floorf(vars.start_y + (vars.y / (float)MINI_SCALE));
+			vars.tile = minimap_get_tile(vars.map_y, vars.map_x, map);
+			if (ft_strchr("0SNEW", vars.tile))
+				vars.color = 0xD2B48C;
 			else
-				color = 0x2F4F4F;
-			my_mlx_pixel_put(mlx, x, y, color);
-			x++;
+				vars.color = 0x2F4F4F;
+			my_mlx_pixel_put(mlx, vars.x, vars.y, vars.color);
+			vars.x++;
 		}
-		y++;
+		vars.y++;
 	}
 }
 
@@ -198,28 +180,50 @@ static void	render_direction_line(t_data *data, t_mlx *mlx)
 // 	draw_ray_on_minimap(mlx, data, &ray);
 // }
 
+static void handle_animation_frames(t_mlx *mlx, int frame)
+{
+	int	div;
+	int	pos_x;
+	int	pos_y;
+
+	if (WIDTH >= 1000 && WIDTH <= 1200)
+		div = 2;
+	if (WIDTH > 1200 && WIDTH <= 1400)
+		div = 3;
+	if (WIDTH > 1400 && WIDTH <= 1600)
+		div = 4;
+	if (WIDTH > 1600 && WIDTH <= 1920)
+		div = 5;
+	pos_x = (WIDTH / 2) - (mlx->anim[frame].width / div);
+	pos_y = HEIGHT - mlx->anim[frame].height;	
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim[frame].img, pos_x, pos_y);
+}
+
+void	handle_which_anim_frame(int *timer, int *frame, int *initialized)
+{
+	if (!(*initialized))
+	{
+		*timer = 0;
+		*frame = 0;
+		*initialized = 1;
+	}
+	if (++(*timer) >= 5)
+	{
+		*timer = 0;
+		*frame = (*frame + 1) % ANIMATION_FRAMES;
+	}
+}
+
 void	render(t_data *data, t_mlx *mlx)
 {
 	static int	timer;
 	static int	frame;
 	static int	initialized;
-	int			pos_x;
-	int			pos_y;
 	int			flag;
-	int			div;
 
 	flag = 0;
-	if (!initialized)
-	{
-		timer = 0;
-		frame = 0;
-		initialized = 1;
-	}
-	if (++timer >= 5)
-	{
-		timer = 0;
-		frame = (frame + 1) % ANIMATION_FRAMES;
-	}
+	handle_which_anim_frame(&timer, &frame, &initialized);
 	render_3d_view(data);
 	render_minimap(data, mlx);
 	render_player(data, mlx);
@@ -227,18 +231,7 @@ void	render(t_data *data, t_mlx *mlx)
 	render_cross(data, mlx);
 	if (WIDTH >= 1000 && HEIGHT == 1080)
 	{
-		if (WIDTH >= 1000 && WIDTH <= 1200)
-			div = 2;
-		if (WIDTH > 1200 && WIDTH <= 1400)
-			div = 3;
-		if (WIDTH > 1400 && WIDTH <= 1600)
-			div = 4;
-		if (WIDTH > 1600 && WIDTH <= 1920)
-			div = 5;
-		pos_x = (WIDTH / 2) - (mlx->anim[frame].width / div);
-		pos_y = HEIGHT - mlx->anim[frame].height;	
-		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
-		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim[frame].img, pos_x, pos_y);
+		handle_animation_frames(mlx, frame);
 		flag = 1;
 	}
 	if (!flag)
