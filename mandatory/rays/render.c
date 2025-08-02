@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 09:35:43 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 09:57:04 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,11 @@ void	render(t_data *data, t_mlx *mlx)
 	static int	initialized;
 	int			pos_x;
 	int			pos_y;
+	int			flag;
+	int			div;
+	// printf("%d, %d\n", mlx->anim[0].width, mlx->anim[0].height);
 
+	flag = 0;
 	if (!initialized)
 	{
 		timer = 0;
@@ -235,8 +239,22 @@ void	render(t_data *data, t_mlx *mlx)
 	render_player(data, mlx);
 	// render_minimap_rays(data, mlx);
 	render_cross(data, mlx);
-	pos_x = (WIDTH / 2) - (mlx->anim[frame].width / 12);
-	pos_y = HEIGHT - mlx->anim[frame].height;	
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim[frame].img, pos_x, pos_y);
+	if (WIDTH >= 1000 && HEIGHT == 1080)
+	{
+		if (WIDTH >= 1000 && WIDTH <= 1200)
+			div = 3;
+		if (WIDTH > 1200 && WIDTH <= 1400)
+			div = 4;
+		if (WIDTH > 1400 && WIDTH <= 1600)
+			div = 5;
+		if (WIDTH > 1600 && WIDTH <= 1920)
+			div = 6;
+		pos_x = (WIDTH / 2) - (mlx->anim[frame].width / div);
+		pos_y = HEIGHT - mlx->anim[frame].height;	
+		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->anim[frame].img, pos_x, pos_y);
+		flag = 1;
+	}
+	if (!flag)
+		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 }
