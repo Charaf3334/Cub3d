@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/01 16:35:56 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 09:35:43 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,44 +65,65 @@ static void	render_3d_view(t_data *data)
 }
 
 
-static void	render_minimap(t_data *data, t_mlx *mlx)
+static void render_minimap(t_data *data, t_mlx *mlx)
 {
-	t_map			*map;
-	unsigned long	y;
-	unsigned long	x;
-	int				i;
-	int				color;
+	float	start_x;
+	float	start_y;
+	float	world_x;
+	float	world_y;
+	int		map_x;
+	int		map_y;
+	int		y;
+	int		x;
+	int		color;
+	int		row;
+	t_map	*map;
+	char	tile;
 
-	map = data->map_ll;
+	start_x = data->player_x - MINI_RADIUS;
+	start_y = data->player_y - MINI_RADIUS;
 	y = 0;
-	while (map)
+	while (y < MINIMAP_SIZE)
 	{
-		1 && (x = 0, i = 0);
-		while (map->line[i])
+		x = 0;
+		while (x < MINIMAP_SIZE)
 		{
-			if (map->line[i] == '0')
+			world_x = start_x + (x / (float)MINI_SCALE);
+			world_y = start_y + (y / (float)MINI_SCALE);
+			map_x = (int)floorf(world_x);
+			map_y = (int)floorf(world_y);
+			map = data->map_ll;
+			row = 0;
+			while (map && row < map_y)
+			{
+				map = map->next;
+				row++;
+			}
+			if (map && map_x >= 0 && map_x < (int)ft_strlen(map->line))
+				tile = get_map_tile(data, map_x, map_y);
+			if (ft_strchr("0SNEW", tile))
 				color = 0xD2B48C;
-			else if (map->line[i] == '1')
+			else if (tile == '1')
 				color = 0x2F4F4F;
 			else
 				color = 0x000000;
-			draw_block(mlx, x * SCALE, y * SCALE, color);
-			1 && (x++, i++);
+			my_mlx_pixel_put(mlx, x, y, color);
+			x++;
 		}
 		y++;
-		map = map->next;
 	}
 }
 
 static void	render_player(t_data *data, t_mlx *mlx)
 {
+	(void)data;
 	int	player_x;
 	int	player_y;
 	int	i;
 	int	j;
 
-	player_x = (int)(data->player_x * SCALE);
-	player_y = (int)(data->player_y * SCALE);
+	player_x = MINIMAP_SIZE / 2;
+	player_y = MINIMAP_SIZE / 2;
 	i = -2;
 	while (i <= 2)
 	{
@@ -115,6 +136,8 @@ static void	render_player(t_data *data, t_mlx *mlx)
 		i++;
 	}
 }
+
+
 static void	render_cross(t_data *data, t_mlx *mlx)
 {
 	(void) data;
@@ -177,16 +200,16 @@ static void	render_cross(t_data *data, t_mlx *mlx)
 // 	}
 // }
 
-static void	render_minimap_rays(t_data *data, t_mlx *mlx)
-{
-	int		x;
-	t_ray	ray;
+// static void	render_minimap_rays(t_data *data, t_mlx *mlx)
+// {
+// 	int		x;
+// 	t_ray	ray;
 
-	x = (WIDTH / 2);
-	init_ray(data, &ray, x);
-	perform_dda(data, &ray);
-	draw_ray_on_minimap(mlx, data, &ray);
-}
+// 	x = (MINIMAP_SIZE / 2);
+// 	init_ray(data, &ray, x);
+// 	perform_dda(data, &ray);
+// 	draw_ray_on_minimap(mlx, data, &ray);
+// }
 
 void	render(t_data *data, t_mlx *mlx)
 {
@@ -210,7 +233,7 @@ void	render(t_data *data, t_mlx *mlx)
 	render_3d_view(data);
 	render_minimap(data, mlx);
 	render_player(data, mlx);
-	render_minimap_rays(data, mlx);
+	// render_minimap_rays(data, mlx);
 	render_cross(data, mlx);
 	pos_x = (WIDTH / 2) - (mlx->anim[frame].width / 12);
 	pos_y = HEIGHT - mlx->anim[frame].height;	

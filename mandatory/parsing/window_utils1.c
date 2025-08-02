@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 13:38:59 by ctoujana          #+#    #+#             */
-/*   Updated: 2025/08/01 13:39:26 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:50:07 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	update_game(t_mlx *mlx)
 	if (data->keys[LEFT_ARROW])
 		rotate_player(mlx, -ROTATE_ANGLE);
 	if (data->keys[RIGHT_ARROW])
-		rotate_player(mlx, ROTATE_ANGLE);
+		rotate_player(mlx, ROTATE_ANGLE);		
 	render(mlx->data, mlx);
 	return (0);
 }

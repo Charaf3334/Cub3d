@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/01 13:45:43 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 09:37:04 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@
 #include <mlx.h>
 #include <math.h>
 
+#define MINIMAP_SIZE 100
+#define MINI_SCALE 10
+#define MINI_RADIUS 5
 #define WIDTH 1920
 #define HEIGHT 1080
 #define TITLE "Cub3D"
 #define MOVE_SPEED 0.09
 #define ROTATE_ANGLE 0.05
-#define SCALE 8
+#define SCALE 10
 #define W 13
 #define S 1
 #define A 2
