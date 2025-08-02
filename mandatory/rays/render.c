@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 10:25:33 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 10:30:07 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,36 +178,36 @@ static void	render_cross(t_data *data, t_mlx *mlx)
 	}
 }
 
-// static void	render_direction_line(t_data *data, t_mlx *mlx)
-// {
-// 	t_dir_line	line;
-// 	int			i;
-// 	float		x;
-// 	float		y;
+static void	render_direction_line(t_data *data, t_mlx *mlx)
+{
+	t_dir_line	line;
+	int			i;
+	float		x;
+	float		y;
 
-// 	line.player_x = (int)(data->player_x * 20);
-// 	line.player_y = (int)(data->player_y * 20);
-// 	line.dir_x = line.player_x + (int)(data->dir_x * 10);
-// 	line.dir_y = line.player_y + (int)(data->dir_y * 10);
-// 	line.dx = line.dir_x - line.player_x;
-// 	line.dy = line.dir_y - line.player_y;
-// 	line.steps = fmax(fabs(line.dx), fabs(line.dy));
-// 	i = 0;
-// 	while (i <= 30)
-// 	{
-// 		x = line.player_x + line.dx * (i / line.steps);
-// 		y = line.player_y + line.dy * (i / line.steps);
-// 		my_mlx_pixel_put(mlx, (int)x, (int)y, 0xFF0000);
-// 		i++;
-// 	}
-// }
+	line.player_x = MINIMAP_SIZE / 2;
+	line.player_y = MINIMAP_SIZE / 2;
+	line.dir_x = line.player_x + (int)(data->dir_x * 10);
+	line.dir_y = line.player_y + (int)(data->dir_y * 10);
+	line.dx = line.dir_x - line.player_x;
+	line.dy = line.dir_y - line.player_y;
+	line.steps = fmax(fabs(line.dx), fabs(line.dy));
+	i = 0;
+	while (i <= 20)
+	{
+		x = line.player_x + line.dx * (i / line.steps);
+		y = line.player_y + line.dy * (i / line.steps);
+		my_mlx_pixel_put(mlx, (int)x, (int)y, 0xFF0000);
+		i++;
+	}
+}
 
 // static void	render_minimap_rays(t_data *data, t_mlx *mlx)
 // {
 // 	int		x;
 // 	t_ray	ray;
 
-// 	x = (MINIMAP_SIZE / 2);
+// 	x = (WIDTH/ 2);
 // 	init_ray(data, &ray, x);
 // 	perform_dda(data, &ray);
 // 	draw_ray_on_minimap(mlx, data, &ray);
@@ -222,7 +222,6 @@ void	render(t_data *data, t_mlx *mlx)
 	int			pos_y;
 	int			flag;
 	int			div;
-	// printf("%d, %d\n", mlx->anim[0].width, mlx->anim[0].height);
 
 	flag = 0;
 	if (!initialized)
@@ -239,18 +238,18 @@ void	render(t_data *data, t_mlx *mlx)
 	render_3d_view(data);
 	render_minimap(data, mlx);
 	render_player(data, mlx);
-	// render_minimap_rays(data, mlx);
+	render_direction_line(data, mlx);
 	render_cross(data, mlx);
 	if (WIDTH >= 1000 && HEIGHT == 1080)
 	{
 		if (WIDTH >= 1000 && WIDTH <= 1200)
-			div = 3;
+			div = 2;
 		if (WIDTH > 1200 && WIDTH <= 1400)
-			div = 4;
+			div = 3;
 		if (WIDTH > 1400 && WIDTH <= 1600)
-			div = 5;
+			div = 4;
 		if (WIDTH > 1600 && WIDTH <= 1920)
-			div = 6;
+			div = 5;
 		pos_x = (WIDTH / 2) - (mlx->anim[frame].width / div);
 		pos_y = HEIGHT - mlx->anim[frame].height;	
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);

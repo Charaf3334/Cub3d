@@ -6,7 +6,7 @@
 /*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 10:42:00 by zguellou          #+#    #+#             */
-/*   Updated: 2025/07/31 16:00:21 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/02 10:15:13 by zguellou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,8 @@ void draw_ray_on_minimap(t_mlx *mlx, t_data *data, t_ray *ray)
 	t_draw_ray vars;
 
 	/* Start at the player's position */
-	vars.ray_x = data->player_x;
-	vars.ray_y = data->player_y;
+	vars.ray_x = data->player_x - MINI_RADIUS;
+	vars.ray_y = data->player_y - MINI_RADIUS;
 
 	vars.step = 0.05; // world‑space step size
 	vars.dist = 0;
@@ -131,8 +131,8 @@ void draw_ray_on_minimap(t_mlx *mlx, t_data *data, t_ray *ray)
 		vars.ray_y += ray->ray_dir_y * vars.step;
 
 		/* convert world coordinates to minimap pixels (scale ×20) */
-		vars.screen_x = (int)(vars.ray_x * SCALE);
-		vars.screen_y = (int)(vars.ray_y * SCALE);
+		vars.screen_x = (int)(vars.ray_x * MINIMAP_SIZE / 2);
+		vars.screen_y = (int)(vars.ray_y * MINIMAP_SIZE / 2);
 
 		/* plot if inside the window */
 		if (vars.screen_x >= 0 && vars.screen_x < WIDTH && vars.screen_y >= 0 && vars.screen_y < HEIGHT)
