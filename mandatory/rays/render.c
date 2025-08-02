@@ -6,7 +6,7 @@
 /*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 11:37:04 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 10:33:27 by ctoujana         ###   ########.fr       */
+/*   Updated: 2025/08/02 10:34:45 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ static void render_minimap(t_data *data, t_mlx *mlx)
 				tile = map->line[map_x];
 			if (ft_strchr("0SNEW", tile))
 				color = 0xD2B48C;
-			else if (tile == '1')
-				color = 0x2F4F4F;
 			else
 				color = 0x2F4F4F;
 			my_mlx_pixel_put(mlx, x, y, color);
