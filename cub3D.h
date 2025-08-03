@@ -3,121 +3,120 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 12:07:42 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 14:52:39 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/03 09:54:23 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <mlx.h>
-#include <math.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <mlx.h>
+# include <math.h>
 
-#define WIDTH 1920
-#define HEIGHT 1080
-#define TITLE "Cub3D"
-#define MOVE_SPEED 0.15
-#define ROTATE_ANGLE 0.05
-#define W 13
-#define S 1
-#define A 2
-#define D 0
-#define LEFT_ARROW 123
-#define RIGHT_ARROW 124
-#define ESC 53
-#define ANIMATION_FRAMES 21
+# define WIDTH 1920
+# define HEIGHT 1080
+# define TITLE "Cub3D"
+# define MOVE_SPEED 0.15
+# define ROTATE_ANGLE 0.05
+# define W 13
+# define S 1
+# define A 2
+# define D 0
+# define LEFT_ARROW 123
+# define RIGHT_ARROW 124
+# define ESC 53
+# define ANIMATION_FRAMES 21
 
 typedef struct s_dda
 {
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-}	t_dda;
-
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+}					t_dda;
 
 typedef struct s_minimap
 {
-	float	start_x;
-	float	start_y;
-	int		map_x;
-	int		map_y;
-	int		y;
-	int		x;
-	int		color;
-	char	tile;
-}	t_minimap;
+	float			start_x;
+	float			start_y;
+	int				map_x;
+	int				map_y;
+	int				y;
+	int				x;
+	int				color;
+	char			tile;
+}					t_minimap;
 
 typedef struct s_ray
 {
-	float	ray_dir_x;
-	float	ray_dir_y;
-	float	side_dist_x;
-	float	side_dist_y;
-	float	delta_dist_x;
-	float	delta_dist_y;
-	float	wall_dist;
-	int		map_x;
-	int		map_y;
-	int		step_x;
-	int		step_y;
-	int		hit;
-	int		side;
-}	t_ray;
+	float			ray_dir_x;
+	float			ray_dir_y;
+	float			side_dist_x;
+	float			side_dist_y;
+	float			delta_dist_x;
+	float			delta_dist_y;
+	float			wall_dist;
+	int				map_x;
+	int				map_y;
+	int				step_x;
+	int				step_y;
+	int				hit;
+	int				side;
+}					t_ray;
 
 typedef struct s_texture
 {
-    void    *img;
-    char    *addr;
-    int     width;
-    int     height;
-    int     bpp;
-    int     line_len;
-    int     endian;
-}   t_texture;
+	void			*img;
+	char			*addr;
+	int				width;
+	int				height;
+	int				bpp;
+	int				line_len;
+	int				endian;
+}					t_texture;
 
 typedef struct s_render
 {
-	t_ray		ray;
-	t_dda		dda;
-	t_texture	*tex;
-	float		wall_x;
-	int			tex_x;
-}	t_render;
+	t_ray			ray;
+	t_dda			dda;
+	t_texture		*tex;
+	float			wall_x;
+	int				tex_x;
+}					t_render;
 
 typedef struct s_pop
 {
-	int		st;
-	int		en;
-	char	*str;
-}	t_pop;
+	int				st;
+	int				en;
+	char			*str;
+}					t_pop;
 
 typedef struct s_join
 {
-	size_t    i;
-	size_t    j;
-	size_t    s1_len;
-	size_t    s2_len;
-}    t_join;
+	size_t			i;
+	size_t			j;
+	size_t			s1_len;
+	size_t			s2_len;
+}					t_join;
 
 typedef struct s_free
 {
-	void				*adr;
-	struct s_free		*next;
-}						t_free;
+	void			*adr;
+	struct s_free	*next;
+}					t_free;
 
 typedef struct s_map
 {
 	char			*line;
 	struct s_map	*next;
 	struct s_map	*prev;
-}   t_map;
+}					t_map;
 
 typedef struct s_data
 {
@@ -125,78 +124,74 @@ typedef struct s_data
 	char			*south;
 	char			*west;
 	char			*east;
-    int				floor;
-    int				ceilling;
+	int				floor;
+	int				ceilling;
 	t_free			**free_nodes;
 	t_map			*map_ll;
 	struct s_mlx	*mlx;
+	float			player_x;
+	float			player_y;
+	float			player_dir;
+	float			dir_x;
+	float			dir_y;
+	float			plane_x;
+	float			plane_y;
+	int				keys[256];
+}					t_data;
 
-	float	player_x;
-	float	player_y;
-
-	float	player_dir;
-    float	dir_x;
-    float	dir_y;
-    float	plane_x;
-    float	plane_y;
-	int		keys[256];
-}   t_data;
-
-typedef	struct s_mlx
+typedef struct s_mlx
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	t_data	*data;
-	t_texture   tex_north;
-    t_texture   tex_south;
-    t_texture   tex_west;
-    t_texture   tex_east;
-    t_texture   anim[ANIMATION_FRAMES];
-}	t_mlx;
-
+	void			*mlx;
+	void			*win;
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	t_data			*data;
+	t_texture		tex_north;
+	t_texture		tex_south;
+	t_texture		tex_west;
+	t_texture		tex_east;
+	t_texture		anim[ANIMATION_FRAMES];
+}					t_mlx;
 
 typedef struct s_draw_ray
 {
-	float	ray_x;
-	float	ray_y;
-	float	step;
-	float	dist;
-	int		screen_x;
-	int		screen_y;
-}	t_draw_ray;
+	float			ray_x;
+	float			ray_y;
+	float			step;
+	float			dist;
+	int				screen_x;
+	int				screen_y;
+}					t_draw_ray;
 
 //render
 typedef struct s_dir_line
 {
-	int		player_x;
-	int		player_y;
-	int		dir_x;
-	int		dir_y;
-	float	dx;
-	float	dy;
-	float	steps;
-}	t_dir_line;
+	int				player_x;
+	int				player_y;
+	int				dir_x;
+	int				dir_y;
+	float			dx;
+	float			dy;
+	float			steps;
+}					t_dir_line;
 
 typedef struct s_draw_ray1
 {
-	int		y;
-	float	step;
-	float	tex_starting_pos;
-	int		tex_y;
-	int		color;
-	float	tex_start_offset_on_wall;
-}	t_draw_ray1;
-
+	int				y;
+	float			step;
+	float			tex_starting_pos;
+	int				tex_y;
+	int				color;
+	float			tex_start_offset_on_wall;
+}					t_draw_ray1;
 
 //libft
 char	*ft_strchr(char *s, int c);
-int     is_sep(char ch, char *c);
-int     ft_strcmp(char *s1, char *s2);
+int		is_sep(char ch, char *c);
+int		ft_strcmp(char *s1, char *s2);
 void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(char *s);
 char	*ft_strdup(char *s1);
@@ -213,10 +208,8 @@ void	destroy_animations(int index, t_mlx *mlx);
 t_map	*ft_lstlast(t_map *lst);
 int		is_sep(char ch, char *c);
 
-//mandatory_folder
-
 //cub3d
-int init_data(t_data *data, char *file, t_free **free_nodes);
+int		init_data(t_data *data, char *file, t_free **free_nodes);
 void	free_strs(char **strs);
 void	print_error(char *str);
 void	ft_putstr_fd(char *str, int fd, int option);
@@ -277,7 +270,7 @@ char	get_map_tile(t_data *data, int x, int y);
 void	destroy_imgs(int index, t_mlx *mlx);
 
 void	window_hooks(t_mlx *mlx);
-int	load_texture(void *mlx, t_texture *tex, char *path);
+int		load_texture(void *mlx, t_texture *tex, char *path);
 
 //rays/ rays.c 
 void	draw_ray(t_data *data, int x, t_dda *dda, t_render *vars);
@@ -294,10 +287,10 @@ char	minimap_get_tile(int map_y, int map_x, t_map *map);
 void	render_minimap(t_data *data, t_mlx *mlx);
 
 //player_movement
-int	handle_keypress(int keycode, t_mlx *mlx);
-int handle_keyrelease(int keycode, t_mlx *mlx);
+int		handle_keypress(int keycode, t_mlx *mlx);
+int		handle_keyrelease(int keycode, t_mlx *mlx);
 void	move_player(t_mlx *mlx, float dx, float dy);
-void rotate_player(t_mlx *mlx, float angle);
+void	rotate_player(t_mlx *mlx, float angle);
 
 //map_utils
 char	get_map_tile(t_data *data, int x, int y);
@@ -307,7 +300,5 @@ void	assign_delta_x_y(t_ray *ray);
 void	init_ray_step_and_dist(t_ray *ray, t_data *data);
 void	init_ray(t_data *data, t_ray *ray, int x);
 void	perform_dda(t_data *data, t_ray *ray);
-
-
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 10:42:00 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 14:08:11 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/03 09:21:37 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	draw_ray(t_data *data, int x, t_dda *dda, t_render *vars)
 	r.y = 0;
 	while (r.y < dda->draw_start)
 		my_mlx_pixel_put(data->mlx, x, r.y++, data->ceilling);
-	r.step = (1.0 * vars->tex->height) / dda->line_height;
+	r.step = ((float)vars->tex->height) / dda->line_height;
 	r.tex_start_offset_on_wall = dda->draw_start - (HEIGHT / 2.0) \
 		+ (dda->line_height / 2.0);
 	r.tex_starting_pos = r.tex_start_offset_on_wall * r.step;

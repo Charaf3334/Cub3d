@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zguellou <zguellou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ctoujana <ctoujana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 14:01:18 by zguellou          #+#    #+#             */
-/*   Updated: 2025/08/02 15:34:21 by zguellou         ###   ########.fr       */
+/*   Updated: 2025/08/03 09:56:22 by ctoujana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,8 @@ void	render_minimap(t_data *data, t_mlx *mlx)
 		vars.x = -1;
 		while (++vars.x < 100)
 		{
-			vars.map_x = (int)floorf(vars.start_x + \
-				(vars.x / (float)10));
-			vars.map_y = (int)floorf(vars.start_y + \
-				(vars.y / (float)10));
+			vars.map_x = (int)floorf(vars.start_x + (vars.x / (float)10));
+			vars.map_y = (int)floorf(vars.start_y + (vars.y / (float)10));
 			vars.tile = minimap_get_tile(vars.map_y, vars.map_x, map);
 			if (ft_strchr("0SNEW", vars.tile))
 				vars.color = 0xA3C9A8;
